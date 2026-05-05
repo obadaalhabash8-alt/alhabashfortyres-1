@@ -110,14 +110,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-brand-dark" />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent" />
 
-        {/* Back */}
-        <Link
-          href="/shops"
-          className={`absolute top-20 sm:top-6 ${isRTL ? 'right-4 sm:right-8' : 'left-4 sm:left-8'} flex items-center gap-2 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-xl hover:bg-black/70 transition-colors font-cairo text-sm border border-white/10`}
-        >
-          <BackArrow isRTL={isRTL} />
-          {t.common.back}
-        </Link>
+
 
         {/* Founded badge */}
         {shop.founded && (
@@ -305,8 +298,8 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
                 )}
               </div>
               <p className="text-[10px] text-brand-muted font-cairo mt-4 leading-relaxed px-2">
-                {lang === 'ar' 
-                  ? 'يمكنك مسح الرمز لمشاركة موقع هذا الفرع وتفاصيله مع الآخرين' 
+                {lang === 'ar'
+                  ? 'يمكنك مسح الرمز لمشاركة موقع هذا الفرع وتفاصيله مع الآخرين'
                   : 'Scan this QR code to quickly share this branch location and details'}
               </p>
             </div>
@@ -331,11 +324,10 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 function ServiceBadge({ label, accent = false }: { label: string; accent?: boolean }) {
   return (
     <div
-      className={`service-badge flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-cairo ${
-        accent
+      className={`service-badge flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-cairo ${accent
           ? 'bg-brand-gold/8 text-brand-secondary border border-brand-gold/20'
           : 'bg-brand-surface-2 text-brand-secondary border border-brand-border'
-      }`}
+        }`}
     >
       <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${accent ? 'bg-brand-gold' : 'bg-brand-orange'}`} />
       {label}
