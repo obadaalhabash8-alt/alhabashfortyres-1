@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/hooks/useLanguage'
+import { useTheme } from '@/components/ThemeProvider'
 
 export default function Navbar() {
   const { t, lang, toggleLanguage } = useLanguage()
+  const { theme, toggleTheme } = useTheme()
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -21,6 +23,8 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/', label: t.nav.home },
+    { href: '/#story', label: t.nav.story },
+    { href: '/#journey', label: t.nav.journey },
     { href: '/shops', label: t.nav.shops },
   ]
 
@@ -29,64 +33,75 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 border-b ${
-      scrolled 
-        ? 'bg-brand-dark/95 backdrop-blur-md border-brand-border shadow-lg shadow-black/20' 
+      scrolled
+        ? 'bg-brand-dark/95 backdrop-blur-md border-brand-border shadow-lg shadow-black/20'
         : 'bg-brand-dark border-transparent'
     }`}>
       {/* Premium top accent line */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent opacity-50" />
 
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="flex items-center justify-between h-18 sm:h-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8">
+        {/* Desktop & Mobile row */}
+        <div className="flex items-center h-16 sm:h-20 gap-2 sm:gap-4">
 
-          {/* Nav Links (Leading side in RTL) */}
-          <div className="flex-1 flex items-center gap-2">
-            <div className="hidden md:flex items-center gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-5 py-2.5 rounded-xl text-sm font-bold font-cairo transition-all duration-200 ${
-                    isActive(link.href)
-                      ? 'text-brand-orange bg-brand-orange/5'
-                      : 'text-brand-secondary hover:text-white hover:bg-white/5'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Logo (Center/Balanced) */}
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
-            <div className="w-10 h-10 rounded-xl bg-brand-orange flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-brand-orange/30 group-hover:-rotate-12 flex-shrink-0">
+          {/* Logo — always visible, right-anchored in RTL */}
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0 mr-auto sm:mr-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-orange flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-brand-orange/30 group-hover:-rotate-12 flex-shrink-0">
               <TyreIcon />
             </div>
-            <div className="hidden sm:block text-center">
-              <p className="text-white font-black text-base leading-none font-cairo tracking-tight">
+            <div className="text-right leading-none">
+              <p className="text-brand-white font-black text-sm sm:text-base leading-none font-cairo tracking-tight whitespace-nowrap">
                 {lang === 'ar' ? 'الحبش للإطارات' : 'Al-Habash Tyres'}
               </p>
-              <p className="text-brand-orange text-[10px] font-bold font-cairo mt-1 tracking-widest uppercase">
+              <p className="text-brand-orange text-[9px] sm:text-[10px] font-bold font-cairo mt-0.5 tracking-widest uppercase">
                 {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'}
               </p>
             </div>
           </Link>
 
-          {/* Actions (Trailing side in RTL) */}
-          <div className="flex-1 flex items-center justify-end gap-3">
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-1 flex-1 justify-center">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`px-3 lg:px-4 py-2 rounded-xl text-sm font-bold font-cairo transition-all duration-200 whitespace-nowrap ${
+                  isActive(link.href)
+                    ? 'text-brand-orange bg-brand-orange/5'
+                    : 'text-brand-secondary hover:text-brand-white hover:bg-brand-surface'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex items-center gap-2 sm:gap-3 ml-auto sm:ml-0">
+            {/* Language toggle */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-brand-border bg-brand-surface text-brand-secondary hover:text-white hover:border-brand-orange/40 transition-all text-xs font-bold font-cairo"
+              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 rounded-xl border border-brand-border bg-brand-surface text-brand-secondary hover:text-brand-white hover:border-brand-orange/40 transition-all text-xs font-bold font-cairo"
               aria-label="Toggle language"
             >
               <GlobeIcon />
-              <span className="min-w-[45px] text-center">{lang === 'ar' ? 'English' : 'عربي'}</span>
+              <span className="hidden sm:inline min-w-[40px] text-center">{lang === 'ar' ? 'English' : 'عربي'}</span>
+              <span className="sm:hidden">{lang === 'ar' ? 'EN' : 'عر'}</span>
             </button>
 
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl border border-brand-border bg-brand-surface text-brand-secondary hover:text-brand-white hover:border-brand-orange/40 transition-all flex-shrink-0"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+            </button>
+
+            {/* Mobile hamburger */}
             <button
               onClick={() => setMenuOpen((v) => !v)}
-              className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-brand-surface border border-brand-border text-brand-secondary hover:text-white transition-colors"
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl bg-brand-surface border border-brand-border text-brand-secondary hover:text-brand-white transition-colors flex-shrink-0"
               aria-label="Toggle menu"
             >
               {menuOpen ? <CloseIcon /> : <MenuIcon />}
@@ -94,20 +109,19 @@ export default function Navbar() {
           </div>
         </div>
 
-
-        {/* Mobile menu */}
+        {/* Mobile dropdown menu */}
         <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          menuOpen ? 'max-h-64 opacity-100 py-4 border-t border-brand-border' : 'max-h-0 opacity-0'
+          menuOpen ? 'max-h-96 opacity-100 pb-4 border-t border-brand-border' : 'max-h-0 opacity-0'
         }`}>
-          <div className="space-y-2">
+          <div className="space-y-1 pt-3">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`block px-5 py-4 text-sm font-bold rounded-xl font-cairo transition-all ${
+                className={`flex items-center px-4 py-3.5 text-sm font-bold rounded-xl font-cairo transition-all ${
                   isActive(link.href)
                     ? 'text-brand-orange bg-brand-orange/8'
-                    : 'text-brand-secondary hover:text-white hover:bg-white/5'
+                    : 'text-brand-secondary hover:text-brand-white hover:bg-brand-surface'
                 }`}
               >
                 {link.label}
@@ -143,10 +157,9 @@ function GlobeIcon() {
   )
 }
 
-
 function MenuIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
       <line x1="4" y1="7" x2="20" y2="7" />
       <line x1="4" y1="12" x2="20" y2="12" />
       <line x1="4" y1="17" x2="20" y2="17" />
@@ -156,10 +169,33 @@ function MenuIcon() {
 
 function CloseIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>
   )
 }
 
+function SunIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="5" />
+      <line x1="12" y1="1" x2="12" y2="3" />
+      <line x1="12" y1="21" x2="12" y2="23" />
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+      <line x1="1" y1="12" x2="3" y2="12" />
+      <line x1="21" y1="12" x2="23" y2="12" />
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+    </svg>
+  )
+}
+
+function MoonIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  )
+}

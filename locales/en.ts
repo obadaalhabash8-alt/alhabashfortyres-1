@@ -4,6 +4,8 @@ const en: Translations = {
   nav: {
     home: 'Home',
     shops: 'Our Branches',
+    story: 'Our Story',
+    journey: 'Our Journey',
     rate: 'Rate Us',
     about: 'About',
   },

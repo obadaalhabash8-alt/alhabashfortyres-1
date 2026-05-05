@@ -46,7 +46,7 @@ export default function ShopsPage() {
           <span className="text-brand-orange text-xs font-bold uppercase tracking-widest font-cairo">
             {t.shops_section.subtitle}
           </span>
-          <h1 className="text-4xl sm:text-6xl font-black text-white mt-3 font-cairo leading-tight">
+          <h1 className="text-4xl sm:text-6xl font-black text-brand-white mt-3 font-cairo leading-tight">
             {t.shops_section.title}
           </h1>
           <p className="text-brand-secondary mt-4 font-cairo text-base max-w-lg">
@@ -72,7 +72,7 @@ export default function ShopsPage() {
           <p className="text-brand-orange text-xs font-bold uppercase tracking-widest font-cairo mb-3">
             {lang === 'ar' ? 'جميع الفروع' : 'All Branches'}
           </p>
-          <h3 className="font-bold text-white font-cairo text-xl mb-3">
+          <h3 className="font-bold text-brand-white font-cairo text-xl mb-3">
             {lang === 'ar' ? 'نفس معايير الجودة في كل فرع' : 'The same quality standards across every branch'}
           </h3>
           <p className="text-brand-muted font-cairo text-sm">

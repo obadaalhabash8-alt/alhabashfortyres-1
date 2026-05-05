@@ -5,15 +5,39 @@
 @tailwind utilities;
 
 @layer base {
+  /* ── Light theme (default) ── */
+  :root {
+    --brand-bg: #FAFAF9;
+    --brand-surface: #F5F5F4;
+    --brand-surface-2: #FFFFFF;
+    --brand-border: #E4E4E7;
+    --brand-text-primary: #18181B;
+    --brand-text-secondary: #52525B;
+    --brand-text-muted: #71717A;
+  }
+
+  /* ── Dark theme ── */
+  .dark {
+    --brand-bg: #0F0F0F;
+    --brand-surface: #18181B;
+    --brand-surface-2: #1F1F23;
+    --brand-border: #2A2A2E;
+    --brand-text-primary: #FFFFFF;
+    --brand-text-secondary: #A1A1AA;
+    --brand-text-muted: #71717A;
+  }
+
   html {
     font-family: 'Cairo', sans-serif;
     scroll-behavior: smooth;
     direction: rtl;
+    background-color: var(--brand-bg);
+    color: var(--brand-text-primary);
   }
 
   body {
-    background-color: #0F0F0F;
-    color: #FFFFFF;
+    background-color: var(--brand-bg);
+    color: var(--brand-text-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -54,12 +78,12 @@
   }
   .card-hover:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   }
 }
 
-/* Scrollbar */
+/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0F0F0F; }
-::-webkit-scrollbar-thumb { background: #27272A; border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--brand-bg); }
+::-webkit-scrollbar-thumb { background: var(--brand-border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #F97316; }

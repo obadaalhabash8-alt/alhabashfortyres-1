@@ -10,6 +10,7 @@ import { useLanguage } from '@/hooks/useLanguage'
 import Gallery from '@/components/Gallery'
 import StarRating, { AverageStars } from '@/components/StarRating'
 import RatingForm from '@/components/RatingForm'
+import { QRCodeSVG } from 'qrcode.react'
 import { getShopById } from '@/lib/shops'
 import type { Rating } from '@/types'
 
@@ -219,7 +220,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
               {/* Hours */}
               <div className="mb-6">
                 <p className="text-xs text-brand-muted font-cairo mb-1 uppercase tracking-widest">{t.shop.working_hours}</p>
-                <p className="text-sm text-white font-cairo font-medium">{shop.workingHours[lang]}</p>
+                <p className="text-sm text-brand-white font-cairo font-medium">{shop.workingHours[lang]}</p>
               </div>
 
               {/* Call */}
@@ -285,6 +286,26 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
                 </a>
               </div>
             </div>
+
+            {/* QR Code */}
+            <div className="bg-brand-surface border border-brand-border rounded-2xl p-6 text-center">
+              <p className="text-xs text-brand-muted font-cairo mb-4 uppercase tracking-widest">
+                {lang === 'ar' ? 'امسح الرمز للمشاركة' : 'Scan to Share'}
+              </p>
+              <div className="bg-white p-3 rounded-xl inline-block shadow-lg">
+                <QRCodeSVG 
+                  value={typeof window !== 'undefined' ? window.location.href : ''} 
+                  size={120}
+                  level="H"
+                  includeMargin={false}
+                />
+              </div>
+              <p className="text-[10px] text-brand-muted font-cairo mt-4 leading-relaxed px-2">
+                {lang === 'ar' 
+                  ? 'يمكنك مسح الرمز لمشاركة موقع هذا الفرع وتفاصيله مع الآخرين' 
+                  : 'Scan this QR code to quickly share this branch location and details'}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -296,7 +317,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-xl sm:text-2xl font-black text-white font-cairo mb-5 flex items-center gap-3">
+    <h2 className="text-xl sm:text-2xl font-black text-brand-white font-cairo mb-5 flex items-center gap-3">
       <span className="w-1 h-5 rounded-full bg-brand-orange inline-block flex-shrink-0" />
       {children}
     </h2>
@@ -323,7 +344,7 @@ function RatingCard({ rating, isRTL }: { rating: Rating; isRTL: boolean }) {
     <div className={`bg-brand-surface border border-brand-border rounded-2xl p-5 ${isRTL ? 'text-right' : 'text-left'}`}>
       <div className="flex items-start justify-between gap-4 mb-2">
         <div>
-          <p className="font-bold text-white font-cairo text-sm">{rating.name}</p>
+          <p className="font-bold text-brand-white font-cairo text-sm">{rating.name}</p>
           <StarRating value={rating.rating} size="sm" />
         </div>
         <p className="text-xs text-brand-muted font-cairo flex-shrink-0">

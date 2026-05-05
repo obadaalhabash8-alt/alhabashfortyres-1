@@ -12,10 +12,10 @@ export default function RateContent({ shopId }: Props) {
   const { t, lang, isRTL } = useLanguage()
 
   return (
-    <div className={`min-h-screen bg-brand-cream ${isRTL ? 'text-right' : 'text-left'}`}>
+    <div className={`min-h-screen bg-brand-dark ${isRTL ? 'text-right' : 'text-left'}`}>
       {/* Page header */}
-      <div className="bg-brand-dark relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+      <div className="bg-brand-surface relative overflow-hidden border-b border-brand-border">
+        <div className="absolute inset-0 opacity-5 pointer-events-none">
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
@@ -24,27 +24,27 @@ export default function RateContent({ shopId }: Props) {
             />
           ))}
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-brand-orange" />
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-orange" />
 
         <div className="relative max-w-xl mx-auto px-4 sm:px-6 py-12 sm:py-16 text-center">
           <div className="text-5xl mb-4">⭐</div>
-          <h1 className="text-3xl sm:text-4xl font-black text-white font-cairo mb-3">
+          <h1 className="text-3xl sm:text-4xl font-black text-brand-white font-cairo mb-3">
             {t.rate.title}
           </h1>
-          <p className="text-gray-400 font-cairo text-lg">{t.rate.subtitle}</p>
+          <p className="text-brand-secondary font-cairo text-lg">{t.rate.subtitle}</p>
         </div>
       </div>
 
       {/* Form card */}
       <div className="max-w-xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
-        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 sm:p-10">
+        <div className="bg-brand-surface rounded-3xl border border-brand-border p-6 sm:p-10">
           <RatingForm shopId={shopId} />
         </div>
 
         {/* QR hint */}
         {!shopId && (
           <div className="mt-8 bg-brand-orange/5 border border-brand-orange/20 rounded-2xl p-5 text-center">
-            <p className="text-sm text-gray-600 font-cairo mb-3">
+            <p className="text-sm text-brand-secondary font-cairo mb-3">
               {lang === 'ar'
                 ? 'يمكنك أيضاً مسح رمز QR الخاص بالفرع لتقييم مباشر'
                 : 'You can also scan the branch QR code for a direct rating'}

@@ -49,7 +49,7 @@ export default function ShopCard({ shop, avgRating, ratingCount }: Props) {
 
       {/* Content */}
       <div className={`p-5 ${isRTL ? 'text-right' : 'text-left'}`}>
-        <h3 className="text-white font-bold text-lg mb-1.5 font-cairo leading-snug">
+        <h3 className="text-brand-white font-bold text-lg mb-1.5 font-cairo leading-snug">
           {shop.name[lang]}
         </h3>
         <p className="text-brand-secondary text-sm mb-2 font-cairo flex items-center gap-1.5">

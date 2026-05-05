@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,28 +11,24 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          // Orange
+          // Orange (Consistent in both themes)
           orange: '#F97316',
           'orange-dark': '#EA580C',
           'orange-light': '#FDBA74',
-          // Backgrounds
-          dark: '#0F0F0F',
-          darker: '#0F0F0F',
-          surface: '#18181B',
-          'surface-2': '#1f1f23',
-          border: '#27272A',
-          // Text
-          white: '#FFFFFF',
-          secondary: '#A1A1AA',
-          muted: '#71717A',
-          // Accent
+          
+          // Theme-aware colors (mapped to CSS variables)
+          dark: 'var(--brand-bg)',
+          surface: 'var(--brand-surface)',
+          'surface-2': 'var(--brand-surface-2)',
+          border: 'var(--brand-border)',
+          white: 'var(--brand-text-primary)',
+          secondary: 'var(--brand-text-secondary)',
+          muted: 'var(--brand-text-muted)',
+          
+          // Accents
           gold: '#D4AF37',
           'gold-light': '#e8c878',
-          // Legacy aliases (keep so old references don't break)
-          cream: '#18181B',
-          'cream-dark': '#27272A',
-          gray: '#71717A',
-          'gray-light': '#A1A1AA',
+          beige: '#E7D3A3',
         },
       },
       fontFamily: {
@@ -58,5 +55,6 @@ const config: Config = {
   },
   plugins: [],
 }
+
 
 export default config

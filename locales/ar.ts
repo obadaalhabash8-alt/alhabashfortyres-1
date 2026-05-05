@@ -3,6 +3,8 @@ const ar = {
   nav: {
     home: 'الرئيسية',
     shops: 'فروعنا',
+    story: 'قصتنا',
+    journey: 'مسيرتنا',
     rate: 'قيّم خدمتنا',
     about: 'من نحن',
   },

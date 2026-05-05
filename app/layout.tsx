@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import LanguageProvider from '@/components/LanguageProvider'
+import { ThemeProvider } from '@/components/ThemeProvider'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
@@ -19,18 +20,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // lang & dir are set dynamically by LanguageProvider on the client
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Prevent flash: apply dark class before React hydrates */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem('theme')||'dark';if(t==='dark')document.documentElement.classList.add('dark')})()`,
+          }}
+        />
       </head>
       <body className="bg-brand-dark min-h-screen flex flex-col">
         <LanguageProvider>
-          <Navbar />
-          <main className="flex-1 pt-20 sm:pt-24">{children}</main>
-          <Footer />
-          <ScrollToTop />
+          <ThemeProvider>
+            <Navbar />
+            <main className="flex-1 pt-16 sm:pt-20">{children}</main>
+            <Footer />
+            <ScrollToTop />
+          </ThemeProvider>
         </LanguageProvider>
       </body>
     </html>

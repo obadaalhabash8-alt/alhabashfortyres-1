@@ -76,7 +76,7 @@ export default function RatingForm({ shopId, onSuccess }: Props) {
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <h3 className="text-xl font-bold text-white font-cairo mb-2">{t.rate.success_title}</h3>
+        <h3 className="text-xl font-bold text-brand-white font-cairo mb-2">{t.rate.success_title}</h3>
         <p className="text-brand-secondary font-cairo text-sm mb-6 max-w-xs mx-auto">{t.rate.success_message}</p>
         <button
           onClick={reset}
@@ -102,7 +102,7 @@ export default function RatingForm({ shopId, onSuccess }: Props) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder={t.rate.name_placeholder}
-          className={`w-full px-4 py-3 bg-brand-surface-2 border border-brand-border rounded-xl focus:border-brand-orange focus:outline-none transition-colors font-cairo text-white placeholder-brand-muted/50 text-sm ${isRTL ? 'text-right' : 'text-left'}`}
+          className={`w-full px-4 py-3 bg-brand-surface-2 border border-brand-border rounded-xl focus:border-brand-orange focus:outline-none transition-colors font-cairo text-brand-white placeholder-brand-muted/60 text-sm ${isRTL ? 'text-right' : 'text-left'}`}
           dir={isRTL ? 'rtl' : 'ltr'}
           disabled={formState === 'submitting'}
         />
@@ -132,7 +132,7 @@ export default function RatingForm({ shopId, onSuccess }: Props) {
           onChange={(e) => setComment(e.target.value)}
           placeholder={t.rate.comment_placeholder}
           rows={3}
-          className={`w-full px-4 py-3 bg-brand-surface-2 border border-brand-border rounded-xl focus:border-brand-orange focus:outline-none transition-colors font-cairo text-white placeholder-brand-muted/50 text-sm resize-none ${isRTL ? 'text-right' : 'text-left'}`}
+          className={`w-full px-4 py-3 bg-brand-surface-2 border border-brand-border rounded-xl focus:border-brand-orange focus:outline-none transition-colors font-cairo text-brand-white placeholder-brand-muted/60 text-sm resize-none ${isRTL ? 'text-right' : 'text-left'}`}
           dir={isRTL ? 'rtl' : 'ltr'}
           disabled={formState === 'submitting'}
         />

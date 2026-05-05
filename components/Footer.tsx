@@ -20,7 +20,7 @@ export default function Footer() {
                 <TyreIcon />
               </div>
               <div>
-                <p className="text-white font-bold font-cairo text-sm">
+                <p className="text-brand-white font-bold font-cairo text-sm">
                   {lang === 'ar' ? 'الحبش للإطارات' : 'Al-Habash Tyres'}
                 </p>
                 <p className="text-brand-orange text-[11px] font-cairo">
@@ -33,7 +33,7 @@ export default function Footer() {
 
           {/* Quick links */}
           <div>
-            <h3 className="text-white font-semibold mb-5 font-cairo text-sm uppercase tracking-widest">{t.footer.links_title}</h3>
+            <h3 className="text-brand-white font-semibold mb-5 font-cairo text-sm uppercase tracking-widest">{t.footer.links_title}</h3>
             <ul className="space-y-3">
               {[
                 { href: '/', label: t.nav.home },
@@ -53,7 +53,7 @@ export default function Footer() {
 
           {/* Branches */}
           <div>
-            <h3 className="text-white font-semibold mb-5 font-cairo text-sm uppercase tracking-widest">{t.common.shops}</h3>
+            <h3 className="text-brand-white font-semibold mb-5 font-cairo text-sm uppercase tracking-widest">{t.common.shops}</h3>
             <ul className="space-y-3">
               {shops.map((shop) => (
                 <li key={shop.id}>
@@ -70,7 +70,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-semibold mb-5 font-cairo text-sm uppercase tracking-widest">{t.footer.contact_title}</h3>
+            <h3 className="text-brand-white font-semibold mb-5 font-cairo text-sm uppercase tracking-widest">{t.footer.contact_title}</h3>
             <ul className="space-y-4">
               {shops.map((shop) => (
                 <li key={shop.id} className="font-cairo">

@@ -6,8 +6,7 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/hooks/useLanguage'
-import ShopCard from '@/components/ShopCard'
-import { shops, timelineEvents } from '@/lib/shops'
+import { timelineEvents } from '@/lib/shops'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -17,7 +16,6 @@ export default function HomePage() {
       <HeroSection />
       <StorySection />
       <TimelineSection />
-      <ShopsSection />
     </div>
   )
 }
@@ -29,37 +27,18 @@ function HeroSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.hero-badge',
-        { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.2 }
-      )
-      gsap.fromTo(
-        '.hero-title',
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.4 }
-      )
-      gsap.fromTo(
-        '.hero-tagline',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.65 }
-      )
-      gsap.fromTo(
-        '.hero-cta',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.85 }
-      )
-      gsap.fromTo(
-        '.hero-stats > *',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out', delay: 1.0 }
-      )
+      gsap.fromTo('.hero-badge', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.2 })
+      gsap.fromTo('.hero-title', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.4 })
+      gsap.fromTo('.hero-tagline', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.65 })
+      gsap.fromTo('.hero-cta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.85 })
+      gsap.fromTo('.hero-stats > *', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out', delay: 1.0 })
     }, containerRef)
     return () => ctx.revert()
   }, [])
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    // -mt-16 sm:-mt-20 pulls the hero up behind the navbar so the photo fills edge-to-edge
+    <section ref={containerRef} className="relative -mt-16 sm:-mt-20 min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <Image
@@ -69,22 +48,22 @@ function HeroSection() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-brand-dark" />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/40 via-transparent to-brand-dark/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-[#0F0F0F]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
       </div>
 
       {/* Orange bottom accent */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-brand-orange/60" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 text-center pt-24">
+      {/* Content — pt accounts for navbar height */}
+      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 text-center pt-24 sm:pt-28">
         {/* Badge */}
-        <div className="hero-badge inline-flex items-center gap-2.5 border border-brand-orange/30 bg-brand-orange/8 text-brand-orange px-5 py-2 rounded-full text-xs font-cairo font-semibold uppercase tracking-widest mb-10 backdrop-blur-sm">
+        <div className="hero-badge inline-flex items-center gap-2.5 border border-brand-orange/30 bg-brand-orange/10 text-brand-orange px-5 py-2 rounded-full text-xs font-cairo font-semibold uppercase tracking-widest mb-10 backdrop-blur-sm">
           <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
           {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'} — {lang === 'ar' ? 'المملكة العربية السعودية' : 'Saudi Arabia'}
         </div>
 
-        {/* Heading */}
+        {/* Heading — always white on photo */}
         <h1 className="hero-title text-5xl sm:text-7xl lg:text-8xl font-black text-white font-cairo leading-none tracking-tight mb-6 text-shadow">
           {lang === 'ar' ? (
             <>
@@ -100,7 +79,7 @@ function HeroSection() {
         </h1>
 
         {/* Tagline */}
-        <p className="hero-tagline text-brand-secondary text-lg sm:text-xl font-cairo font-light max-w-xl mx-auto mb-12 leading-relaxed">
+        <p className="hero-tagline text-white/80 text-lg sm:text-xl font-cairo font-light max-w-xl mx-auto mb-12 leading-relaxed">
           {t.hero.tagline}
         </p>
 
@@ -119,15 +98,15 @@ function HeroSection() {
         </div>
 
         {/* Stats */}
-        <div className="hero-stats mt-20 grid grid-cols-3 gap-px max-w-md mx-auto border border-brand-border rounded-2xl overflow-hidden bg-brand-border">
+        <div className="hero-stats mt-20 grid grid-cols-3 gap-px max-w-md mx-auto border border-white/10 rounded-2xl overflow-hidden bg-white/10">
           {[
             { value: lang === 'ar' ? '+٥٥' : '55+', label: lang === 'ar' ? 'سنة خبرة' : 'Years' },
             { value: '3', label: lang === 'ar' ? 'فروع' : 'Branches' },
             { value: lang === 'ar' ? '+١٠ آلاف' : '10K+', label: lang === 'ar' ? 'عميل' : 'Customers' },
           ].map((stat) => (
-            <div key={stat.label} className="bg-brand-dark/90 backdrop-blur-sm px-4 py-5 text-center">
+            <div key={stat.label} className="bg-black/30 backdrop-blur-sm px-4 py-5 text-center">
               <p className="text-brand-orange text-2xl sm:text-3xl font-black font-cairo">{stat.value}</p>
-              <p className="text-brand-muted text-xs font-cairo mt-0.5">{stat.label}</p>
+              <p className="text-white/60 text-xs font-cairo mt-0.5">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -153,26 +132,17 @@ function StorySection() {
       gsap.fromTo(
         '.story-text',
         { opacity: 0, x: isRTL ? 50 : -50 },
-        {
-          opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
-          scrollTrigger: { trigger: '.story-text', start: 'top 80%' },
-        }
+        { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: '.story-text', start: 'top 80%' } }
       )
       gsap.fromTo(
         '.story-images',
         { opacity: 0, x: isRTL ? -50 : 50 },
-        {
-          opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
-          scrollTrigger: { trigger: '.story-images', start: 'top 80%' },
-        }
+        { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: '.story-images', start: 'top 80%' } }
       )
       gsap.fromTo(
         '.story-value',
         { opacity: 0, y: 20 },
-        {
-          opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
-          scrollTrigger: { trigger: '.story-values', start: 'top 85%' },
-        }
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out', scrollTrigger: { trigger: '.story-values', start: 'top 85%' } }
       )
     }, ref)
     return () => ctx.revert()
@@ -186,16 +156,16 @@ function StorySection() {
   ]
 
   return (
-    <section ref={ref} className="py-24 sm:py-32 bg-brand-dark">
+    <section id="story" ref={ref} className="py-24 sm:py-32 bg-brand-dark">
       <div className="max-w-6xl mx-auto px-6 sm:px-8">
-        <div className={`grid lg:grid-cols-2 gap-16 items-center`}>
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Text */}
           <div className="story-text">
             <span className="text-brand-orange text-xs font-bold uppercase tracking-widest font-cairo">
               {lang === 'ar' ? 'قصتنا' : 'Our Story'}
             </span>
-            <h2 className="text-4xl sm:text-5xl font-black text-white mt-3 mb-5 font-cairo leading-tight">
+            <h2 className="text-4xl sm:text-5xl font-black text-brand-white mt-3 mb-5 font-cairo leading-tight">
               {t.story.title}
             </h2>
             <p className="text-brand-gold text-base font-semibold mb-5 font-cairo">
@@ -253,43 +223,71 @@ function StorySection() {
 /* ─── Timeline ───────────────────────────────────────────────────────── */
 function TimelineSection() {
   const { t, lang, isRTL } = useLanguage()
-  const ref = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const cardsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      if (!cardsRef.current) return
+
+      const cards = gsap.utils.toArray<HTMLElement>(cardsRef.current.children)
+
+      cards.forEach((card) => {
+        // Each card fades/slides in and out based on its scroll position — scrub makes it bidirectional
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 60, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',   // card enters: start of reveal
+              end: 'top 30%',     // card fully revealed
+              scrub: 0.8,         // smooth, tied to scroll direction (up AND down)
+            },
+          }
+        )
+      })
+
+      // Animate the title in once
       gsap.fromTo(
-        '.timeline-card',
+        '.timeline-heading',
         { opacity: 0, y: 30 },
         {
-          opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power2.out',
-          scrollTrigger: { trigger: '.timeline-track', start: 'top 75%' },
+          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: '.timeline-heading', start: 'top 85%' },
         }
       )
-    }, ref)
+    }, sectionRef)
+
     return () => ctx.revert()
   }, [])
 
   return (
-    <section ref={ref} className="py-24 sm:py-32 bg-brand-dark">
+    <section id="journey" ref={sectionRef} className="py-24 sm:py-32 bg-brand-dark">
       <div className="max-w-4xl mx-auto px-6 sm:px-8">
-        <div className="text-center mb-16">
+        <div className="timeline-heading text-center mb-16">
           <span className="text-brand-orange text-xs font-bold uppercase tracking-widest font-cairo">
             {lang === 'ar' ? 'تاريخنا' : 'History'}
           </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-white mt-3 font-cairo">
+          <h2 className="text-4xl sm:text-5xl font-black text-brand-white mt-3 font-cairo">
             {t.timeline.title}
           </h2>
         </div>
 
-        <div className="timeline-track relative">
+        <div className="relative">
           {/* Center line */}
           <div className={`absolute top-0 bottom-0 w-px bg-brand-border ${isRTL ? 'right-4 sm:right-1/2' : 'left-4 sm:left-1/2'}`} />
 
-          <div className="space-y-10">
+          {/* Cards container — children are animated individually via cardsRef */}
+          <div ref={cardsRef} className="space-y-10">
             {timelineEvents.map((event, i) => (
               <div
                 key={event.year}
-                className={`timeline-card relative flex items-start gap-6 sm:gap-0 ${
+                className={`relative flex items-start gap-6 sm:gap-0 ${
                   i % 2 === 0
                     ? isRTL ? 'sm:flex-row-reverse' : 'sm:flex-row'
                     : isRTL ? 'sm:flex-row' : 'sm:flex-row-reverse'
@@ -314,7 +312,7 @@ function TimelineSection() {
                 >
                   <div className="bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange/30 transition-colors">
                     <span className="text-brand-orange font-black text-2xl font-cairo">{event.year}</span>
-                    <h3 className="text-white font-bold text-base font-cairo mt-1">
+                    <h3 className="text-brand-white font-bold text-base font-cairo mt-1">
                       {event.title[lang]}
                     </h3>
                     <p className="text-brand-muted text-sm font-cairo mt-2 leading-relaxed">
@@ -333,46 +331,4 @@ function TimelineSection() {
   )
 }
 
-/* ─── Shops preview ──────────────────────────────────────────────────── */
-function ShopsSection() {
-  const { t, lang, isRTL } = useLanguage()
-  const ref = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.shop-card-anim',
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: 'power3.out',
-          scrollTrigger: { trigger: '.shops-grid', start: 'top 80%' },
-        }
-      )
-    }, ref)
-    return () => ctx.revert()
-  }, [])
-
-  return (
-    <section ref={ref} className="py-24 sm:py-32 bg-brand-dark">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8">
-        <div className="mb-14">
-          <span className="text-brand-orange text-xs font-bold uppercase tracking-widest font-cairo">
-            {t.shops_section.subtitle}
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-white mt-2 font-cairo">
-            {t.shops_section.title}
-          </h2>
-        </div>
-
-        <div className="shops-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {shops.map((shop) => (
-            <div key={shop.id} className="shop-card-anim">
-              <ShopCard shop={shop} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
