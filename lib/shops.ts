@@ -12,15 +12,15 @@ export const shops: Shop[] = [
       en: 'The original shop, serving since 1967',
     },
     address: {
-      ar: 'شارع الملك عبدالعزيز، حي النزهة',
-      en: 'King Abdulaziz Street, Al-Nuzha District',
+      ar: 'استراد عمان القديم',
+      en: 'Old Amman Highway',
     },
     city: {
-      ar: 'الرياض',
-      en: 'Riyadh',
+      ar: 'دمشق',
+      en: 'Damascus',
     },
-    phone: '+966-11-123-4567',
-    whatsapp: '+966501234567',
+    phone: '+963980062144',
+    whatsapp: '+963980062144',
     mapUrl: 'https://maps.google.com/?q=24.6877,46.7219',
     // Replace with actual embed URL from Google Maps
     mapEmbed:
@@ -45,10 +45,10 @@ export const shops: Shop[] = [
       { ar: 'فحص ضغط الإطارات مجاناً', en: 'Free tyre pressure check' },
     ],
     uniqueServices: [
-      { ar: 'خدمة VIP للسيارات الفاخرة', en: 'VIP service for luxury vehicles' },
-      { ar: 'عرض إطارات من أشهر الماركات العالمية', en: 'Display of top international tyre brands' },
-      { ar: 'خدمة الكشف الشامل المجاني', en: 'Free full vehicle inspection' },
-      { ar: 'برنامج الولاء للعملاء الدائمين', en: 'Loyalty program for regular customers' },
+      { ar: 'حماية الطلاء PPF', en: 'PPF Paint Protection Film' },
+      { ar: 'تلميع احترافي متعدد المراحل', en: 'Multi-stage Professional Polishing' },
+      { ar: 'معالجة السيراميك لحماية الطلاء', en: 'Ceramic Coating Protection' },
+      { ar: 'جديد كامل لمظهر السيارة', en: 'Full Car Detailing Restoration' },
     ],
     workingHours: {
       ar: 'السبت – الخميس: ٨ص – ١٠م | الجمعة: ٢م – ١٠م',
