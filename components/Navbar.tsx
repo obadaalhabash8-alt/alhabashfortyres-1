@@ -87,13 +87,23 @@ export default function Navbar() {
             {/* Language toggle */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 rounded-xl border border-brand-border bg-brand-surface text-brand-secondary hover:text-brand-white hover:border-brand-orange/40 transition-all text-xs font-bold font-cairo"
+              className="flex items-center gap-1 px-2 py-1.5 rounded-lg border border-brand-border bg-brand-surface text-brand-secondary hover:text-brand-white hover:border-brand-orange/40 transition-all text-[11px] font-bold font-cairo"
               aria-label="Toggle language"
             >
               <GlobeIcon />
-              <span className="hidden sm:inline min-w-[40px] text-center">{lang === 'ar' ? 'EN' : 'AR'}</span>
-              <span className="sm:hidden">{lang === 'ar' ? 'EN' : 'AR'}</span>
+              <span>{lang === 'ar' ? 'EN' : 'AR'}</span>
             </button>
+
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/alhabashfortyres?igsh=MTNoZWtqeDgwNjJ2dw=="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl border border-brand-border bg-brand-surface text-brand-secondary hover:text-brand-white hover:border-brand-orange/40 transition-all flex-shrink-0"
+              aria-label="Instagram"
+            >
+              <InstagramIcon />
+            </a>
 
             {/* Theme toggle */}
             <button
@@ -138,6 +148,16 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+  )
+}
+
+function InstagramIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+    </svg>
   )
 }
 
