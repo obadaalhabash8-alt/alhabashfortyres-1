@@ -1,0 +1,228 @@
+import type { Shop, TimelineEvent } from '@/types'
+
+export const shops: Shop[] = [
+  {
+    id: 1,
+    name: {
+      ar: 'الحبش للإطارات — الفرع الرئيسي',
+      en: 'Al-Habash Tyres — Main Branch',
+    },
+    tagline: {
+      ar: 'أول محل وأكثره عراقة منذ ١٩٦٧',
+      en: 'The original shop, serving since 1967',
+    },
+    address: {
+      ar: 'شارع الملك عبدالعزيز، حي النزهة',
+      en: 'King Abdulaziz Street, Al-Nuzha District',
+    },
+    city: {
+      ar: 'الرياض',
+      en: 'Riyadh',
+    },
+    phone: '+966-11-123-4567',
+    whatsapp: '+966501234567',
+    mapUrl: 'https://maps.google.com/?q=24.6877,46.7219',
+    // Replace with actual embed URL from Google Maps
+    mapEmbed:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.9!2d46.7219!3d24.6877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQxJzE1LjciTiA0NsKwNDMnMTguOCJF!5e0!3m2!1sen!2ssa!4v1234567890',
+    images: [
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+      'https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=800&q=80',
+      'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800&q=80',
+      'https://images.unsplash.com/photo-1591768793355-74d04bb6608f?w=800&q=80',
+    ],
+    coverImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
+    description: {
+      ar: 'الفرع الأصلي والرئيسي لشركة الحبش للإطارات، تأسس عام ١٩٦٧ ليكون الأول في تقديم خدمات الإطارات الاحترافية. نفخر بأكثر من ٥٥ عاماً من الخبرة والثقة، مع فريق متخصص يضم أمهر الفنيين وأحدث المعدات.',
+      en: 'The original flagship branch of Al-Habash Tyres, established in 1967 as the first professional tyre service in the area. We are proud of over 55 years of expertise and trust, with a specialized team of skilled technicians and state-of-the-art equipment.',
+    },
+    sharedServices: [
+      { ar: 'جميع أنواع الإطارات (سيارات، SUV، بيكاب)', en: 'All types of tyres (cars, SUVs, pickups)' },
+      { ar: 'تغيير الزيت وفلتر الهواء', en: 'Oil & air filter change' },
+      { ar: 'ضبط زوايا العجلات', en: 'Wheel alignment' },
+      { ar: 'توازن العجلات', en: 'Wheel balancing' },
+      { ar: 'خدمة الفرامل والبطاريات', en: 'Brakes & battery service' },
+      { ar: 'فحص ضغط الإطارات مجاناً', en: 'Free tyre pressure check' },
+    ],
+    uniqueServices: [
+      { ar: 'خدمة VIP للسيارات الفاخرة', en: 'VIP service for luxury vehicles' },
+      { ar: 'عرض إطارات من أشهر الماركات العالمية', en: 'Display of top international tyre brands' },
+      { ar: 'خدمة الكشف الشامل المجاني', en: 'Free full vehicle inspection' },
+      { ar: 'برنامج الولاء للعملاء الدائمين', en: 'Loyalty program for regular customers' },
+    ],
+    workingHours: {
+      ar: 'السبت – الخميس: ٨ص – ١٠م | الجمعة: ٢م – ١٠م',
+      en: 'Sat–Thu: 8 AM – 10 PM | Fri: 2 PM – 10 PM',
+    },
+    founded: 1967,
+  },
+  {
+    id: 2,
+    name: {
+      ar: 'الحبش للإطارات — فرع الشمال',
+      en: 'Al-Habash Tyres — North Branch',
+    },
+    tagline: {
+      ar: 'خبرة المتخصصين في حماية وصيانة سيارتك',
+      en: "Expert care for your vehicle's protection and maintenance",
+    },
+    address: {
+      ar: 'طريق الملك فهد، حي العليا',
+      en: 'King Fahd Road, Al-Olaya District',
+    },
+    city: {
+      ar: 'الرياض',
+      en: 'Riyadh',
+    },
+    phone: '+966-11-234-5678',
+    whatsapp: '+966502345678',
+    mapUrl: 'https://maps.google.com/?q=24.7136,46.6751',
+    mapEmbed:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.5!2d46.6751!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQyJzQ5LjAiTiA0NsKwNDAnMzAuNCJF!5e0!3m2!1sen!2ssa!4v1234567891',
+    images: [
+      'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=800&q=80',
+      'https://images.unsplash.com/photo-1616455579100-2ceaa4eb7d68?w=800&q=80',
+      'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=800&q=80',
+      'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80',
+    ],
+    coverImage: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=1200&q=80',
+    description: {
+      ar: 'فرع الشمال هو وجهتك للخدمات المتقدمة والمتخصصة. نوفر أحدث تقنيات حماية الطلاء وخدمات التلميع الاحترافية، إلى جانب الخدمات الأساسية للإطارات. يضم الفرع مركزاً متكاملاً للعناية بالسيارات يضاهي أعلى المعايير العالمية.',
+      en: 'The North Branch is your destination for advanced and specialized services. We offer the latest paint protection technologies and professional detailing, alongside essential tyre services. The branch houses a full-service car care center that meets the highest international standards.',
+    },
+    sharedServices: [
+      { ar: 'جميع أنواع الإطارات (سيارات، SUV، بيكاب)', en: 'All types of tyres (cars, SUVs, pickups)' },
+      { ar: 'تغيير الزيت وفلتر الهواء', en: 'Oil & air filter change' },
+      { ar: 'ضبط زوايا العجلات', en: 'Wheel alignment' },
+      { ar: 'توازن العجلات', en: 'Wheel balancing' },
+      { ar: 'خدمة الفرامل والبطاريات', en: 'Brakes & battery service' },
+      { ar: 'فحص ضغط الإطارات مجاناً', en: 'Free tyre pressure check' },
+    ],
+    uniqueServices: [
+      { ar: 'طلاء الحماية PPF (Paint Protection Film)', en: 'PPF — Paint Protection Film' },
+      { ar: 'الطلاء السيراميكي الاحترافي', en: 'Professional ceramic coating' },
+      { ar: 'تلميع وتنظيف السيارة (Detailing)', en: 'Full car detailing & polishing' },
+      { ar: 'تظليل الزجاج بأفضل المواد', en: 'Premium window tinting' },
+    ],
+    workingHours: {
+      ar: 'السبت – الخميس: ٩ص – ١٠م | الجمعة: ٣م – ١٠م',
+      en: 'Sat–Thu: 9 AM – 10 PM | Fri: 3 PM – 10 PM',
+    },
+  },
+  {
+    id: 3,
+    name: {
+      ar: 'الحبش للإطارات — فرع الجنوب',
+      en: 'Al-Habash Tyres — South Branch',
+    },
+    tagline: {
+      ar: 'متخصصون في المركبات الثقيلة والأسطول التجاري',
+      en: 'Specialists in heavy vehicles and commercial fleets',
+    },
+    address: {
+      ar: 'طريق الخرج، حي الصناعية',
+      en: 'Al-Kharj Road, Industrial District',
+    },
+    city: {
+      ar: 'الرياض',
+      en: 'Riyadh',
+    },
+    phone: '+966-11-345-6789',
+    whatsapp: '+966503456789',
+    mapUrl: 'https://maps.google.com/?q=24.5600,46.7800',
+    mapEmbed:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3626.0!2d46.7800!3d24.5600!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDMzJzM2LjAiTiA0NsKwNDYnNDguMCJF!5e0!3m2!1sen!2ssa!4v1234567892',
+    images: [
+      'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80',
+      'https://images.unsplash.com/photo-1562040506-a7a8d35d5f49?w=800&q=80',
+      'https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=800&q=80',
+      'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80',
+    ],
+    coverImage: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&q=80',
+    description: {
+      ar: 'فرع الجنوب هو الخيار الأول لأصحاب المركبات الثقيلة والشركات التجارية. نوفر مخزوناً ضخماً من إطارات الشاحنات والمعدات الزراعية والإطارات الصناعية، مع فريق متخصص يعمل على مدار الساعة لتلبية احتياجات الأسطول التجاري.',
+      en: 'The South Branch is the first choice for heavy vehicle owners and commercial companies. We stock a massive inventory of truck, agricultural, and industrial tyres, with a specialized team operating around the clock to meet commercial fleet needs.',
+    },
+    sharedServices: [
+      { ar: 'جميع أنواع الإطارات (سيارات، SUV، بيكاب)', en: 'All types of tyres (cars, SUVs, pickups)' },
+      { ar: 'تغيير الزيت وفلتر الهواء', en: 'Oil & air filter change' },
+      { ar: 'ضبط زوايا العجلات', en: 'Wheel alignment' },
+      { ar: 'توازن العجلات', en: 'Wheel balancing' },
+      { ar: 'خدمة الفرامل والبطاريات', en: 'Brakes & battery service' },
+      { ar: 'فحص ضغط الإطارات مجاناً', en: 'Free tyre pressure check' },
+    ],
+    uniqueServices: [
+      { ar: 'إطارات الشاحنات والمركبات الثقيلة', en: 'Truck & heavy vehicle tyres' },
+      { ar: 'إطارات المعدات الزراعية', en: 'Agricultural equipment tyres' },
+      { ar: 'خدمة الأسطول التجاري (عقود سنوية)', en: 'Commercial fleet service (annual contracts)' },
+      { ar: 'خدمة الطوارئ ٢٤ ساعة للشاحنات', en: '24-hour emergency truck service' },
+    ],
+    workingHours: {
+      ar: 'السبت – الخميس: ٧ص – ١١م | الجمعة: ٢م – ١١م',
+      en: 'Sat–Thu: 7 AM – 11 PM | Fri: 2 PM – 11 PM',
+    },
+  },
+]
+
+export const timelineEvents: TimelineEvent[] = [
+  {
+    year: 1967,
+    title: { ar: 'التأسيس', en: 'The Founding' },
+    description: {
+      ar: 'تأسس أول محل للحبش للإطارات في قلب المدينة، ليبدأ مسيرة طويلة من الخدمة والثقة.',
+      en: 'The first Al-Habash Tyres shop was founded in the heart of the city, beginning a long journey of service and trust.',
+    },
+  },
+  {
+    year: 1975,
+    title: { ar: 'التوسع الأول', en: 'First Expansion' },
+    description: {
+      ar: 'توسعة المحل الأصلي وإدخال أحدث معدات الإطارات الأوروبية لتحسين جودة الخدمة.',
+      en: 'Expansion of the original shop and introduction of the latest European tyre equipment to improve service quality.',
+    },
+  },
+  {
+    year: 1985,
+    title: { ar: 'الفرع الثاني', en: 'Second Branch' },
+    description: {
+      ar: 'الطلب المتزايد من العملاء أدى إلى افتتاح الفرع الثاني في شمال المدينة، ليصبح الأول في المنطقة.',
+      en: 'Growing customer demand led to opening the second branch in the north of the city, becoming the first in the region.',
+    },
+  },
+  {
+    year: 1995,
+    title: { ar: 'مواكبة التكنولوجيا', en: 'Embracing Technology' },
+    description: {
+      ar: 'دخول عصر التكنولوجيا الحديثة مع أجهزة ضبط الزوايا الإلكترونية وأنظمة التوازن الرقمية.',
+      en: 'Entering the modern technology era with electronic alignment systems and digital wheel balancing equipment.',
+    },
+  },
+  {
+    year: 2005,
+    title: { ar: 'الفرع الثالث', en: 'Third Branch' },
+    description: {
+      ar: 'افتتاح فرع الجنوب المتخصص في خدمة المركبات الثقيلة والشركات، ليكتمل المثلث الخدمي.',
+      en: 'Opening of the South Branch specializing in heavy vehicles and commercial services, completing the service triangle.',
+    },
+  },
+  {
+    year: 2015,
+    title: { ar: 'خدمات متقدمة', en: 'Advanced Services' },
+    description: {
+      ar: 'إضافة خدمات حماية الطلاء PPF والطلاء السيراميكي والتلميع الاحترافي في فرع الشمال.',
+      en: 'Addition of PPF paint protection, ceramic coating and professional detailing services at the North Branch.',
+    },
+  },
+  {
+    year: 2024,
+    title: { ar: 'الاستمرار بثقة', en: 'Continuing with Confidence' },
+    description: {
+      ar: 'أكثر من ٥٥ عاماً من الخدمة المتميزة، ونحن نواصل مسيرتنا بنفس الالتزام والإتقان.',
+      en: 'Over 55 years of distinguished service, and we continue our journey with the same commitment and excellence.',
+    },
+  },
+]
+
+export function getShopById(id: number): Shop | undefined {
+  return shops.find((s) => s.id === id)
+}
