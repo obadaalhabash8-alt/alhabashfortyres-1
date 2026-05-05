@@ -15,17 +15,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('dark')
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme | null
-    if (savedTheme) {
-      setTheme(savedTheme)
-    }
-    // Ensure dark class is applied immediately from localStorage to avoid flash
-    const current = localStorage.getItem('theme') || 'dark'
-    if (current === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
+    const saved = (localStorage.getItem('theme') as Theme | null) ?? 'dark'
+    setTheme(saved)
+    document.documentElement.classList.toggle('dark', saved === 'dark')
   }, [])
 
   useEffect(() => {

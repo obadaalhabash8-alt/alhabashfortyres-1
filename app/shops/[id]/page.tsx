@@ -2,7 +2,6 @@
 
 import { use, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -36,8 +35,12 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
   const pageRef = useRef<HTMLDivElement>(null)
 
   const [ratings, setRatings] = useState<Rating[]>([])
-  const [avgRating, setAvgRating] = useState(0)
+  const [ratingTotal, setRatingTotal] = useState(0)
+  const [hasMore, setHasMore] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
   const [loadingRatings, setLoadingRatings] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [avgRating, setAvgRating] = useState(0)
   const [pageUrl, setPageUrl] = useState('')
 
   useEffect(() => {
@@ -45,15 +48,18 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
   }, [shopId])
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchInitial() {
       try {
         const [ratingsRes, avgRes] = await Promise.all([
-          fetch(`/api/ratings?shop_id=${shopId}`),
+          fetch(`/api/ratings?shop_id=${shopId}&page=1`),
           fetch(`/api/average-rating?shop_id=${shopId}`),
         ])
         const ratingsData = await ratingsRes.json()
         const avgData = await avgRes.json()
         setRatings(ratingsData.ratings ?? [])
+        setRatingTotal(ratingsData.total ?? 0)
+        setHasMore(ratingsData.hasMore ?? false)
+        setCurrentPage(1)
         setAvgRating(avgData.average ?? 0)
       } catch {
         // ratings remain empty on error
@@ -61,8 +67,23 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
         setLoadingRatings(false)
       }
     }
-    fetchData()
+    fetchInitial()
   }, [shopId])
+
+  async function loadMore() {
+    setLoadingMore(true)
+    try {
+      const res = await fetch(`/api/ratings?shop_id=${shopId}&page=${currentPage + 1}`)
+      const data = await res.json()
+      setRatings((prev) => [...prev, ...(data.ratings ?? [])])
+      setHasMore(data.hasMore ?? false)
+      setCurrentPage((p) => p + 1)
+    } catch {
+      // silently ignore load-more errors
+    } finally {
+      setLoadingMore(false)
+    }
+  }
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -87,12 +108,17 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
   }, [])
 
   function onRatingSubmitted() {
-    fetch(`/api/ratings?shop_id=${shopId}`)
-      .then((r) => r.json())
-      .then((d) => setRatings(d.ratings ?? []))
-    fetch(`/api/average-rating?shop_id=${shopId}`)
-      .then((r) => r.json())
-      .then((d) => setAvgRating(d.average ?? 0))
+    // Reset to page 1 so the new review appears at the top
+    Promise.all([
+      fetch(`/api/ratings?shop_id=${shopId}&page=1`).then((r) => r.json()),
+      fetch(`/api/average-rating?shop_id=${shopId}`).then((r) => r.json()),
+    ]).then(([ratingsData, avgData]) => {
+      setRatings(ratingsData.ratings ?? [])
+      setRatingTotal(ratingsData.total ?? 0)
+      setHasMore(ratingsData.hasMore ?? false)
+      setCurrentPage(1)
+      setAvgRating(avgData.average ?? 0)
+    }).catch(() => {})
   }
 
   return (
@@ -182,10 +208,17 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                 <div>
                   <SectionTitle>{t.shop.ratings_title}</SectionTitle>
-                  {!loadingRatings && ratings.length > 0 && (
-                    <AverageStars rating={avgRating} count={ratings.length} />
+                  {!loadingRatings && ratingTotal > 0 && (
+                    <AverageStars rating={avgRating} count={ratingTotal} />
                   )}
                 </div>
+                {!loadingRatings && ratingTotal > 0 && (
+                  <span className="text-xs text-brand-muted font-cairo flex-shrink-0">
+                    {lang === 'ar'
+                      ? `عرض ${ratings.length} من ${ratingTotal} تقييم`
+                      : `Showing ${ratings.length} of ${ratingTotal} reviews`}
+                  </span>
+                )}
               </div>
 
               {loadingRatings ? (
@@ -193,11 +226,32 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
               ) : ratings.length === 0 ? (
                 <EmptyRatings />
               ) : (
-                <div className="space-y-4">
-                  {ratings.map((r) => (
-                    <RatingCard key={r.id} rating={r} isRTL={isRTL} />
-                  ))}
-                </div>
+                <>
+                  <div className="space-y-4">
+                    {ratings.map((r) => (
+                      <RatingCard key={r.id} rating={r} isRTL={isRTL} />
+                    ))}
+                  </div>
+
+                  {hasMore && (
+                    <div className="mt-6 text-center">
+                      <button
+                        onClick={loadMore}
+                        disabled={loadingMore}
+                        className="px-6 py-2.5 border border-brand-border text-brand-secondary hover:border-brand-orange hover:text-brand-orange rounded-xl font-cairo font-semibold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2"
+                      >
+                        {loadingMore ? (
+                          <>
+                            <span className="w-4 h-4 rounded-full border-2 border-current border-t-transparent animate-spin" />
+                            {lang === 'ar' ? 'جاري التحميل...' : 'Loading...'}
+                          </>
+                        ) : (
+                          lang === 'ar' ? 'عرض المزيد من التقييمات' : 'Load more reviews'
+                        )}
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
             </section>
 
@@ -373,15 +427,6 @@ function LoadingSpinner() {
     <div className="flex justify-center py-10">
       <div className="w-7 h-7 rounded-full border-2 border-brand-orange border-t-transparent animate-spin" />
     </div>
-  )
-}
-
-function BackArrow({ isRTL }: { isRTL: boolean }) {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={isRTL ? '' : 'rotate-180'}>
-      <line x1="5" y1="12" x2="19" y2="12" />
-      <polyline points="12 5 19 12 12 19" />
-    </svg>
   )
 }
 

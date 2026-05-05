@@ -88,7 +88,7 @@ function HeroSection() {
         {/* CTA */}
         <div className="hero-cta">
           <Link
-            href="/shops"
+            href="/#branches"
             className="inline-flex items-center gap-3 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold px-10 py-4 rounded-xl text-base font-cairo transition-all duration-300 hover:shadow-xl hover:shadow-brand-orange/25 hover:-translate-y-0.5"
           >
             {t.hero.cta_shops}

@@ -8,6 +8,7 @@
   /* ── Light theme (default) ── */
   :root {
     --brand-bg: #FAFAF9;
+    --brand-bg-alt: #EDEDE9;
     --brand-surface: #F5F5F4;
     --brand-surface-2: #FFFFFF;
     --brand-border: #E4E4E7;
@@ -19,6 +20,7 @@
   /* ── Dark theme ── */
   .dark {
     --brand-bg: #0F0F0F;
+    --brand-bg-alt: #0A0A0A;
     --brand-surface: #18181B;
     --brand-surface-2: #1F1F23;
     --brand-border: #2A2A2E;

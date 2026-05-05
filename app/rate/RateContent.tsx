@@ -50,7 +50,7 @@ export default function RateContent({ shopId }: Props) {
                 : 'You can also scan the branch QR code for a direct rating'}
             </p>
             <Link
-              href="/shops"
+              href="/#branches"
               className="text-brand-orange font-semibold font-cairo text-sm hover:underline"
             >
               {t.shops_section.view_all} →

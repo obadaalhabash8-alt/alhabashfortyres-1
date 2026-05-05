@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
 interface Props {
   value: number
@@ -13,6 +13,7 @@ const sizeMap = { sm: 18, md: 26, lg: 36 }
 
 export default function StarRating({ value, onChange, interactive = false, size = 'md' }: Props) {
   const [hovered, setHovered] = useState(0)
+  const uid = useId()
   const px = sizeMap[size]
   const display = interactive ? (hovered || value) : value
 
@@ -34,6 +35,7 @@ export default function StarRating({ value, onChange, interactive = false, size 
             aria-label={`${star} star${star !== 1 ? 's' : ''}`}
           >
             <StarIcon
+              id={`${uid}-${star}`}
               size={px}
               filled={filled}
               partial={isPartial}
@@ -47,17 +49,18 @@ export default function StarRating({ value, onChange, interactive = false, size 
 }
 
 function StarIcon({
+  id,
   size,
   filled,
   partial,
   partialPercent,
 }: {
+  id: string
   size: number
   filled: boolean
   partial: boolean
   partialPercent: number
 }) {
-  const id = `partial-${Math.random().toString(36).slice(2, 7)}`
   const colorOrange = '#F97316'
   const colorMuted = '#27272A'
 
