@@ -54,7 +54,6 @@ export const shops: Shop[] = [
       ar: 'السبت – الخميس: ٨ص – ١٠م | الجمعة: ٢م – ١٠م',
       en: 'Sat–Thu: 8 AM – 10 PM | Fri: 2 PM – 10 PM',
     },
-    founded: 1967,
   },
   {
     id: 2,
