@@ -38,6 +38,11 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
   const [ratings, setRatings] = useState<Rating[]>([])
   const [avgRating, setAvgRating] = useState(0)
   const [loadingRatings, setLoadingRatings] = useState(true)
+  const [pageUrl, setPageUrl] = useState('')
+
+  useEffect(() => {
+    setPageUrl(window.location.href)
+  }, [shopId])
 
   useEffect(() => {
     async function fetchData() {
@@ -293,12 +298,11 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
                 {lang === 'ar' ? 'امسح الرمز للمشاركة' : 'Scan to Share'}
               </p>
               <div className="bg-white p-3 rounded-xl inline-block shadow-lg">
-                <QRCodeSVG 
-                  value={typeof window !== 'undefined' ? window.location.href : ''} 
-                  size={120}
-                  level="H"
-                  includeMargin={false}
-                />
+                {pageUrl ? (
+                  <QRCodeSVG value={pageUrl} size={120} level="H" />
+                ) : (
+                  <div className="w-[120px] h-[120px] bg-gray-100 rounded animate-pulse" />
+                )}
               </div>
               <p className="text-[10px] text-brand-muted font-cairo mt-4 leading-relaxed px-2">
                 {lang === 'ar' 

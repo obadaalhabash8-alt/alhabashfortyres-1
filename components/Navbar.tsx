@@ -25,7 +25,7 @@ export default function Navbar() {
     { href: '/', label: t.nav.home },
     { href: '/#story', label: t.nav.story },
     { href: '/#journey', label: t.nav.journey },
-    { href: '/shops', label: t.nav.shops },
+    { href: '/#branches', label: t.nav.shops },
   ]
 
   const isActive = (href: string) =>

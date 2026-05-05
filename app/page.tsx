@@ -6,7 +6,8 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/hooks/useLanguage'
-import { timelineEvents } from '@/lib/shops'
+import ShopCard from '@/components/ShopCard'
+import { shops, timelineEvents } from '@/lib/shops'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -16,6 +17,7 @@ export default function HomePage() {
       <HeroSection />
       <StorySection />
       <TimelineSection />
+      <BranchesSection />
     </div>
   )
 }
@@ -124,29 +126,41 @@ function HeroSection() {
 
 /* ─── Story ──────────────────────────────────────────────────────────── */
 function StorySection() {
-  const { t, lang, isRTL } = useLanguage()
+  const { t, lang } = useLanguage()
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.story-text',
-        { opacity: 0, x: isRTL ? 50 : -50 },
-        { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: '.story-text', start: 'top 80%' } }
+        { opacity: 0, y: 60, scale: 0.97 },
+        {
+          opacity: 1, y: 0, scale: 1, ease: 'power2.out',
+          scrollTrigger: { trigger: '.story-text', start: 'top 88%', end: 'top 30%', scrub: 0.8 },
+        }
       )
       gsap.fromTo(
         '.story-images',
-        { opacity: 0, x: isRTL ? -50 : 50 },
-        { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: '.story-images', start: 'top 80%' } }
+        { opacity: 0, y: 60, scale: 0.97 },
+        {
+          opacity: 1, y: 0, scale: 1, ease: 'power2.out',
+          scrollTrigger: { trigger: '.story-images', start: 'top 88%', end: 'top 30%', scrub: 0.8 },
+        }
       )
-      gsap.fromTo(
-        '.story-value',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out', scrollTrigger: { trigger: '.story-values', start: 'top 85%' } }
-      )
+      const values = gsap.utils.toArray<HTMLElement>('.story-value')
+      values.forEach((v) => {
+        gsap.fromTo(
+          v,
+          { opacity: 0, y: 40, scale: 0.95 },
+          {
+            opacity: 1, y: 0, scale: 1, ease: 'power2.out',
+            scrollTrigger: { trigger: v, start: 'top 88%', end: 'top 50%', scrub: 0.8 },
+          }
+        )
+      })
     }, ref)
     return () => ctx.revert()
-  }, [isRTL])
+  }, [])
 
   const values = [
     { label: lang === 'ar' ? 'الجودة أولاً' : 'Quality First' },
@@ -331,4 +345,62 @@ function TimelineSection() {
   )
 }
 
+/* ─── Branches ───────────────────────────────────────────────────────── */
+function BranchesSection() {
+  const { t, lang } = useLanguage()
+  const sectionRef = useRef<HTMLElement>(null)
+  const cardsRef = useRef<HTMLDivElement>(null)
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.branches-heading',
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: '.branches-heading', start: 'top 85%' },
+        }
+      )
+
+      if (!cardsRef.current) return
+      const cards = gsap.utils.toArray<HTMLElement>(cardsRef.current.children)
+      cards.forEach((card) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 60, scale: 0.95 },
+          {
+            opacity: 1, y: 0, scale: 1, ease: 'power2.out',
+            scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 30%', scrub: 0.8 },
+          }
+        )
+      })
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <section id="branches" ref={sectionRef} className="py-24 sm:py-32 bg-brand-darker">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+        <div className="branches-heading text-center mb-16">
+          <span className="text-brand-orange text-xs font-bold uppercase tracking-widest font-cairo">
+            {lang === 'ar' ? 'فروعنا' : 'Our Branches'}
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-black text-brand-white mt-3 font-cairo">
+            {t.shops_section.title}
+          </h2>
+          <p className="text-brand-secondary mt-4 font-cairo text-base max-w-lg mx-auto">
+            {lang === 'ar'
+              ? 'اختر أقرب فرع إليك واكتشف خدماتنا الشاملة'
+              : 'Choose the branch nearest to you and discover our full range of services'}
+          </p>
+        </div>
+
+        <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {shops.map((shop) => (
+            <ShopCard key={shop.id} shop={shop} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

@@ -10,17 +10,17 @@ export default function Footer() {
 
   return (
     <footer className="bg-brand-dark border-t border-brand-border text-brand-secondary">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 py-14 sm:py-16">
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 ${isRTL ? 'text-right' : 'text-left'}`}>
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 py-10 sm:py-16">
+        <div className={`grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 ${isRTL ? 'text-right' : 'text-left'}`}>
 
           {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-9 h-9 rounded-full bg-brand-orange flex items-center justify-center flex-shrink-0">
                 <TyreIcon />
               </div>
               <div>
-                <p className="text-brand-white font-bold font-cairo text-sm">
+                <p className="text-white font-bold font-cairo text-sm">
                   {lang === 'ar' ? 'الحبش للإطارات' : 'Al-Habash Tyres'}
                 </p>
                 <p className="text-brand-orange text-[11px] font-cairo">
@@ -33,11 +33,11 @@ export default function Footer() {
 
           {/* Quick links */}
           <div>
-            <h3 className="text-brand-white font-semibold mb-5 font-cairo text-sm uppercase tracking-widest">{t.footer.links_title}</h3>
-            <ul className="space-y-3">
+            <h3 className="text-white font-semibold mb-3 sm:mb-5 font-cairo text-xs sm:text-sm uppercase tracking-widest">{t.footer.links_title}</h3>
+            <ul className="space-y-2 sm:space-y-3">
               {[
                 { href: '/', label: t.nav.home },
-                { href: '/shops', label: t.nav.shops },
+                { href: '/#branches', label: t.nav.shops },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -53,8 +53,8 @@ export default function Footer() {
 
           {/* Branches */}
           <div>
-            <h3 className="text-brand-white font-semibold mb-5 font-cairo text-sm uppercase tracking-widest">{t.common.shops}</h3>
-            <ul className="space-y-3">
+            <h3 className="text-white font-semibold mb-3 sm:mb-5 font-cairo text-xs sm:text-sm uppercase tracking-widest">{t.common.shops}</h3>
+            <ul className="space-y-2 sm:space-y-3">
               {shops.map((shop) => (
                 <li key={shop.id}>
                   <Link
@@ -69,9 +69,9 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
-            <h3 className="text-brand-white font-semibold mb-5 font-cairo text-sm uppercase tracking-widest">{t.footer.contact_title}</h3>
-            <ul className="space-y-4">
+          <div className="col-span-2 lg:col-span-1">
+            <h3 className="text-white font-semibold mb-3 sm:mb-5 font-cairo text-xs sm:text-sm uppercase tracking-widest">{t.footer.contact_title}</h3>
+            <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3 sm:gap-4">
               {shops.map((shop) => (
                 <li key={shop.id} className="font-cairo">
                   <span className="text-brand-muted block text-xs mb-0.5">{shop.name[lang]}</span>
@@ -89,14 +89,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 pt-6 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-cairo">
+        <div className="mt-8 sm:mt-12 pt-5 sm:pt-6 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-cairo">
           <span>
             {lang === 'ar'
               ? `© ${year} الحبش للإطارات. جميع الحقوق محفوظة.`
               : `© ${year} Al-Habash Tyres. All rights reserved.`}
-          </span>
-          <span className="text-brand-muted">
-            {lang === 'ar' ? 'المملكة العربية السعودية' : 'Kingdom of Saudi Arabia'}
           </span>
         </div>
       </div>
