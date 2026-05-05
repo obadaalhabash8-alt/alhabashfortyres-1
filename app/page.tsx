@@ -1,115 +1,143 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/hooks/useLanguage'
 import ShopCard from '@/components/ShopCard'
 import { shops, timelineEvents } from '@/lib/shops'
 
-export default function HomePage() {
-  const { t, lang, isRTL } = useLanguage()
+gsap.registerPlugin(ScrollTrigger)
 
+export default function HomePage() {
   return (
-    <div className={isRTL ? 'text-right' : 'text-left'}>
+    <div className="text-right">
       <HeroSection />
       <StorySection />
       <TimelineSection />
       <ShopsSection />
-      <CTABanner />
     </div>
   )
 }
 
 /* ─── Hero ──────────────────────────────────────────────────────────── */
 function HeroSection() {
-  const { t, lang, isRTL } = useLanguage()
+  const { t, lang } = useLanguage()
+  const containerRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.hero-badge',
+        { opacity: 0, y: -20 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.2 }
+      )
+      gsap.fromTo(
+        '.hero-title',
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.4 }
+      )
+      gsap.fromTo(
+        '.hero-tagline',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.65 }
+      )
+      gsap.fromTo(
+        '.hero-cta',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.85 }
+      )
+      gsap.fromTo(
+        '.hero-stats > *',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out', delay: 1.0 }
+      )
+    }, containerRef)
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden">
-      {/* Background image */}
+    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80"
-          alt="Hero background"
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=85"
+          alt=""
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-hero-pattern" />
-        {/* Orange gradient accent at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-brand-orange" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-brand-dark" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/40 via-transparent to-brand-dark/40" />
       </div>
 
-      {/* Decorative tire track lines */}
-      <div className="absolute inset-0 opacity-5">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute h-full w-px bg-white"
-            style={{ left: `${(i + 1) * 12.5}%` }}
-          />
-        ))}
-      </div>
+      {/* Orange bottom accent */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-brand-orange/60" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        {/* Since badge */}
-        <div className="inline-flex items-center gap-2 bg-brand-orange/20 border border-brand-orange/40 text-brand-orange-light px-4 py-2 rounded-full text-sm font-cairo mb-8 backdrop-blur-sm">
-          <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
-          {t.hero.since} {t.hero.year}
+      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 text-center pt-24">
+        {/* Badge */}
+        <div className="hero-badge inline-flex items-center gap-2.5 border border-brand-orange/30 bg-brand-orange/8 text-brand-orange px-5 py-2 rounded-full text-xs font-cairo font-semibold uppercase tracking-widest mb-10 backdrop-blur-sm">
+          <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
+          {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'} — {lang === 'ar' ? 'المملكة العربية السعودية' : 'Saudi Arabia'}
         </div>
 
-        {/* Main heading */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-4 font-cairo leading-tight text-shadow">
-          {lang === 'ar' ? 'الحبش للإطارات' : 'Al-Habash Tyres'}
+        {/* Heading */}
+        <h1 className="hero-title text-5xl sm:text-7xl lg:text-8xl font-black text-white font-cairo leading-none tracking-tight mb-6 text-shadow">
+          {lang === 'ar' ? (
+            <>
+              <span className="block">الحبش</span>
+              <span className="block text-brand-orange">للإطارات</span>
+            </>
+          ) : (
+            <>
+              <span className="block">Al-Habash</span>
+              <span className="block text-brand-orange">Tyres</span>
+            </>
+          )}
         </h1>
 
         {/* Tagline */}
-        <p className="text-brand-gold text-xl sm:text-2xl font-semibold mb-4 font-cairo">
+        <p className="hero-tagline text-brand-secondary text-lg sm:text-xl font-cairo font-light max-w-xl mx-auto mb-12 leading-relaxed">
           {t.hero.tagline}
         </p>
 
-        {/* Description */}
-        <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 font-cairo leading-relaxed">
-          {t.hero.subtitle}
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        {/* CTA */}
+        <div className="hero-cta">
           <Link
             href="/shops"
-            className="bg-brand-orange hover:bg-brand-orange-dark text-white font-bold px-8 py-4 rounded-2xl text-lg font-cairo transition-all hover:shadow-lg hover:shadow-brand-orange/30 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-3 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold px-10 py-4 rounded-xl text-base font-cairo transition-all duration-300 hover:shadow-xl hover:shadow-brand-orange/25 hover:-translate-y-0.5"
           >
             {t.hero.cta_shops}
-          </Link>
-          <Link
-            href="/rate"
-            className="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold px-8 py-4 rounded-2xl text-lg font-cairo transition-all backdrop-blur-sm"
-          >
-            {t.hero.cta_rate}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
           </Link>
         </div>
 
         {/* Stats */}
-        <div className="mt-16 grid grid-cols-3 gap-4 max-w-lg mx-auto">
+        <div className="hero-stats mt-20 grid grid-cols-3 gap-px max-w-md mx-auto border border-brand-border rounded-2xl overflow-hidden bg-brand-border">
           {[
             { value: lang === 'ar' ? '+٥٥' : '55+', label: lang === 'ar' ? 'سنة خبرة' : 'Years' },
             { value: '3', label: lang === 'ar' ? 'فروع' : 'Branches' },
-            { value: lang === 'ar' ? '+١٠٠٠٠' : '10K+', label: lang === 'ar' ? 'عميل راضٍ' : 'Happy Customers' },
+            { value: lang === 'ar' ? '+١٠ آلاف' : '10K+', label: lang === 'ar' ? 'عميل' : 'Customers' },
           ].map((stat) => (
-            <div key={stat.label} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+            <div key={stat.label} className="bg-brand-dark/90 backdrop-blur-sm px-4 py-5 text-center">
               <p className="text-brand-orange text-2xl sm:text-3xl font-black font-cairo">{stat.value}</p>
-              <p className="text-gray-400 text-xs sm:text-sm font-cairo">{stat.label}</p>
+              <p className="text-brand-muted text-xs font-cairo mt-0.5">{stat.label}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" opacity="0.5">
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+        <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-1.5">
+          <div className="w-1 h-2.5 bg-white/40 rounded-full animate-bounce" />
+        </div>
       </div>
     </section>
   )
@@ -118,65 +146,102 @@ function HeroSection() {
 /* ─── Story ──────────────────────────────────────────────────────────── */
 function StorySection() {
   const { t, lang, isRTL } = useLanguage()
+  const ref = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.story-text',
+        { opacity: 0, x: isRTL ? 50 : -50 },
+        {
+          opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+          scrollTrigger: { trigger: '.story-text', start: 'top 80%' },
+        }
+      )
+      gsap.fromTo(
+        '.story-images',
+        { opacity: 0, x: isRTL ? -50 : 50 },
+        {
+          opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+          scrollTrigger: { trigger: '.story-images', start: 'top 80%' },
+        }
+      )
+      gsap.fromTo(
+        '.story-value',
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
+          scrollTrigger: { trigger: '.story-values', start: 'top 85%' },
+        }
+      )
+    }, ref)
+    return () => ctx.revert()
+  }, [isRTL])
+
+  const values = [
+    { label: lang === 'ar' ? 'الجودة أولاً' : 'Quality First' },
+    { label: lang === 'ar' ? 'نبني الثقة' : 'Building Trust' },
+    { label: lang === 'ar' ? 'خدمة سريعة' : 'Fast Service' },
+    { label: lang === 'ar' ? 'فنيون محترفون' : 'Pro Technicians' },
+  ]
 
   return (
-    <section className="py-20 sm:py-28 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className={`grid lg:grid-cols-2 gap-12 items-center ${isRTL ? '' : ''}`}>
+    <section ref={ref} className="py-24 sm:py-32 bg-brand-dark">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+        <div className={`grid lg:grid-cols-2 gap-16 items-center`}>
+
           {/* Text */}
-          <div className="animate-slide-up">
-            <span className="text-brand-orange text-sm font-bold uppercase tracking-widest font-cairo">
+          <div className="story-text">
+            <span className="text-brand-orange text-xs font-bold uppercase tracking-widest font-cairo">
               {lang === 'ar' ? 'قصتنا' : 'Our Story'}
             </span>
-            <h2 className="text-4xl sm:text-5xl font-black text-brand-dark mt-2 mb-6 font-cairo leading-tight">
+            <h2 className="text-4xl sm:text-5xl font-black text-white mt-3 mb-5 font-cairo leading-tight">
               {t.story.title}
             </h2>
-            <p className="text-lg text-brand-gold font-semibold mb-4 font-cairo">
+            <p className="text-brand-gold text-base font-semibold mb-5 font-cairo">
               {t.story.subtitle}
             </p>
-            <p className="text-gray-600 leading-relaxed font-cairo text-base sm:text-lg">
+            <p className="text-brand-muted leading-relaxed font-cairo text-base sm:text-lg">
               {t.story.body}
             </p>
 
-            {/* Values */}
-            <div className="grid grid-cols-2 gap-4 mt-8">
-              {[
-                { icon: '🏆', label: lang === 'ar' ? 'الجودة أولاً' : 'Quality First' },
-                { icon: '🤝', label: lang === 'ar' ? 'نبني الثقة' : 'Building Trust' },
-                { icon: '⚡', label: lang === 'ar' ? 'خدمة سريعة' : 'Fast Service' },
-                { icon: '🔧', label: lang === 'ar' ? 'فنيون محترفون' : 'Pro Technicians' },
-              ].map((v) => (
-                <div key={v.label} className="flex items-center gap-3 bg-brand-cream rounded-xl p-3">
-                  <span className="text-2xl">{v.icon}</span>
-                  <span className="text-sm font-semibold text-brand-dark font-cairo">{v.label}</span>
+            <div className="story-values grid grid-cols-2 gap-3 mt-10">
+              {values.map((v) => (
+                <div
+                  key={v.label}
+                  className="story-value flex items-center gap-3 bg-brand-surface border border-brand-border rounded-xl p-3.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-orange flex-shrink-0" />
+                  <span className="text-sm font-semibold text-brand-secondary font-cairo">{v.label}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Image collage */}
-          <div className="relative">
+          {/* Images */}
+          <div className="story-images relative">
             <div className="grid grid-cols-2 gap-3">
-              <div className="relative h-48 sm:h-64 rounded-2xl overflow-hidden">
+              <div className="relative h-52 sm:h-72 rounded-2xl overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=600&q=80"
                   alt="Shop interior"
                   fill
                   className="object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
-              <div className="relative h-48 sm:h-64 rounded-2xl overflow-hidden mt-6">
+              <div className="relative h-52 sm:h-72 rounded-2xl overflow-hidden mt-8">
                 <Image
                   src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80"
                   alt="Tyre service"
                   fill
                   className="object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
             </div>
-            {/* Floating badge */}
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-brand-orange text-white px-6 py-3 rounded-2xl shadow-xl font-cairo font-bold text-center whitespace-nowrap">
-              {lang === 'ar' ? 'منذ ١٩٦٧' : 'Since 1967'} · {lang === 'ar' ? '٥٥+ عاماً' : '55+ Years'}
+            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-brand-orange text-white px-6 py-3 rounded-xl shadow-xl shadow-brand-orange/20 font-cairo font-bold text-sm whitespace-nowrap">
+              {lang === 'ar' ? 'منذ ١٩٦٧ · أكثر من ٥٥ عاماً' : 'Since 1967 · 55+ Years'}
             </div>
           </div>
         </div>
@@ -188,28 +253,43 @@ function StorySection() {
 /* ─── Timeline ───────────────────────────────────────────────────────── */
 function TimelineSection() {
   const { t, lang, isRTL } = useLanguage()
+  const ref = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.timeline-card',
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power2.out',
+          scrollTrigger: { trigger: '.timeline-track', start: 'top 75%' },
+        }
+      )
+    }, ref)
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section className="py-20 sm:py-28 bg-brand-cream">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-14">
-          <span className="text-brand-orange text-sm font-bold uppercase tracking-widest font-cairo">
+    <section ref={ref} className="py-24 sm:py-32 bg-brand-dark">
+      <div className="max-w-4xl mx-auto px-6 sm:px-8">
+        <div className="text-center mb-16">
+          <span className="text-brand-orange text-xs font-bold uppercase tracking-widest font-cairo">
             {lang === 'ar' ? 'تاريخنا' : 'History'}
           </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-brand-dark mt-2 font-cairo">
+          <h2 className="text-4xl sm:text-5xl font-black text-white mt-3 font-cairo">
             {t.timeline.title}
           </h2>
         </div>
 
-        <div className="relative">
-          {/* Vertical line */}
-          <div className={`absolute top-0 bottom-0 w-0.5 bg-brand-gold/40 ${isRTL ? 'right-4 sm:right-1/2' : 'left-4 sm:left-1/2'}`} />
+        <div className="timeline-track relative">
+          {/* Center line */}
+          <div className={`absolute top-0 bottom-0 w-px bg-brand-border ${isRTL ? 'right-4 sm:right-1/2' : 'left-4 sm:left-1/2'}`} />
 
-          <div className="space-y-8">
+          <div className="space-y-10">
             {timelineEvents.map((event, i) => (
               <div
                 key={event.year}
-                className={`relative flex items-start gap-6 sm:gap-0 ${
+                className={`timeline-card relative flex items-start gap-6 sm:gap-0 ${
                   i % 2 === 0
                     ? isRTL ? 'sm:flex-row-reverse' : 'sm:flex-row'
                     : isRTL ? 'sm:flex-row' : 'sm:flex-row-reverse'
@@ -217,33 +297,32 @@ function TimelineSection() {
               >
                 {/* Dot */}
                 <div
-                  className={`absolute w-4 h-4 rounded-full bg-brand-orange border-4 border-brand-cream z-10 top-3 ${
-                    isRTL ? 'right-2.5 sm:right-[calc(50%-8px)]' : 'left-2.5 sm:left-[calc(50%-8px)]'
+                  className={`absolute w-3 h-3 rounded-full bg-brand-orange border-2 border-brand-dark z-10 top-4 ${
+                    isRTL ? 'right-2.5 sm:right-[calc(50%-6px)]' : 'left-2.5 sm:left-[calc(50%-6px)]'
                   }`}
                 />
 
                 {/* Card */}
                 <div
                   className={`w-full sm:w-[calc(50%-2rem)] ${
-                    isRTL ? 'pr-10 sm:pr-0 sm:pl-8' : 'pl-10 sm:pl-0 sm:pr-8'
+                    isRTL ? 'pr-10 sm:pr-0 sm:pl-10' : 'pl-10 sm:pl-0 sm:pr-10'
                   } ${
                     i % 2 === 0
-                      ? isRTL ? 'sm:pl-8' : 'sm:pr-8'
-                      : isRTL ? 'sm:mr-auto sm:pl-0 sm:pr-8' : 'sm:ml-auto sm:pr-0 sm:pl-8'
+                      ? isRTL ? 'sm:pl-10' : 'sm:pr-10'
+                      : isRTL ? 'sm:mr-auto sm:pl-0 sm:pr-10' : 'sm:ml-auto sm:pr-0 sm:pl-10'
                   }`}
                 >
-                  <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div className="bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange/30 transition-colors">
                     <span className="text-brand-orange font-black text-2xl font-cairo">{event.year}</span>
-                    <h3 className="text-brand-dark font-bold text-lg font-cairo mt-1">
+                    <h3 className="text-white font-bold text-base font-cairo mt-1">
                       {event.title[lang]}
                     </h3>
-                    <p className="text-gray-500 text-sm font-cairo mt-2 leading-relaxed">
+                    <p className="text-brand-muted text-sm font-cairo mt-2 leading-relaxed">
                       {event.description[lang]}
                     </p>
                   </div>
                 </div>
 
-                {/* Spacer for opposite side */}
                 <div className="hidden sm:block w-[calc(50%-2rem)]" />
               </div>
             ))}
@@ -256,31 +335,40 @@ function TimelineSection() {
 
 /* ─── Shops preview ──────────────────────────────────────────────────── */
 function ShopsSection() {
-  const { t, isRTL } = useLanguage()
+  const { t, lang, isRTL } = useLanguage()
+  const ref = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.shop-card-anim',
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: 'power3.out',
+          scrollTrigger: { trigger: '.shops-grid', start: 'top 80%' },
+        }
+      )
+    }, ref)
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section className="py-20 sm:py-28 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className={`flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 ${isRTL ? 'text-right' : 'text-left'}`}>
-          <div>
-            <span className="text-brand-orange text-sm font-bold uppercase tracking-widest font-cairo">
-              {t.shops_section.subtitle}
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-black text-brand-dark mt-1 font-cairo">
-              {t.shops_section.title}
-            </h2>
-          </div>
-          <Link
-            href="/shops"
-            className="flex-shrink-0 text-brand-orange border-2 border-brand-orange hover:bg-brand-orange hover:text-white font-semibold px-6 py-2.5 rounded-xl transition-colors font-cairo text-sm"
-          >
-            {t.shops_section.view_all}
-          </Link>
+    <section ref={ref} className="py-24 sm:py-32 bg-brand-dark">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+        <div className="mb-14">
+          <span className="text-brand-orange text-xs font-bold uppercase tracking-widest font-cairo">
+            {t.shops_section.subtitle}
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mt-2 font-cairo">
+            {t.shops_section.title}
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="shops-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {shops.map((shop) => (
-            <ShopCard key={shop.id} shop={shop} />
+            <div key={shop.id} className="shop-card-anim">
+              <ShopCard shop={shop} />
+            </div>
           ))}
         </div>
       </div>
@@ -288,52 +376,3 @@ function ShopsSection() {
   )
 }
 
-/* ─── CTA Banner ─────────────────────────────────────────────────────── */
-function CTABanner() {
-  const { t, lang, isRTL } = useLanguage()
-
-  return (
-    <section className="py-16 sm:py-20 bg-brand-dark relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-32 h-32 rounded-full border-4 border-white"
-            style={{
-              left: `${(i % 5) * 22}%`,
-              top: `${Math.floor(i / 5) * 35}%`,
-              transform: 'translate(-50%, -50%)',
-            }}
-          />
-        ))}
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-brand-orange" />
-
-      <div className={`relative max-w-3xl mx-auto px-4 sm:px-6 text-center ${isRTL ? 'text-right sm:text-center' : 'text-left sm:text-center'}`}>
-        <h2 className="text-3xl sm:text-4xl font-black text-white font-cairo mb-4">
-          {lang === 'ar' ? 'زرنا اليوم — خدمتك أولويتنا' : 'Visit Us Today — Your Service Is Our Priority'}
-        </h2>
-        <p className="text-gray-400 font-cairo mb-8 text-lg">
-          {lang === 'ar'
-            ? 'ثلاثة فروع، خبرة أكثر من ٥٥ عاماً، وفريق متخصص في خدمتكم'
-            : 'Three branches, over 55 years of experience, and a specialized team at your service'}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/rate"
-            className="bg-brand-orange hover:bg-brand-orange-dark text-white font-bold px-8 py-4 rounded-2xl font-cairo transition-all hover:shadow-lg hover:shadow-brand-orange/30"
-          >
-            {t.hero.cta_rate}
-          </Link>
-          <Link
-            href="/shops"
-            className="border-2 border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-4 rounded-2xl font-cairo transition-colors"
-          >
-            {t.hero.cta_shops}
-          </Link>
-        </div>
-      </div>
-    </section>
-  )
-}

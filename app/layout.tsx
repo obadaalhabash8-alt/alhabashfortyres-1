@@ -3,6 +3,7 @@ import './globals.css'
 import LanguageProvider from '@/components/LanguageProvider'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import ScrollToTop from '@/components/ScrollToTop'
 
 export const metadata: Metadata = {
   title: 'الحبش للإطارات | Al-Habash Tyres — Since 1967',
@@ -24,11 +25,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="bg-brand-cream min-h-screen flex flex-col">
+      <body className="bg-brand-dark min-h-screen flex flex-col">
         <LanguageProvider>
           <Navbar />
-          <main className="flex-1 pt-16">{children}</main>
+          <main className="flex-1 pt-20 sm:pt-24">{children}</main>
           <Footer />
+          <ScrollToTop />
         </LanguageProvider>
       </body>
     </html>

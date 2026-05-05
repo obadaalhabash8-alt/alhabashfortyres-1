@@ -1,14 +1,19 @@
 'use client'
 
-import { use, useEffect, useState } from 'react'
+import { use, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/hooks/useLanguage'
 import Gallery from '@/components/Gallery'
 import StarRating, { AverageStars } from '@/components/StarRating'
+import RatingForm from '@/components/RatingForm'
 import { getShopById } from '@/lib/shops'
 import type { Rating } from '@/types'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -27,6 +32,7 @@ export default function ShopDetailPage({ params }: PageProps) {
 function ShopDetailContent({ shopId }: { shopId: number }) {
   const { t, lang, isRTL } = useLanguage()
   const shop = getShopById(shopId)!
+  const pageRef = useRef<HTMLDivElement>(null)
 
   const [ratings, setRatings] = useState<Rating[]>([])
   const [avgRating, setAvgRating] = useState(0)
@@ -52,10 +58,42 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
     fetchData()
   }, [shopId])
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.detail-section',
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+          scrollTrigger: { trigger: '.detail-main', start: 'top 85%' },
+        }
+      )
+      gsap.fromTo(
+        '.service-badge',
+        { opacity: 0, scale: 0.95 },
+        {
+          opacity: 1, scale: 1, duration: 0.4, stagger: 0.05, ease: 'back.out(1.4)',
+          scrollTrigger: { trigger: '.services-grid', start: 'top 85%' },
+        }
+      )
+    }, pageRef)
+    return () => ctx.revert()
+  }, [])
+
+  function onRatingSubmitted() {
+    fetch(`/api/ratings?shop_id=${shopId}`)
+      .then((r) => r.json())
+      .then((d) => setRatings(d.ratings ?? []))
+    fetch(`/api/average-rating?shop_id=${shopId}`)
+      .then((r) => r.json())
+      .then((d) => setAvgRating(d.average ?? 0))
+  }
+
   return (
-    <div className={`min-h-screen ${isRTL ? 'text-right' : 'text-left'}`}>
-      {/* Hero image */}
-      <div className="relative h-64 sm:h-80 lg:h-96 bg-brand-dark overflow-hidden">
+    <div ref={pageRef} className={`min-h-screen bg-brand-dark ${isRTL ? 'text-right' : 'text-left'}`}>
+
+      {/* Hero */}
+      <div className="relative h-72 sm:h-96 bg-brand-darker overflow-hidden">
         <Image
           src={shop.coverImage}
           alt={shop.name[lang]}
@@ -63,104 +101,98 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-hero-pattern" />
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-brand-orange" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-brand-dark" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent" />
 
-        {/* Back button */}
+        {/* Back */}
         <Link
           href="/shops"
-          className={`absolute top-6 ${isRTL ? 'right-4 sm:right-8' : 'left-4 sm:left-8'} flex items-center gap-2 bg-black/50 text-white px-4 py-2 rounded-xl backdrop-blur-sm hover:bg-black/70 transition-colors font-cairo text-sm`}
+          className={`absolute top-20 sm:top-6 ${isRTL ? 'right-4 sm:right-8' : 'left-4 sm:left-8'} flex items-center gap-2 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-xl hover:bg-black/70 transition-colors font-cairo text-sm border border-white/10`}
         >
           <BackArrow isRTL={isRTL} />
           {t.common.back}
         </Link>
 
-        {/* Title overlay */}
-        <div className={`absolute bottom-6 ${isRTL ? 'right-4 sm:right-8' : 'left-4 sm:left-8'}`}>
-          <h1 className="text-2xl sm:text-3xl font-black text-white font-cairo text-shadow">
-            {shop.name[lang]}
-          </h1>
-          <p className="text-brand-gold font-cairo text-sm mt-1">{shop.tagline[lang]}</p>
-        </div>
-
         {/* Founded badge */}
         {shop.founded && (
-          <div className={`absolute top-6 ${isRTL ? 'left-4 sm:left-8' : 'right-4 sm:right-8'} bg-brand-orange text-white text-sm font-bold px-3 py-1.5 rounded-full font-cairo`}>
+          <div className={`absolute top-20 sm:top-6 ${isRTL ? 'left-4 sm:left-8' : 'right-4 sm:right-8'} bg-brand-orange text-white text-xs font-bold px-3 py-1.5 rounded-lg font-cairo`}>
             {t.common.since} {shop.founded}
           </div>
         )}
+
+        {/* Title */}
+        <div className={`absolute bottom-8 ${isRTL ? 'right-4 sm:right-8' : 'left-4 sm:left-8'}`}>
+          <h1 className="text-3xl sm:text-4xl font-black text-white font-cairo text-shadow leading-tight">
+            {shop.name[lang]}
+          </h1>
+          <p className="text-brand-gold font-cairo text-sm mt-1.5">{shop.tagline[lang]}</p>
+        </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-14">
-        {/* Overview grid */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Description + services */}
-          <div className="lg:col-span-2 space-y-8">
+      {/* Body */}
+      <div className="detail-main max-w-6xl mx-auto px-4 sm:px-8 py-12 sm:py-16">
+        <div className="grid lg:grid-cols-3 gap-10">
+
+          {/* Main content */}
+          <div className="lg:col-span-2 space-y-14">
+
             {/* Description */}
-            <section>
-              <p className="text-gray-600 font-cairo leading-relaxed text-base sm:text-lg">
+            <section className="detail-section">
+              <p className="text-brand-secondary font-cairo leading-relaxed text-base sm:text-lg">
                 {shop.description[lang]}
               </p>
             </section>
 
             {/* Services */}
-            <section>
+            <section className="detail-section">
               <SectionTitle>{t.shop.services_title}</SectionTitle>
 
-              {/* Shared services */}
-              <div className="mb-6">
-                <h3 className="text-brand-dark font-semibold font-cairo mb-3 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-brand-orange inline-block" />
+              <div className="mb-8">
+                <h3 className="text-brand-muted font-semibold font-cairo mb-4 text-sm uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-3 h-px bg-brand-orange inline-block" />
                   {t.shop.shared_services}
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div className="services-grid grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {shop.sharedServices.map((s, i) => (
-                    <ServiceBadge key={i} label={s[lang]} icon="🔧" />
+                    <ServiceBadge key={i} label={s[lang]} />
                   ))}
                 </div>
               </div>
 
-              {/* Unique services */}
               <div>
-                <h3 className="text-brand-dark font-semibold font-cairo mb-3 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-brand-gold inline-block" />
+                <h3 className="text-brand-muted font-semibold font-cairo mb-4 text-sm uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-3 h-px bg-brand-gold inline-block" />
                   {t.shop.unique_services}
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {shop.uniqueServices.map((s, i) => (
-                    <ServiceBadge key={i} label={s[lang]} icon="⭐" accent />
+                    <ServiceBadge key={i} label={s[lang]} accent />
                   ))}
                 </div>
               </div>
             </section>
 
             {/* Gallery */}
-            <section>
+            <section className="detail-section">
               <SectionTitle>{t.shop.gallery_title}</SectionTitle>
               <Gallery images={shop.images} altPrefix={shop.name[lang]} />
             </section>
 
-            {/* Ratings list */}
-            <section>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            {/* Reviews */}
+            <section className="detail-section">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                 <div>
                   <SectionTitle>{t.shop.ratings_title}</SectionTitle>
                   {!loadingRatings && ratings.length > 0 && (
                     <AverageStars rating={avgRating} count={ratings.length} />
                   )}
                 </div>
-                <Link
-                  href={`/rate?shop=${shopId}`}
-                  className="flex-shrink-0 bg-brand-orange hover:bg-brand-orange-dark text-white px-5 py-2.5 rounded-xl font-cairo font-semibold text-sm transition-colors"
-                >
-                  {t.shop.rate_this_shop}
-                </Link>
               </div>
 
               {loadingRatings ? (
                 <LoadingSpinner />
               ) : ratings.length === 0 ? (
-                <EmptyRatings message={t.shop.no_ratings} shopId={shopId} t={t} />
+                <EmptyRatings />
               ) : (
                 <div className="space-y-4">
                   {ratings.map((r) => (
@@ -169,24 +201,31 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
                 </div>
               )}
             </section>
+
+            {/* Inline rating form */}
+            <section className="detail-section">
+              <SectionTitle>{t.shop.rate_this_shop}</SectionTitle>
+              <div className="bg-brand-surface border border-brand-border rounded-2xl p-6 sm:p-8">
+                <RatingForm shopId={shopId} onSuccess={onRatingSubmitted} />
+              </div>
+            </section>
           </div>
 
-          {/* Sidebar: contact + map */}
+          {/* Sidebar */}
           <div className="space-y-6">
-            {/* Contact card */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-20">
+            <div className="bg-brand-surface border border-brand-border rounded-2xl p-6">
               <SectionTitle>{t.shop.contact_title}</SectionTitle>
 
-              {/* Working hours */}
-              <div className="mb-5">
-                <p className="text-xs text-gray-400 font-cairo mb-1">{t.shop.working_hours}</p>
-                <p className="text-sm text-brand-dark font-cairo font-medium">{shop.workingHours[lang]}</p>
+              {/* Hours */}
+              <div className="mb-6">
+                <p className="text-xs text-brand-muted font-cairo mb-1 uppercase tracking-widest">{t.shop.working_hours}</p>
+                <p className="text-sm text-white font-cairo font-medium">{shop.workingHours[lang]}</p>
               </div>
 
-              {/* Call button */}
+              {/* Call */}
               <a
                 href={`tel:${shop.phone}`}
-                className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-brand-orange-dark text-white font-bold py-3.5 px-4 rounded-xl transition-colors font-cairo mb-3"
+                className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-brand-orange-dark text-white font-bold py-3.5 px-4 rounded-xl transition-colors font-cairo mb-3 text-sm"
               >
                 <PhoneIcon />
                 {t.shop.call_now}
@@ -198,7 +237,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
                   href={`https://wa.me/${shop.whatsapp.replace(/[^0-9]/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3.5 px-4 rounded-xl transition-colors font-cairo mb-4"
+                  className="flex items-center justify-center gap-2 w-full bg-[#25d366] hover:bg-[#1ebe5d] text-white font-bold py-3.5 px-4 rounded-xl transition-colors font-cairo mb-5 text-sm"
                 >
                   <WhatsAppIcon />
                   {t.shop.whatsapp}
@@ -206,27 +245,27 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
               )}
 
               {/* Address */}
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-xs text-gray-400 font-cairo mb-1">{lang === 'ar' ? 'العنوان' : 'Address'}</p>
-                <p className="text-sm text-brand-dark font-cairo">{shop.address[lang]}</p>
-                <p className="text-sm text-gray-500 font-cairo">{shop.city[lang]}</p>
+              <div className="pt-5 border-t border-brand-border">
+                <p className="text-xs text-brand-muted font-cairo mb-1 uppercase tracking-widest">{lang === 'ar' ? 'العنوان' : 'Address'}</p>
+                <p className="text-sm text-brand-secondary font-cairo">{shop.address[lang]}</p>
+                <p className="text-sm text-brand-muted font-cairo">{shop.city[lang]}</p>
               </div>
 
-              {/* Phone (display) */}
-              <div className="mt-3 pt-3 border-t border-gray-100">
-                <p className="text-xs text-gray-400 font-cairo mb-1">{lang === 'ar' ? 'الهاتف' : 'Phone'}</p>
-                <p className="text-sm text-brand-dark font-cairo font-medium" dir="ltr">{shop.phone}</p>
+              {/* Phone */}
+              <div className="mt-4 pt-4 border-t border-brand-border">
+                <p className="text-xs text-brand-muted font-cairo mb-1 uppercase tracking-widest">{lang === 'ar' ? 'الهاتف' : 'Phone'}</p>
+                <p className="text-sm text-brand-secondary font-cairo font-medium" dir="ltr">{shop.phone}</p>
               </div>
             </div>
 
             {/* Map */}
-            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+            <div className="bg-brand-surface border border-brand-border rounded-2xl overflow-hidden">
               <div className="relative w-full h-52">
                 <iframe
                   src={shop.mapEmbed}
                   width="100%"
                   height="100%"
-                  style={{ border: 0 }}
+                  style={{ border: 0, filter: 'grayscale(20%) contrast(1.1)' }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -239,7 +278,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
                   href={shop.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full border-2 border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white font-semibold py-2.5 px-4 rounded-xl transition-colors font-cairo text-sm"
+                  className="flex items-center justify-center gap-2 w-full border border-brand-border text-brand-secondary hover:border-brand-orange hover:text-brand-orange font-semibold py-2.5 px-4 rounded-xl transition-all font-cairo text-sm"
                 >
                   <MapPinIcon />
                   {t.shop.open_maps}
@@ -257,23 +296,23 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-xl sm:text-2xl font-black text-brand-dark font-cairo mb-4 flex items-center gap-2">
-      <span className="w-1 h-6 rounded-full bg-brand-orange inline-block" />
+    <h2 className="text-xl sm:text-2xl font-black text-white font-cairo mb-5 flex items-center gap-3">
+      <span className="w-1 h-5 rounded-full bg-brand-orange inline-block flex-shrink-0" />
       {children}
     </h2>
   )
 }
 
-function ServiceBadge({ label, icon, accent = false }: { label: string; icon: string; accent?: boolean }) {
+function ServiceBadge({ label, accent = false }: { label: string; accent?: boolean }) {
   return (
     <div
-      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-cairo ${
+      className={`service-badge flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-cairo ${
         accent
-          ? 'bg-brand-gold/10 text-brand-dark border border-brand-gold/30'
-          : 'bg-brand-cream text-brand-dark border border-gray-200'
+          ? 'bg-brand-gold/8 text-brand-secondary border border-brand-gold/20'
+          : 'bg-brand-surface-2 text-brand-secondary border border-brand-border'
       }`}
     >
-      <span className="text-base">{icon}</span>
+      <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${accent ? 'bg-brand-gold' : 'bg-brand-orange'}`} />
       {label}
     </div>
   )
@@ -281,34 +320,33 @@ function ServiceBadge({ label, icon, accent = false }: { label: string; icon: st
 
 function RatingCard({ rating, isRTL }: { rating: Rating; isRTL: boolean }) {
   return (
-    <div className={`bg-white rounded-2xl p-5 border border-gray-100 shadow-sm ${isRTL ? 'text-right' : 'text-left'}`}>
+    <div className={`bg-brand-surface border border-brand-border rounded-2xl p-5 ${isRTL ? 'text-right' : 'text-left'}`}>
       <div className="flex items-start justify-between gap-4 mb-2">
         <div>
-          <p className="font-bold text-brand-dark font-cairo">{rating.name}</p>
+          <p className="font-bold text-white font-cairo text-sm">{rating.name}</p>
           <StarRating value={rating.rating} size="sm" />
         </div>
-        <p className="text-xs text-gray-400 font-cairo flex-shrink-0">
+        <p className="text-xs text-brand-muted font-cairo flex-shrink-0">
           {new Date(rating.created_at).toLocaleDateString('ar-SA', { year: 'numeric', month: 'short', day: 'numeric' })}
         </p>
       </div>
       {rating.comment && (
-        <p className="text-gray-600 text-sm font-cairo leading-relaxed mt-2">{rating.comment}</p>
+        <p className="text-brand-secondary text-sm font-cairo leading-relaxed mt-2">{rating.comment}</p>
       )}
     </div>
   )
 }
 
-function EmptyRatings({ message, shopId, t }: { message: string; shopId: number; t: any }) {
+function EmptyRatings() {
+  const { t } = useLanguage()
   return (
-    <div className="text-center py-10 bg-white rounded-2xl border border-gray-100">
-      <p className="text-4xl mb-3">⭐</p>
-      <p className="text-gray-500 font-cairo mb-4">{message}</p>
-      <Link
-        href={`/rate?shop=${shopId}`}
-        className="inline-flex items-center gap-2 bg-brand-orange text-white px-6 py-2.5 rounded-xl font-cairo font-semibold text-sm hover:bg-brand-orange-dark transition-colors"
-      >
-        {t.shop.rate_this_shop}
-      </Link>
+    <div className="py-10 text-center bg-brand-surface border border-brand-border rounded-2xl">
+      <div className="w-10 h-10 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center mx-auto mb-4">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-brand-orange">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      </div>
+      <p className="text-brand-muted font-cairo text-sm">{t.shop.no_ratings}</p>
     </div>
   )
 }
@@ -316,23 +354,14 @@ function EmptyRatings({ message, shopId, t }: { message: string; shopId: number;
 function LoadingSpinner() {
   return (
     <div className="flex justify-center py-10">
-      <div className="w-8 h-8 rounded-full border-4 border-brand-orange border-t-transparent animate-spin" />
+      <div className="w-7 h-7 rounded-full border-2 border-brand-orange border-t-transparent animate-spin" />
     </div>
   )
 }
 
 function BackArrow({ isRTL }: { isRTL: boolean }) {
   return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      className={isRTL ? '' : 'rotate-180'}
-    >
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={isRTL ? '' : 'rotate-180'}>
       <line x1="5" y1="12" x2="19" y2="12" />
       <polyline points="12 5 19 12 12 19" />
     </svg>
@@ -341,7 +370,7 @@ function BackArrow({ isRTL }: { isRTL: boolean }) {
 
 function PhoneIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.62 4.89 2 2 0 0 1 3.59 2.7h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.09a16 16 0 0 0 6 6l.89-.89a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.63 17.5z" />
     </svg>
   )
@@ -349,7 +378,7 @@ function PhoneIcon() {
 
 function WhatsAppIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
     </svg>
   )
@@ -357,7 +386,7 @@ function WhatsAppIcon() {
 
 function MapPinIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
       <circle cx="12" cy="10" r="3" />
     </svg>

@@ -52,7 +52,7 @@ export default function Gallery({ images, altPrefix = 'Shop image' }: Props) {
           <button
             key={i}
             onClick={() => openLightbox(i)}
-            className="relative aspect-square rounded-xl overflow-hidden bg-gray-100 group focus:outline-none focus:ring-2 focus:ring-brand-orange"
+            className="relative aspect-square rounded-xl overflow-hidden bg-brand-surface-2 group focus:outline-none focus:ring-2 focus:ring-brand-orange"
             aria-label={`${altPrefix} ${i + 1}`}
           >
             <Image
@@ -110,14 +110,14 @@ export default function Gallery({ images, altPrefix = 'Shop image' }: Props) {
             <>
               <button
                 onClick={(e) => { e.stopPropagation(); prev() }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-black/40 rounded-full p-3 transition-colors"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-brand-dark/40 hover:bg-brand-dark/60 rounded-full p-3 transition-colors border border-white/10"
                 aria-label="Previous"
               >
                 <ChevronLeftIcon />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); next() }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-black/40 rounded-full p-3 transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-brand-dark/40 hover:bg-brand-dark/60 rounded-full p-3 transition-colors border border-white/10"
                 aria-label="Next"
               >
                 <ChevronRightIcon />

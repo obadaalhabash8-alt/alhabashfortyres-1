@@ -18,14 +18,14 @@ export const LanguageContext = createContext<LanguageContextValue | null>(null)
 export default function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLang] = useState<Language>('ar')
 
-  // Sync direction attribute and persist preference
   useEffect(() => {
     const saved = localStorage.getItem('lang') as Language | null
     if (saved === 'ar' || saved === 'en') setLang(saved)
   }, [])
 
   useEffect(() => {
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'
+    // Layout is always RTL — only the language attribute changes for accessibility
+    document.documentElement.dir = 'rtl'
     document.documentElement.lang = lang
     localStorage.setItem('lang', lang)
   }, [lang])
@@ -37,7 +37,8 @@ export default function LanguageProvider({ children }: { children: React.ReactNo
   const t = lang === 'ar' ? ar : en
 
   return (
-    <LanguageContext.Provider value={{ lang, t, toggleLanguage, isRTL: lang === 'ar' }}>
+    // isRTL is always true — direction never flips
+    <LanguageContext.Provider value={{ lang, t, toggleLanguage, isRTL: true }}>
       {children}
     </LanguageContext.Provider>
   )

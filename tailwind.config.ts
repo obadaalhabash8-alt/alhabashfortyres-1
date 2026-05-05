@@ -10,17 +10,28 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          orange: '#ff8c00',
-          'orange-dark': '#e07800',
-          'orange-light': '#ffaa33',
-          dark: '#1a1a1a',
-          darker: '#0f0f0f',
-          cream: '#faf8f4',
-          'cream-dark': '#f0ece4',
-          gold: '#d4a853',
-          'gold-light': '#e8c070',
-          gray: '#4a4a4a',
-          'gray-light': '#8a8a8a',
+          // Orange
+          orange: '#F97316',
+          'orange-dark': '#EA580C',
+          'orange-light': '#FDBA74',
+          // Backgrounds
+          dark: '#0F0F0F',
+          darker: '#0F0F0F',
+          surface: '#18181B',
+          'surface-2': '#1f1f23',
+          border: '#27272A',
+          // Text
+          white: '#FFFFFF',
+          secondary: '#A1A1AA',
+          muted: '#71717A',
+          // Accent
+          gold: '#D4AF37',
+          'gold-light': '#e8c878',
+          // Legacy aliases (keep so old references don't break)
+          cream: '#18181B',
+          'cream-dark': '#27272A',
+          gray: '#71717A',
+          'gray-light': '#A1A1AA',
         },
       },
       fontFamily: {
@@ -28,9 +39,9 @@ const config: Config = {
       },
       backgroundImage: {
         'hero-pattern':
-          "linear-gradient(135deg, rgba(26,26,26,0.92) 0%, rgba(26,26,26,0.75) 100%)",
+          'linear-gradient(135deg, rgba(15,15,15,0.92) 0%, rgba(15,15,15,0.65) 100%)',
         'card-gradient':
-          'linear-gradient(180deg, transparent 40%, rgba(26,26,26,0.85) 100%)',
+          'linear-gradient(180deg, transparent 30%, rgba(15,15,15,0.95) 100%)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

@@ -58,21 +58,23 @@ function StarIcon({
   partialPercent: number
 }) {
   const id = `partial-${Math.random().toString(36).slice(2, 7)}`
+  const colorOrange = '#F97316'
+  const colorMuted = '#27272A'
 
   return (
     <svg width={size} height={size} viewBox="0 0 24 24">
       {partial && (
         <defs>
           <linearGradient id={id}>
-            <stop offset={`${partialPercent}%`} stopColor="#ff8c00" />
-            <stop offset={`${partialPercent}%`} stopColor="#d1d5db" />
+            <stop offset={`${partialPercent}%`} stopColor={colorOrange} />
+            <stop offset={`${partialPercent}%`} stopColor={colorMuted} />
           </linearGradient>
         </defs>
       )}
       <path
         d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-        fill={filled ? '#ff8c00' : partial ? `url(#${id})` : '#d1d5db'}
-        stroke={filled || partial ? '#ff8c00' : '#d1d5db'}
+        fill={filled ? colorOrange : partial ? `url(#${id})` : colorMuted}
+        stroke={filled || partial ? colorOrange : colorMuted}
         strokeWidth="0.5"
       />
     </svg>
@@ -84,8 +86,8 @@ export function AverageStars({ rating, count }: { rating: number; count: number 
   return (
     <div className="flex items-center gap-2">
       <StarRating value={rating} size="sm" />
-      <span className="text-brand-dark font-bold text-sm">{rating.toFixed(1)}</span>
-      <span className="text-gray-400 text-xs">({count})</span>
+      <span className="text-white font-bold text-sm">{rating.toFixed(1)}</span>
+      <span className="text-brand-secondary text-xs">({count})</span>
     </div>
   )
 }

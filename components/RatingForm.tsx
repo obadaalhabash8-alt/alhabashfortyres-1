@@ -1,18 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { useLanguage } from '@/hooks/useLanguage'
 import StarRating from '@/components/StarRating'
 import { shops } from '@/lib/shops'
 
 interface Props {
   shopId: number | null
+  onSuccess?: () => void
 }
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
-export default function RatingForm({ shopId }: Props) {
+export default function RatingForm({ shopId, onSuccess }: Props) {
   const { t, lang, isRTL } = useLanguage()
   const shop = shopId ? shops.find((s) => s.id === shopId) : null
 
@@ -24,22 +24,8 @@ export default function RatingForm({ shopId }: Props) {
 
   if (!shop) {
     return (
-      <div className={`text-center py-16 ${isRTL ? 'text-right' : 'text-left'}`}>
-        <div className="text-6xl mb-4">🔍</div>
-        <h2 className="text-2xl font-bold text-brand-dark font-cairo mb-2">
-          {t.rate.shop_not_found}
-        </h2>
-        <p className="text-gray-500 font-cairo mb-6">
-          {lang === 'ar'
-            ? 'يرجى استخدام رابط QR الصحيح أو تصفح فروعنا'
-            : 'Please use the correct QR link or browse our branches'}
-        </p>
-        <Link
-          href="/shops"
-          className="inline-flex items-center gap-2 bg-brand-orange text-white px-6 py-3 rounded-xl font-cairo font-semibold hover:bg-brand-orange-dark transition-colors"
-        >
-          {t.shops_section.view_all}
-        </Link>
+      <div className="py-8 text-center">
+        <p className="text-brand-muted font-cairo text-sm">{t.rate.shop_not_found}</p>
       </div>
     )
   }
@@ -68,6 +54,7 @@ export default function RatingForm({ shopId }: Props) {
 
       if (!res.ok) throw new Error('Server error')
       setFormState('success')
+      onSuccess?.()
     } catch {
       setFormState('error')
     }
@@ -83,95 +70,77 @@ export default function RatingForm({ shopId }: Props) {
 
   if (formState === 'success') {
     return (
-      <div className={`text-center py-12 animate-fade-in ${isRTL ? 'text-right' : 'text-left'}`}>
-        <div className="text-6xl mb-4">🎉</div>
-        <h2 className="text-3xl font-bold text-brand-dark font-cairo mb-3">
-          {t.rate.success_title}
-        </h2>
-        <p className="text-gray-600 font-cairo text-lg mb-8 max-w-md mx-auto">
-          {t.rate.success_message}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <button
-            onClick={reset}
-            className="px-6 py-3 border-2 border-brand-orange text-brand-orange rounded-xl font-cairo font-semibold hover:bg-brand-orange hover:text-white transition-colors"
-          >
-            {t.rate.rate_another}
-          </button>
-          <Link
-            href="/"
-            className="px-6 py-3 bg-brand-dark text-white rounded-xl font-cairo font-semibold hover:bg-brand-gray transition-colors"
-          >
-            {t.nav.home}
-          </Link>
+      <div className={`py-8 text-center animate-fade-in ${isRTL ? 'text-right' : 'text-left'}`}>
+        <div className="w-12 h-12 rounded-full bg-brand-orange/10 border border-brand-orange/30 flex items-center justify-center mx-auto mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-brand-orange">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
         </div>
+        <h3 className="text-xl font-bold text-white font-cairo mb-2">{t.rate.success_title}</h3>
+        <p className="text-brand-secondary font-cairo text-sm mb-6 max-w-xs mx-auto">{t.rate.success_message}</p>
+        <button
+          onClick={reset}
+          className="px-6 py-2.5 border border-brand-border text-brand-secondary hover:border-brand-orange hover:text-brand-orange rounded-xl font-cairo font-semibold text-sm transition-all"
+        >
+          {t.rate.rate_another}
+        </button>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className={`space-y-6 ${isRTL ? 'text-right' : 'text-left'}`} noValidate>
-      {/* Shop info */}
-      <div className="bg-brand-cream rounded-xl p-4 border border-brand-cream-dark">
-        <p className="text-xs text-gray-500 font-cairo mb-1">{t.rate.shop_label}</p>
-        <p className="text-brand-dark font-bold font-cairo text-lg">{shop.name[lang]}</p>
-        <p className="text-gray-500 text-sm font-cairo">{shop.address[lang]}</p>
-      </div>
+    <form onSubmit={handleSubmit} className={`space-y-5 ${isRTL ? 'text-right' : 'text-left'}`} noValidate>
 
       {/* Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-semibold text-brand-dark mb-1.5 font-cairo">
-          {t.rate.name_label} <span className="text-red-500">*</span>
+        <label htmlFor="rating-name" className="block text-xs text-brand-muted font-cairo mb-2 uppercase tracking-widest">
+          {t.rate.name_label} <span className="text-brand-orange">*</span>
         </label>
         <input
-          id="name"
+          id="rating-name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder={t.rate.name_placeholder}
-          className={`w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-brand-orange focus:outline-none transition-colors font-cairo text-brand-dark placeholder-gray-400 bg-white ${
-            isRTL ? 'text-right' : 'text-left'
-          }`}
+          className={`w-full px-4 py-3 bg-brand-surface-2 border border-brand-border rounded-xl focus:border-brand-orange focus:outline-none transition-colors font-cairo text-white placeholder-brand-muted/50 text-sm ${isRTL ? 'text-right' : 'text-left'}`}
           dir={isRTL ? 'rtl' : 'ltr'}
           disabled={formState === 'submitting'}
         />
       </div>
 
-      {/* Star rating */}
+      {/* Stars */}
       <div>
-        <label className="block text-sm font-semibold text-brand-dark mb-3 font-cairo">
-          {t.rate.rating_label} <span className="text-red-500">*</span>
+        <label className="block text-xs text-brand-muted font-cairo mb-3 uppercase tracking-widest">
+          {t.rate.rating_label} <span className="text-brand-orange">*</span>
         </label>
         <div className={isRTL ? 'flex justify-end' : 'flex justify-start'}>
           <StarRating value={rating} onChange={setRating} interactive size="lg" />
         </div>
         {rating > 0 && (
-          <p className="text-sm text-gray-500 font-cairo mt-2">{ratingLabel(rating, lang)}</p>
+          <p className="text-xs text-brand-muted font-cairo mt-2">{ratingLabel(rating, lang)}</p>
         )}
       </div>
 
       {/* Comment */}
       <div>
-        <label htmlFor="comment" className="block text-sm font-semibold text-brand-dark mb-1.5 font-cairo">
+        <label htmlFor="rating-comment" className="block text-xs text-brand-muted font-cairo mb-2 uppercase tracking-widest">
           {t.rate.comment_label}
         </label>
         <textarea
-          id="comment"
+          id="rating-comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder={t.rate.comment_placeholder}
-          rows={4}
-          className={`w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-brand-orange focus:outline-none transition-colors font-cairo text-brand-dark placeholder-gray-400 bg-white resize-none ${
-            isRTL ? 'text-right' : 'text-left'
-          }`}
+          rows={3}
+          className={`w-full px-4 py-3 bg-brand-surface-2 border border-brand-border rounded-xl focus:border-brand-orange focus:outline-none transition-colors font-cairo text-white placeholder-brand-muted/50 text-sm resize-none ${isRTL ? 'text-right' : 'text-left'}`}
           dir={isRTL ? 'rtl' : 'ltr'}
           disabled={formState === 'submitting'}
         />
       </div>
 
-      {/* Error messages */}
+      {/* Error */}
       {(fieldError || formState === 'error') && (
-        <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-600 text-sm font-cairo">
+        <div className="bg-red-500/8 border border-red-500/20 rounded-xl px-4 py-3 text-red-400 text-sm font-cairo">
           {fieldError || t.rate.error_message}
         </div>
       )}
@@ -180,7 +149,7 @@ export default function RatingForm({ shopId }: Props) {
       <button
         type="submit"
         disabled={formState === 'submitting'}
-        className="w-full bg-brand-orange hover:bg-brand-orange-dark disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-colors font-cairo text-lg shadow-md hover:shadow-brand-orange/30 shadow-brand-orange/20"
+        className="w-full bg-brand-orange hover:bg-brand-orange-dark disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3.5 px-6 rounded-xl transition-all duration-200 font-cairo text-sm hover:shadow-lg hover:shadow-brand-orange/20"
       >
         {formState === 'submitting' ? t.rate.submitting : t.rate.submit}
       </button>
@@ -194,7 +163,7 @@ function ratingLabel(rating: number, lang: 'ar' | 'en'): string {
     2: { ar: 'سيء', en: 'Poor' },
     3: { ar: 'مقبول', en: 'Average' },
     4: { ar: 'جيد', en: 'Good' },
-    5: { ar: 'ممتاز!', en: 'Excellent!' },
+    5: { ar: 'ممتاز', en: 'Excellent' },
   }
   return labels[rating]?.[lang] ?? ''
 }
