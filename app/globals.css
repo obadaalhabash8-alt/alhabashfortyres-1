@@ -82,6 +82,12 @@
   }
 }
 
+/* ── Scroll indicator arrow ── */
+@keyframes scrollArrow {
+  0%, 100% { opacity: 0.2; transform: translateY(-4px); }
+  50%       { opacity: 1;   transform: translateY(4px); }
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--brand-bg); }

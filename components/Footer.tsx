@@ -9,7 +9,7 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-brand-dark border-t border-brand-border text-brand-secondary">
+    <footer className="bg-[#111111] border-t border-white/10 text-zinc-400">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 py-10 sm:py-16">
         <div className={`grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 ${isRTL ? 'text-right' : 'text-left'}`}>
 
@@ -28,12 +28,12 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-            <p className="text-sm leading-relaxed font-cairo text-brand-muted">{t.footer.tagline}</p>
+            <p className="text-sm leading-relaxed font-cairo text-zinc-500">{t.footer.tagline}</p>
           </div>
 
           {/* Quick links */}
           <div>
-            <h3 className="text-white font-semibold mb-3 sm:mb-5 font-cairo text-xs sm:text-sm uppercase tracking-widest">{t.footer.links_title}</h3>
+            <h3 className="text-zinc-100 font-semibold mb-3 sm:mb-5 font-cairo text-xs sm:text-sm uppercase tracking-widest">{t.footer.links_title}</h3>
             <ul className="space-y-2 sm:space-y-3">
               {[
                 { href: '/', label: t.nav.home },
@@ -42,7 +42,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-brand-orange transition-colors font-cairo"
+                    className="text-sm text-zinc-400 hover:text-brand-orange transition-colors font-cairo"
                   >
                     {link.label}
                   </Link>
@@ -53,13 +53,13 @@ export default function Footer() {
 
           {/* Branches */}
           <div>
-            <h3 className="text-white font-semibold mb-3 sm:mb-5 font-cairo text-xs sm:text-sm uppercase tracking-widest">{t.common.shops}</h3>
+            <h3 className="text-zinc-100 font-semibold mb-3 sm:mb-5 font-cairo text-xs sm:text-sm uppercase tracking-widest">{t.common.shops}</h3>
             <ul className="space-y-2 sm:space-y-3">
               {shops.map((shop) => (
                 <li key={shop.id}>
                   <Link
                     href={`/shops/${shop.id}`}
-                    className="text-sm hover:text-brand-orange transition-colors font-cairo"
+                    className="text-sm text-zinc-400 hover:text-brand-orange transition-colors font-cairo"
                   >
                     {shop.name[lang]}
                   </Link>
@@ -70,14 +70,14 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="col-span-2 lg:col-span-1">
-            <h3 className="text-white font-semibold mb-3 sm:mb-5 font-cairo text-xs sm:text-sm uppercase tracking-widest">{t.footer.contact_title}</h3>
+            <h3 className="text-zinc-100 font-semibold mb-3 sm:mb-5 font-cairo text-xs sm:text-sm uppercase tracking-widest">{t.footer.contact_title}</h3>
             <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3 sm:gap-4">
               {shops.map((shop) => (
                 <li key={shop.id} className="font-cairo">
-                  <span className="text-brand-muted block text-xs mb-0.5">{shop.name[lang]}</span>
+                  <span className="text-zinc-500 block text-xs mb-0.5">{shop.name[lang]}</span>
                   <a
                     href={`tel:${shop.phone}`}
-                    className="text-sm hover:text-brand-orange transition-colors"
+                    className="text-sm text-zinc-400 hover:text-brand-orange transition-colors"
                     dir="ltr"
                   >
                     {shop.phone}
@@ -89,7 +89,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-8 sm:mt-12 pt-5 sm:pt-6 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-cairo">
+        <div className="mt-8 sm:mt-12 pt-5 sm:pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-cairo text-zinc-500">
           <span>
             {lang === 'ar'
               ? `© ${year} الحبش للإطارات. جميع الحقوق محفوظة.`

@@ -115,10 +115,13 @@ function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-        <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-1.5">
-          <div className="w-1 h-2.5 bg-white/40 rounded-full animate-bounce" />
-        </div>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-orange animate-[scrollArrow_1.4s_ease-in-out_infinite]">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-orange/50 animate-[scrollArrow_1.4s_ease-in-out_0.2s_infinite]">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
       </div>
     </section>
   )
