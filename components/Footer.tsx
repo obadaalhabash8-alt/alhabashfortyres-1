@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguage } from '@/hooks/useLanguage'
 import { shops } from '@/lib/shops'
@@ -16,9 +17,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 rounded-full bg-brand-orange flex items-center justify-center flex-shrink-0">
-                <TyreIcon />
-              </div>
+              <Image
+                src="https://i.ibb.co/n81DPvRB/image.png"
+                alt="Al-Habash Tyres Logo"
+                width={36}
+                height={36}
+                className="w-9 h-9 object-cover rounded-full flex-shrink-0"
+              />
               <div>
                 <p className="text-white font-bold font-cairo text-sm">
                   {lang === 'ar' ? 'الحبش للإطارات' : 'Al-Habash Tyres'}
@@ -101,15 +106,3 @@ export default function Footer() {
   )
 }
 
-function TyreIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-white">
-      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
-      <line x1="12" y1="2" x2="12" y2="8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="12" y1="16" x2="12" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="2" y1="12" x2="8" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="16" y1="12" x2="22" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  )
-}
