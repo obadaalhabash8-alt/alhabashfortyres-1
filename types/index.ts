@@ -44,4 +44,5 @@ export interface TimelineEvent {
   year: number
   title: LocalizedString
   description: LocalizedString
+  image?: string
 }

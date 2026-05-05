@@ -323,14 +323,26 @@ function TimelineSection() {
                       : isRTL ? 'sm:mr-auto sm:pl-0 sm:pr-10' : 'sm:ml-auto sm:pr-0 sm:pl-10'
                     }`}
                 >
-                  <div className="bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange/30 transition-colors">
-                    <span className="text-brand-orange font-black text-2xl font-cairo">{event.year}</span>
-                    <h3 className="text-brand-white font-bold text-base font-cairo mt-1">
-                      {event.title[lang]}
-                    </h3>
-                    <p className="text-brand-muted text-sm font-cairo mt-2 leading-relaxed">
-                      {event.description[lang]}
-                    </p>
+                  <div className="group relative bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange/30 transition-colors overflow-hidden">
+                    {event.image && (
+                      <>
+                        <div 
+                          className="absolute inset-0 z-0 opacity-15 group-hover:opacity-30 transition-opacity duration-500 bg-cover bg-center mix-blend-luminosity"
+                          style={{ backgroundImage: `url(${event.image})` }}
+                        />
+                        {/* Gradient overlay to ensure text readability */}
+                        <div className="absolute inset-0 z-[1] bg-gradient-to-t from-brand-surface via-transparent to-transparent opacity-80" />
+                      </>
+                    )}
+                    <div className="relative z-10">
+                      <span className="text-brand-orange font-black text-2xl font-cairo">{event.year}</span>
+                      <h3 className="text-brand-white font-bold text-base font-cairo mt-1">
+                        {event.title[lang]}
+                      </h3>
+                      <p className="text-brand-muted text-sm font-cairo mt-2 leading-relaxed">
+                        {event.description[lang]}
+                      </p>
+                    </div>
                   </div>
                 </div>
 

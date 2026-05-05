@@ -171,6 +171,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'تأسس أول محل للحبش للإطارات في قلب المدينة، ليبدأ مسيرة طويلة من الخدمة والثقة.',
       en: 'The first Al-Habash Tyres shop was founded in the heart of the city, beginning a long journey of service and trust.',
     },
+    image: 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=800&q=80',
   },
   {
     year: 1975,
@@ -179,6 +180,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'توسعة المحل الأصلي وإدخال أحدث معدات الإطارات الأوروبية لتحسين جودة الخدمة.',
       en: 'Expansion of the original shop and introduction of the latest European tyre equipment to improve service quality.',
     },
+    image: 'https://images.unsplash.com/photo-1587560699334-bea93391dcef?w=800&q=80',
   },
   {
     year: 1985,
@@ -187,6 +189,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'الطلب المتزايد من العملاء أدى إلى افتتاح الفرع الثاني في شمال المدينة، ليصبح الأول في المنطقة.',
       en: 'Growing customer demand led to opening the second branch in the north of the city, becoming the first in the region.',
     },
+    image: 'https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=800&q=80',
   },
   {
     year: 1995,
@@ -195,6 +198,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'دخول عصر التكنولوجيا الحديثة مع أجهزة ضبط الزوايا الإلكترونية وأنظمة التوازن الرقمية.',
       en: 'Entering the modern technology era with electronic alignment systems and digital wheel balancing equipment.',
     },
+    image: 'https://images.unsplash.com/photo-1632823471683-12d7c58ed074?w=800&q=80',
   },
   {
     year: 2005,
@@ -203,6 +207,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'افتتاح فرع الجنوب المتخصص في خدمة المركبات الثقيلة والشركات، ليكتمل المثلث الخدمي.',
       en: 'Opening of the South Branch specializing in heavy vehicles and commercial services, completing the service triangle.',
     },
+    image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80',
   },
   {
     year: 2015,
@@ -211,6 +216,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'إضافة خدمات حماية الطلاء PPF والطلاء السيراميكي والتلميع الاحترافي في فرع الشمال.',
       en: 'Addition of PPF paint protection, ceramic coating and professional detailing services at the North Branch.',
     },
+    image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&q=80',
   },
   {
     year: 2024,
@@ -219,6 +225,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'أكثر من ٥٥ عاماً من الخدمة المتميزة، ونحن نواصل مسيرتنا بنفس الالتزام والإتقان.',
       en: 'Over 55 years of distinguished service, and we continue our journey with the same commitment and excellence.',
     },
+    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80',
   },
 ]
 
