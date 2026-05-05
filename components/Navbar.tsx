@@ -91,8 +91,8 @@ export default function Navbar() {
               aria-label="Toggle language"
             >
               <GlobeIcon />
-              <span className="hidden sm:inline min-w-[40px] text-center">{lang === 'ar' ? 'English' : 'عربي'}</span>
-              <span className="sm:hidden">{lang === 'ar' ? 'EN' : 'عر'}</span>
+              <span className="hidden sm:inline min-w-[40px] text-center">{lang === 'ar' ? 'EN' : 'AR'}</span>
+              <span className="sm:hidden">{lang === 'ar' ? 'EN' : 'AR'}</span>
             </button>
 
             {/* Theme toggle */}
