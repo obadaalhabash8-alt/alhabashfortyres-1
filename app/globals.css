@@ -9,9 +9,9 @@
   :root {
     --brand-bg: #FAFAF9;
     --brand-bg-alt: #EDEDE9;
-    --brand-surface: #F5F5F4;
-    --brand-surface-2: #FFFFFF;
-    --brand-border: #E4E4E7;
+    --brand-surface: #E4E4E0;
+    --brand-surface-2: #EAEAE6;
+    --brand-border: #D4D4D0;
     --brand-text-primary: #18181B;
     --brand-text-secondary: #52525B;
     --brand-text-muted: #71717A;
