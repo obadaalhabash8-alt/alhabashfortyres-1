@@ -61,8 +61,8 @@ function HeroSection() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 text-center pt-24 sm:pt-28">
         {/* Badge */}
         <div className="hero-badge inline-flex items-center gap-2.5 border border-brand-orange/30 bg-brand-orange/10 text-brand-orange px-5 py-2 rounded-full text-xs font-cairo font-semibold uppercase tracking-widest mb-10 backdrop-blur-sm">
-          <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
-          {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'} — {lang === 'ar' ? 'المملكة العربية السعودية' : 'Saudi Arabia'}
+
+          {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'} — {lang === 'ar' ? 'دمشق' : 'Damascus'}
         </div>
 
         {/* Heading — always white on photo */}
@@ -228,7 +228,7 @@ function StorySection() {
               </div>
             </div>
             <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-brand-orange text-white px-6 py-3 rounded-xl shadow-xl shadow-brand-orange/20 font-cairo font-bold text-sm whitespace-nowrap">
-              {lang === 'ar' ? 'منذ ١٩٦٧ · أكثر من ٥٥ عاماً' : 'Since 1967 · 55+ Years'}
+              {lang === 'ar' ? 'أكثر من ٥٥ عاماً' : 'More Than 55 Years'}
             </div>
           </div>
         </div>
@@ -304,28 +304,24 @@ function TimelineSection() {
             {timelineEvents.map((event, i) => (
               <div
                 key={event.year}
-                className={`relative flex items-start gap-6 sm:gap-0 ${
-                  i % 2 === 0
-                    ? isRTL ? 'sm:flex-row-reverse' : 'sm:flex-row'
-                    : isRTL ? 'sm:flex-row' : 'sm:flex-row-reverse'
-                }`}
+                className={`relative flex items-start gap-6 sm:gap-0 ${i % 2 === 0
+                  ? isRTL ? 'sm:flex-row-reverse' : 'sm:flex-row'
+                  : isRTL ? 'sm:flex-row' : 'sm:flex-row-reverse'
+                  }`}
               >
                 {/* Dot */}
                 <div
-                  className={`absolute w-3 h-3 rounded-full bg-brand-orange border-2 border-brand-dark z-10 top-4 ${
-                    isRTL ? 'right-2.5 sm:right-[calc(50%-6px)]' : 'left-2.5 sm:left-[calc(50%-6px)]'
-                  }`}
+                  className={`absolute w-3 h-3 rounded-full bg-brand-orange border-2 border-brand-dark z-10 top-4 ${isRTL ? 'right-2.5 sm:right-[calc(50%-6px)]' : 'left-2.5 sm:left-[calc(50%-6px)]'
+                    }`}
                 />
 
                 {/* Card */}
                 <div
-                  className={`w-full sm:w-[calc(50%-2rem)] ${
-                    isRTL ? 'pr-10 sm:pr-0 sm:pl-10' : 'pl-10 sm:pl-0 sm:pr-10'
-                  } ${
-                    i % 2 === 0
+                  className={`w-full sm:w-[calc(50%-2rem)] ${isRTL ? 'pr-10 sm:pr-0 sm:pl-10' : 'pl-10 sm:pl-0 sm:pr-10'
+                    } ${i % 2 === 0
                       ? isRTL ? 'sm:pl-10' : 'sm:pr-10'
                       : isRTL ? 'sm:mr-auto sm:pl-0 sm:pr-10' : 'sm:ml-auto sm:pr-0 sm:pl-10'
-                  }`}
+                    }`}
                 >
                   <div className="bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange/30 transition-colors">
                     <span className="text-brand-orange font-black text-2xl font-cairo">{event.year}</span>
