@@ -118,6 +118,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={() => setMenuOpen(false)}
                 className={`flex items-center px-4 py-3.5 text-sm font-bold rounded-xl font-cairo transition-all ${
                   isActive(link.href)
                     ? 'text-brand-orange bg-brand-orange/8'
