@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabaseServer'
 
-// In-memory rate limit: 5 submissions per IP per shop per hour.
+// In-memory rate limit: 15 submissions per IP per shop per hour.
 // Resets on server restart/cold-start; adequate for a small business site.
 // Upgrade to Upstash Redis for persistent limits across serverless instances.
 const rateLimitStore = new Map<string, { count: number; windowStart: number }>()
-const RATE_MAX = 5
+const RATE_MAX = 15
 const RATE_WINDOW_MS = 60 * 60 * 1000 // 1 hour
 
 function isRateLimited(ip: string, shopId: number): boolean {
