@@ -9,7 +9,6 @@ import { useLanguage } from '@/hooks/useLanguage'
 import Gallery from '@/components/Gallery'
 import StarRating, { AverageStars } from '@/components/StarRating'
 import RatingForm from '@/components/RatingForm'
-import { QRCodeSVG } from 'qrcode.react'
 import { getShopById } from '@/lib/shops'
 import WhatsAppModal from '@/components/WhatsAppModal'
 import type { Rating } from '@/types'
@@ -42,12 +41,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
   const [loadingRatings, setLoadingRatings] = useState(true)
   const [loadingMore, setLoadingMore] = useState(false)
   const [avgRating, setAvgRating] = useState(0)
-  const [pageUrl, setPageUrl] = useState('')
   const [whatsappOpen, setWhatsappOpen] = useState(false)
-
-  useEffect(() => {
-    setPageUrl(window.location.href)
-  }, [shopId])
 
   useEffect(() => {
     async function fetchInitial() {
@@ -258,7 +252,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
             </section>
 
             {/* Inline rating form */}
-            <section className="detail-section">
+            <section id="rate-form" className="detail-section">
               <SectionTitle>{t.shop.rate_this_shop}</SectionTitle>
               <div className="bg-brand-surface border border-brand-border rounded-2xl p-6 sm:p-8">
                 <RatingForm shopId={shopId} onSuccess={onRatingSubmitted} />
@@ -339,24 +333,6 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
               </div>
             </div>
 
-            {/* QR Code */}
-            <div className="bg-brand-surface border border-brand-border rounded-2xl p-6 text-center">
-              <p className="text-xs text-brand-muted font-cairo mb-4 uppercase tracking-widest">
-                {lang === 'ar' ? 'امسح الرمز للمشاركة' : 'Scan to Share'}
-              </p>
-              <div className="bg-white p-3 rounded-xl inline-block shadow-lg">
-                {pageUrl ? (
-                  <QRCodeSVG value={pageUrl} size={120} level="H" />
-                ) : (
-                  <div className="w-[120px] h-[120px] bg-gray-100 rounded animate-pulse" />
-                )}
-              </div>
-              <p className="text-[10px] text-brand-muted font-cairo mt-4 leading-relaxed px-2">
-                {lang === 'ar'
-                  ? 'يمكنك مسح الرمز لمشاركة موقع هذا الفرع وتفاصيله مع الآخرين'
-                  : 'Scan this QR code to quickly share this branch location and details'}
-              </p>
-            </div>
           </div>
         </div>
       </div>
