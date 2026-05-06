@@ -1,6 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabaseServer'
 
+// In-memory rate limit: 5 submissions per IP per shop per hour.
+// Resets on server restart/cold-start; adequate for a small business site.
+// Upgrade to Upstash Redis for persistent limits across serverless instances.
+const rateLimitStore = new Map<string, { count: number; windowStart: number }>()
+const RATE_MAX = 5
+const RATE_WINDOW_MS = 60 * 60 * 1000 // 1 hour
+
+function isRateLimited(ip: string, shopId: number): boolean {
+  const key = `${ip}:${shopId}`
+  const now = Date.now()
+  const entry = rateLimitStore.get(key)
+  if (!entry || now - entry.windowStart > RATE_WINDOW_MS) {
+    rateLimitStore.set(key, { count: 1, windowStart: now })
+    return false
+  }
+  if (entry.count >= RATE_MAX) return true
+  entry.count++
+  return false
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
@@ -27,6 +47,18 @@ export async function POST(req: NextRequest) {
     const shopIdNum = Number(shop_id)
     if (![1, 2, 3].includes(shopIdNum)) {
       return NextResponse.json({ error: 'Invalid shop_id' }, { status: 400 })
+    }
+
+    // Rate limit — generous window so multiple customers at the same location can all review
+    const ip =
+      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      req.headers.get('x-real-ip') ||
+      'unknown'
+    if (isRateLimited(ip, shopIdNum)) {
+      return NextResponse.json(
+        { error: 'Too many submissions from this location. Please try again later.' },
+        { status: 429 }
+      )
     }
 
     const { data, error } = await supabaseAdmin

@@ -11,6 +11,7 @@ import StarRating, { AverageStars } from '@/components/StarRating'
 import RatingForm from '@/components/RatingForm'
 import { QRCodeSVG } from 'qrcode.react'
 import { getShopById } from '@/lib/shops'
+import WhatsAppModal from '@/components/WhatsAppModal'
 import type { Rating } from '@/types'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -42,6 +43,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
   const [loadingMore, setLoadingMore] = useState(false)
   const [avgRating, setAvgRating] = useState(0)
   const [pageUrl, setPageUrl] = useState('')
+  const [whatsappOpen, setWhatsappOpen] = useState(false)
 
   useEffect(() => {
     setPageUrl(window.location.href)
@@ -284,17 +286,15 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
                 {t.shop.call_now}
               </a>
 
-              {/* WhatsApp */}
+              {/* WhatsApp — opens inquiry modal */}
               {shop.whatsapp && (
-                <a
-                  href={`https://wa.me/${shop.whatsapp.replace(/[^0-9]/g, '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => setWhatsappOpen(true)}
                   className="flex items-center justify-center gap-2 w-full bg-[#25d366] hover:bg-[#1ebe5d] text-white font-bold py-3.5 px-4 rounded-xl transition-colors font-cairo mb-5 text-sm"
                 >
                   <WhatsAppIcon />
                   {t.shop.whatsapp}
-                </a>
+                </button>
               )}
 
               {/* Address */}
@@ -360,6 +360,11 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
           </div>
         </div>
       </div>
+      <WhatsAppModal
+        isOpen={whatsappOpen}
+        onClose={() => setWhatsappOpen(false)}
+        shop={shop}
+      />
     </div>
   )
 }

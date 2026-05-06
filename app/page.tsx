@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import gsap from 'gsap'
@@ -361,6 +361,22 @@ function BranchesSection() {
   const { t, lang } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
+  const [shopRatings, setShopRatings] = useState<Record<number, { average: number; count: number }>>({})
+
+  useEffect(() => {
+    Promise.all(
+      shops.map((shop) =>
+        fetch(`/api/average-rating?shop_id=${shop.id}`)
+          .then((r) => r.json())
+          .then((data) => ({ id: shop.id, average: data.average ?? 0, count: data.count ?? 0 }))
+          .catch(() => ({ id: shop.id, average: 0, count: 0 }))
+      )
+    ).then((results) => {
+      const map: Record<number, { average: number; count: number }> = {}
+      results.forEach((r) => { map[r.id] = { average: r.average, count: r.count } })
+      setShopRatings(map)
+    })
+  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -408,7 +424,12 @@ function BranchesSection() {
 
         <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {shops.map((shop) => (
-            <ShopCard key={shop.id} shop={shop} />
+            <ShopCard
+              key={shop.id}
+              shop={shop}
+              avgRating={shopRatings[shop.id]?.average}
+              ratingCount={shopRatings[shop.id]?.count}
+            />
           ))}
         </div>
       </div>

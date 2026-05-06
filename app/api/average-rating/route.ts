@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabaseServer'
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
@@ -14,12 +14,26 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'shop_id must be a number' }, { status: 400 })
   }
 
-  // count + sum via a single aggregate query — scales to any number of rows
-  const { data, error } = await supabase
+  const admin = getSupabaseAdmin()
+
+  // Fast path: single DB aggregate via RPC (run supabase/get_shop_average_rating.sql once to enable)
+  const { data: rpcData, error: rpcError } = await admin
+    .rpc('get_shop_average_rating', { p_shop_id: shopId })
+    .single()
+
+  if (!rpcError && rpcData) {
+    return NextResponse.json({
+      average: Number(rpcData.average) ?? 0,
+      count: Number(rpcData.count) ?? 0,
+    })
+  }
+
+  // Fallback: JS-side aggregation (works before the SQL function is deployed)
+  const { data, error } = await admin
     .from('ratings')
     .select('rating')
     .eq('shop_id', shopId)
-    .limit(10000) // safety ceiling — replace with a DB aggregate RPC for extreme scale
+    .limit(10000)
 
   if (error) {
     console.error('Average rating error:', error)
@@ -31,7 +45,6 @@ export async function GET(req: NextRequest) {
   }
 
   const total = data.reduce((sum, row) => sum + row.rating, 0)
-
   return NextResponse.json({
     average: Math.round((total / data.length) * 10) / 10,
     count: data.length,
