@@ -94,7 +94,17 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-8 sm:mt-12 pt-5 sm:pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-cairo text-zinc-500">
+        <div className="mt-8 sm:mt-12 pt-5 sm:pt-6 border-t border-white/10 flex flex-col items-center gap-3 text-xs font-cairo text-zinc-500">
+          <a
+            href="https://www.instagram.com/alhabashfortyres?igsh=MTNoZWtqeDgwNjJ2dw=="
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-zinc-400 hover:text-brand-orange transition-colors"
+            aria-label="Instagram"
+          >
+            <InstagramIcon />
+            <span className="font-cairo">@alhabashfortyres</span>
+          </a>
           <span>
             {lang === 'ar'
               ? `© ${year} الحبش للإطارات. جميع الحقوق محفوظة.`
@@ -103,6 +113,16 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+  )
+}
+
+function InstagramIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+    </svg>
   )
 }
 

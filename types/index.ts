@@ -5,6 +5,12 @@ export interface LocalizedString {
   en: string
 }
 
+export interface ShopSchedule {
+  days: number[] // 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+  open: string   // "08:00"
+  close: string  // "22:00"
+}
+
 export interface Shop {
   id: number
   name: LocalizedString
@@ -22,6 +28,7 @@ export interface Shop {
   uniqueServices: LocalizedString[]
   founded?: number
   workingHours: LocalizedString
+  schedule: ShopSchedule[]
 }
 
 export interface Rating {

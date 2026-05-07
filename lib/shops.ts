@@ -54,6 +54,10 @@ export const shops: Shop[] = [
       ar: 'السبت – الخميس: ٨ص – ١٠م | الجمعة: ٢م – ١٠م',
       en: 'Sat–Thu: 8 AM – 10 PM | Fri: 2 PM – 10 PM',
     },
+    schedule: [
+      { days: [0, 1, 2, 3, 4, 6], open: '08:00', close: '22:00' },
+      { days: [5],                 open: '14:00', close: '22:00' },
+    ],
   },
   {
     id: 2,
@@ -107,6 +111,10 @@ export const shops: Shop[] = [
       ar: 'السبت – الخميس: ٩ص – ١٠م | الجمعة: ٣م – ١٠م',
       en: 'Sat–Thu: 9 AM – 10 PM | Fri: 3 PM – 10 PM',
     },
+    schedule: [
+      { days: [0, 1, 2, 3, 4, 6], open: '09:00', close: '22:00' },
+      { days: [5],                 open: '15:00', close: '22:00' },
+    ],
   },
   {
     id: 3,
@@ -160,6 +168,10 @@ export const shops: Shop[] = [
       ar: 'السبت – الخميس: ٧ص – ١١م | الجمعة: ٢م – ١١م',
       en: 'Sat–Thu: 7 AM – 11 PM | Fri: 2 PM – 11 PM',
     },
+    schedule: [
+      { days: [0, 1, 2, 3, 4, 6], open: '07:00', close: '23:00' },
+      { days: [5],                 open: '14:00', close: '23:00' },
+    ],
   },
 ]
 

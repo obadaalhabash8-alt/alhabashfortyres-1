@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguage } from '@/hooks/useLanguage'
+import { useShopStatus } from '@/hooks/useShopStatus'
 import type { Shop } from '@/types'
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 
 export default function ShopCard({ shop, avgRating, ratingCount }: Props) {
   const { t, lang, isRTL } = useLanguage()
+  const isOpen = useShopStatus(shop.schedule)
 
   return (
     <div className="group bg-brand-surface border border-brand-border rounded-2xl overflow-hidden card-hover">
@@ -34,6 +36,18 @@ export default function ShopCard({ shop, avgRating, ratingCount }: Props) {
             {t.common.since} {shop.founded}
           </div>
         )}
+
+        {/* Open / Closed badge */}
+        <div className={`absolute top-3 ${isRTL ? 'left-3' : 'right-3'} flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold font-cairo backdrop-blur-sm border ${
+          isOpen
+            ? 'bg-green-500/20 border-green-500/40 text-green-400'
+            : 'bg-red-500/20 border-red-500/40 text-red-400'
+        }`}>
+          <span className={`w-1.5 h-1.5 rounded-full ${isOpen ? 'bg-green-400' : 'bg-red-400'}`} />
+          {isOpen
+            ? (lang === 'ar' ? 'مفتوح' : 'Open')
+            : (lang === 'ar' ? 'مغلق' : 'Closed')}
+        </div>
 
         {/* Rating badge */}
         {avgRating !== undefined && avgRating > 0 && (
