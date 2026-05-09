@@ -70,12 +70,12 @@ function HeroSection() {
           {lang === 'ar' ? (
             <>
               <span className="block text-brand-orange">الحبش</span>
-              <span className="block text-brand-nardo">للإطارات</span>
+              <span className="block text-gray-400">للإطارات</span>
             </>
           ) : (
             <>
               <span className="block text-brand-orange">Al-Habash</span>
-              <span className="block text-brand-nardo">Tyres</span>
+              <span className="block text-gray-400">Tyres</span>
             </>
           )}
         </h1>
