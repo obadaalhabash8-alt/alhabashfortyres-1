@@ -44,10 +44,10 @@ function HeroSection() {
       {/* Background */}
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=85"
+          src="https://i.ibb.co/svGZcC6V/Whats-App-Image-2026-05-09-at-4-16-17-PM.jpg"
           alt=""
           fill
-          className="object-cover"
+          className="object-contain object-center"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-[#0F0F0F]" />
