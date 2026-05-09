@@ -22,7 +22,7 @@ const en: Translations = {
   story: {
     title: 'Our Story',
     subtitle: 'A journey of passion and craftsmanship across the decades',
-    body: 'The Al-Habash Tyres story began in 1967, founded with a small shop and a big dream. Over more than five decades, the company has grown from a single shop to three full-service branches, serving thousands of customers annually with the highest standards of quality and integrity.',
+    body: 'The Al-Habash Tyres Company story began in 1967, founded with a small shop and a big dream. Over more than five decades, the company has grown from a single shop to three full-service branches, serving thousands of customers annually with the highest standards of quality and integrity.',
   },
 
   timeline: {
@@ -76,7 +76,7 @@ const en: Translations = {
   footer: {
     tagline: 'Quality you can trust since 1967',
     rights: 'All rights reserved',
-    company: 'Al-Habash Tyres',
+    company: 'Al-Habash Tyres Company',
     links_title: 'Quick Links',
     contact_title: 'Contact',
     follow_us: 'Follow Us',

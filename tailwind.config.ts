@@ -28,6 +28,7 @@ const config: Config = {
           
           // Accents
           gold: '#D4AF37',
+          nardo: '#9B9EA0',
         },
       },
       fontFamily: {

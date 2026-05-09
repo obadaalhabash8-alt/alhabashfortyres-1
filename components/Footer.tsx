@@ -26,7 +26,7 @@ export default function Footer() {
               />
               <div>
                 <p className="text-white font-bold font-cairo text-sm">
-                  {lang === 'ar' ? 'الحبش للإطارات' : 'Al-Habash Tyres'}
+                  {lang === 'ar' ? 'شركة الحبش للإطارات' : 'Al-Habash Tyres Company'}
                 </p>
                 <p className="text-brand-orange text-[11px] font-cairo">
                   {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'}
@@ -107,8 +107,8 @@ export default function Footer() {
           </a>
           <span>
             {lang === 'ar'
-              ? `© ${year} الحبش للإطارات. جميع الحقوق محفوظة.`
-              : `© ${year} Al-Habash Tyres. All rights reserved.`}
+              ? `© ${year} شركة الحبش للإطارات. جميع الحقوق محفوظة.`
+              : `© ${year} Al-Habash Tyres Company. All rights reserved.`}
           </span>
         </div>
       </div>

@@ -33,20 +33,18 @@ export default function Navbar() {
     href === '/' ? pathname === '/' : pathname.startsWith(href)
 
   return (
-    <nav className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 border-b ${
-      scrolled
-        ? 'bg-brand-dark/95 backdrop-blur-md border-brand-border shadow-lg shadow-black/20'
-        : 'bg-brand-dark border-transparent'
+    <nav className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 border-b bg-brand-dark/95 backdrop-blur-md border-brand-border ${
+      scrolled ? 'shadow-lg shadow-black/20' : 'sm:bg-brand-dark sm:border-transparent sm:shadow-none'
     }`}>
       {/* Premium top accent line */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent opacity-50" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-8">
         {/* Desktop & Mobile row */}
-        <div className="flex items-center h-16 sm:h-20 gap-2 sm:gap-4">
+        <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
 
-          {/* Logo — always visible, right-anchored in RTL */}
-          <Link href="/" className="flex items-center gap-2.5 group shrink-0 mr-auto sm:mr-0">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             <Image
               src="https://i.ibb.co/n81DPvRB/image.png"
               alt="Al-Habash Tyres Logo"
@@ -57,7 +55,7 @@ export default function Navbar() {
             />
             <div className="text-right leading-none">
               <p className="text-brand-white font-black text-sm sm:text-base leading-none font-cairo tracking-tight whitespace-nowrap">
-                {lang === 'ar' ? 'الحبش للإطارات' : 'Al-Habash Tyres'}
+                {lang === 'ar' ? 'شركة الحبش للإطارات' : 'Al-Habash Tyres Co.'}
               </p>
               <p className="text-brand-orange text-[9px] sm:text-[10px] font-bold font-cairo mt-0.5 tracking-widest uppercase">
                 {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'}
@@ -83,7 +81,7 @@ export default function Navbar() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3 ml-auto sm:ml-0">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Language toggle */}
             <button
               onClick={toggleLanguage}

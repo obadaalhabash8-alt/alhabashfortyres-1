@@ -7,9 +7,9 @@ import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
 
 export const metadata: Metadata = {
-  title: 'الحبش للإطارات | Al-Habash Tyres — Since 1967',
+  title: 'شركة الحبش للإطارات | Al-Habash Tyres Company — Since 1967',
   description:
-    'الحبش للإطارات — خمسة عقود من الخبرة والثقة في خدمات الإطارات وصيانة السيارات. ثلاثة فروع في خدمتكم. Al-Habash Tyres — Five decades of expertise and trust.',
+    'شركة الحبش للإطارات — خمسة عقود من الخبرة والثقة في خدمات الإطارات وصيانة السيارات. ثلاثة فروع في خدمتكم. Al-Habash Tyres Company — Five decades of expertise and trust.',
   keywords: 'إطارات, تغيير زيت, ضبط زوايا, الرياض, tyres, tires, Riyadh, Saudi Arabia',
   openGraph: {
     title: 'الحبش للإطارات | Al-Habash Tyres',

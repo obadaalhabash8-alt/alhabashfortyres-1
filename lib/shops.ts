@@ -4,8 +4,8 @@ export const shops: Shop[] = [
   {
     id: 1,
     name: {
-      ar: 'الحبش للإطارات — الفرع الرئيسي',
-      en: 'Al-Habash Tyres — Main Branch',
+      ar: 'الفرع الأول',
+      en: 'First Branch',
     },
     tagline: {
       ar: 'أول محل وأكثره عراقة منذ ١٩٦٧',
@@ -51,19 +51,18 @@ export const shops: Shop[] = [
       { ar: 'جديد كامل لمظهر السيارة', en: 'Full Car Detailing Restoration' },
     ],
     workingHours: {
-      ar: 'السبت – الخميس: ٨ص – ١٠م | الجمعة: ٢م – ١٠م',
-      en: 'Sat–Thu: 8 AM – 10 PM | Fri: 2 PM – 10 PM',
+      ar: 'يومياً: ٨ص – ٨م',
+      en: 'Daily: 8 AM – 8 PM',
     },
     schedule: [
-      { days: [0, 1, 2, 3, 4, 6], open: '08:00', close: '22:00' },
-      { days: [5],                 open: '14:00', close: '22:00' },
+      { days: [0, 1, 2, 3, 4, 5, 6], open: '08:00', close: '20:00' },
     ],
   },
   {
     id: 2,
     name: {
-      ar: 'الحبش للإطارات — فرع الشمال',
-      en: 'Al-Habash Tyres — North Branch',
+      ar: 'الفرع الثاني',
+      en: 'Second Branch',
     },
     tagline: {
       ar: 'خبرة المتخصصين في حماية وصيانة سيارتك',
@@ -108,19 +107,18 @@ export const shops: Shop[] = [
       { ar: 'تظليل الزجاج بأفضل المواد', en: 'Premium window tinting' },
     ],
     workingHours: {
-      ar: 'السبت – الخميس: ٩ص – ١٠م | الجمعة: ٣م – ١٠م',
-      en: 'Sat–Thu: 9 AM – 10 PM | Fri: 3 PM – 10 PM',
+      ar: 'يومياً: ٨ص – ٨م',
+      en: 'Daily: 8 AM – 8 PM',
     },
     schedule: [
-      { days: [0, 1, 2, 3, 4, 6], open: '09:00', close: '22:00' },
-      { days: [5],                 open: '15:00', close: '22:00' },
+      { days: [0, 1, 2, 3, 4, 5, 6], open: '08:00', close: '20:00' },
     ],
   },
   {
     id: 3,
     name: {
-      ar: 'الحبش للإطارات — فرع الجنوب',
-      en: 'Al-Habash Tyres — South Branch',
+      ar: 'الفرع الثالث',
+      en: 'Third Branch',
     },
     tagline: {
       ar: 'متخصصون في المركبات الثقيلة والأسطول التجاري',
@@ -165,12 +163,11 @@ export const shops: Shop[] = [
       { ar: 'خدمة الطوارئ ٢٤ ساعة للشاحنات', en: '24-hour emergency truck service' },
     ],
     workingHours: {
-      ar: 'السبت – الخميس: ٧ص – ١١م | الجمعة: ٢م – ١١م',
-      en: 'Sat–Thu: 7 AM – 11 PM | Fri: 2 PM – 11 PM',
+      ar: 'يومياً: ٨ص – ٦م',
+      en: 'Daily: 8 AM – 6 PM',
     },
     schedule: [
-      { days: [0, 1, 2, 3, 4, 6], open: '07:00', close: '23:00' },
-      { days: [5],                 open: '14:00', close: '23:00' },
+      { days: [0, 1, 2, 3, 4, 5, 6], open: '08:00', close: '18:00' },
     ],
   },
 ]

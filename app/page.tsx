@@ -69,13 +69,13 @@ function HeroSection() {
         <h1 className="hero-title text-5xl sm:text-7xl lg:text-8xl font-black text-white font-cairo leading-none tracking-tight mb-6 text-shadow">
           {lang === 'ar' ? (
             <>
-              <span className="block">الحبش</span>
-              <span className="block text-brand-orange">للإطارات</span>
+              <span className="block text-brand-orange">الحبش</span>
+              <span className="block text-brand-nardo">للإطارات</span>
             </>
           ) : (
             <>
-              <span className="block">Al-Habash</span>
-              <span className="block text-brand-orange">Tyres</span>
+              <span className="block text-brand-orange">Al-Habash</span>
+              <span className="block text-brand-nardo">Tyres</span>
             </>
           )}
         </h1>
@@ -100,11 +100,10 @@ function HeroSection() {
         </div>
 
         {/* Stats */}
-        <div className="hero-stats mt-20 grid grid-cols-3 gap-px max-w-md mx-auto border border-white/10 rounded-2xl overflow-hidden bg-white/10">
+        <div className="hero-stats mt-20 grid grid-cols-2 gap-px max-w-xs mx-auto border border-white/10 rounded-2xl overflow-hidden bg-white/10">
           {[
             { value: lang === 'ar' ? '+٥٥' : '55+', label: lang === 'ar' ? 'سنة خبرة' : 'Years' },
             { value: '3', label: lang === 'ar' ? 'فروع' : 'Branches' },
-            { value: lang === 'ar' ? '+١٠ آلاف' : '10K+', label: lang === 'ar' ? 'عميل' : 'Customers' },
           ].map((stat) => (
             <div key={stat.label} className="bg-black/30 backdrop-blur-sm px-4 py-5 text-center">
               <p className="text-brand-orange text-2xl sm:text-3xl font-black font-cairo">{stat.value}</p>
