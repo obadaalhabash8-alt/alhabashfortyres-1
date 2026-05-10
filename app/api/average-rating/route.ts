@@ -22,9 +22,10 @@ export async function GET(req: NextRequest) {
     .single()
 
   if (!rpcError && rpcData) {
+    const row = rpcData as { average: unknown; count: unknown }
     return NextResponse.json({
-      average: Number(rpcData.average) ?? 0,
-      count: Number(rpcData.count) ?? 0,
+      average: Number(row.average) ?? 0,
+      count: Number(row.count) ?? 0,
     })
   }
 
