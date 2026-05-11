@@ -114,15 +114,19 @@ https://your-domain.com/rate?shop=3
 
 ## Customising shop data
 
-All shop content is in [`lib/shops.ts`](lib/shops.ts). Update per shop:
+Open the file `lib/shops.ts` in VS Code (or any code editor). It contains all shop information as plain TypeScript objects — just edit the values, save the file, and the site updates.
+
+Fields to update per shop:
 
 - `phone` / `whatsapp` — real phone numbers
-- `address` / `city` — real addresses in AR and EN
-- `mapUrl` — Google Maps link
-- `mapEmbed` — from Google Maps → Share → Embed a map → copy the `src` value
-- `coverImage` — hero image for the shop page (hardcoded URL or upload to a host)
+- `address` / `city` — real addresses in Arabic (`ar`) and English (`en`)
+- `mapUrl` — the Google Maps link for the location
+- `mapEmbed` — from Google Maps → Share → Embed a map → copy the `src` value from the iframe code
+- `coverImage` — the hero image shown at the top of the shop page
 
-Gallery photos (the "Our Gallery" section) are managed through the admin dashboard and stored in Supabase Storage — no code changes needed.
+After editing, commit and push to GitHub and Vercel will automatically redeploy.
+
+> Gallery photos (the "Our Gallery" section on each shop page) are managed through the admin dashboard — no code changes needed for those.
 
 ---
 
