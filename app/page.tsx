@@ -38,54 +38,89 @@ function HeroSection() {
     return () => ctx.revert()
   }, [])
 
+  const IMG_SRC = "https://i.ibb.co/svGZcC6V/Whats-App-Image-2026-05-09-at-4-16-17-PM.jpg"
+
   return (
-    // -mt-16 sm:-mt-20 pulls the hero up behind the navbar so the photo fills edge-to-edge
-    <section ref={containerRef} className="relative -mt-16 sm:-mt-20 min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <Image
-          src="https://i.ibb.co/svGZcC6V/Whats-App-Image-2026-05-09-at-4-16-17-PM.jpg"
-          alt=""
-          fill
-          className="object-contain object-center"
-          priority
-        />
+    <section ref={containerRef} className="sm:relative sm:-mt-20 sm:min-h-screen sm:flex sm:items-center sm:justify-center sm:overflow-hidden">
+
+      {/* ── MOBILE: full image on top, content below ── */}
+      <div className="sm:hidden">
+        {/* Image — full width, natural height, no crop */}
+        <div className="relative w-full bg-black">
+          <Image
+            src={IMG_SRC}
+            alt=""
+            width={1080}
+            height={1080}
+            className="w-full h-auto"
+            priority
+          />
+            {/* fade bottom edge into page background */}
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-brand-dark" />
+        </div>
+        {/* Content */}
+        <div className="bg-brand-dark px-6 pb-16 pt-4 text-center">
+          <div className="hero-badge inline-flex items-center gap-2.5 border border-brand-orange/30 bg-brand-orange/10 text-brand-orange px-4 py-1.5 rounded-full text-xs font-cairo font-semibold uppercase tracking-widest mb-6">
+            {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'} — {lang === 'ar' ? 'دمشق' : 'Damascus'}
+          </div>
+          <h1 className="hero-title text-5xl font-black font-cairo leading-none tracking-tight mb-5 text-brand-white">
+            {lang === 'ar' ? (
+              <><span className="block text-brand-orange">الحبش</span><span className="block text-brand-secondary">للإطارات</span></>
+            ) : (
+              <><span className="block text-brand-orange">Al-Habash</span><span className="block text-brand-secondary">Tyres</span></>
+            )}
+          </h1>
+          <p className="hero-tagline text-brand-muted text-base font-cairo font-light max-w-xs mx-auto mb-8 leading-relaxed">
+            {t.hero.tagline}
+          </p>
+          <div className="hero-cta mb-10">
+            <Link
+              href="/#branches"
+              className="inline-flex items-center gap-3 bg-brand-orange text-white font-bold px-8 py-3.5 rounded-xl text-sm font-cairo transition-all duration-300"
+            >
+              {t.hero.cta_shops}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+              </svg>
+            </Link>
+          </div>
+          <div className="hero-stats grid grid-cols-2 gap-px max-w-[220px] mx-auto border border-brand-border rounded-2xl overflow-hidden bg-brand-surface">
+            {[
+              { value: lang === 'ar' ? '+٥٥' : '55+', label: lang === 'ar' ? 'سنة خبرة' : 'Years' },
+              { value: '3', label: lang === 'ar' ? 'فروع' : 'Branches' },
+            ].map((stat) => (
+              <div key={stat.label} className="bg-brand-surface-2 px-4 py-4 text-center">
+                <p className="text-brand-orange text-2xl font-black font-cairo">{stat.value}</p>
+                <p className="text-brand-muted text-xs font-cairo mt-0.5">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── DESKTOP: full-screen image with overlay content ── */}
+      <div className="hidden sm:block absolute inset-0">
+        <Image src={IMG_SRC} alt="" fill className="object-cover object-center" priority />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-[#0F0F0F]" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
       </div>
 
-      {/* Orange bottom accent */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-brand-orange/60" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-brand-orange/60 hidden sm:block" />
 
-      {/* Content — pt accounts for navbar height */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 text-center pt-24 sm:pt-28">
-        {/* Badge */}
+      <div className="hidden sm:block relative z-10 max-w-4xl mx-auto px-8 text-center pt-28">
         <div className="hero-badge inline-flex items-center gap-2.5 border border-brand-orange/30 bg-brand-orange/10 text-brand-orange px-5 py-2 rounded-full text-xs font-cairo font-semibold uppercase tracking-widest mb-10 backdrop-blur-sm">
-
           {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'} — {lang === 'ar' ? 'دمشق' : 'Damascus'}
         </div>
-
-        {/* Heading — always white on photo */}
-        <h1 className="hero-title text-5xl sm:text-7xl lg:text-8xl font-black text-white font-cairo leading-none tracking-tight mb-6 text-shadow">
+        <h1 className="hero-title text-7xl lg:text-8xl font-black text-white font-cairo leading-none tracking-tight mb-6 text-shadow">
           {lang === 'ar' ? (
-            <>
-              <span className="block text-brand-orange">الحبش</span>
-              <span className="block text-gray-400">للإطارات</span>
-            </>
+            <><span className="block text-brand-orange">الحبش</span><span className="block text-gray-400">للإطارات</span></>
           ) : (
-            <>
-              <span className="block text-brand-orange">Al-Habash</span>
-              <span className="block text-gray-400">Tyres</span>
-            </>
+            <><span className="block text-brand-orange">Al-Habash</span><span className="block text-gray-400">Tyres</span></>
           )}
         </h1>
-
-        {/* Tagline */}
-        <p className="hero-tagline text-white/80 text-lg sm:text-xl font-cairo font-light max-w-xl mx-auto mb-12 leading-relaxed">
+        <p className="hero-tagline text-white/80 text-xl font-cairo font-light max-w-xl mx-auto mb-12 leading-relaxed">
           {t.hero.tagline}
         </p>
-
-        {/* CTA */}
         <div className="hero-cta">
           <Link
             href="/#branches"
@@ -93,28 +128,25 @@ function HeroSection() {
           >
             {t.hero.cta_shops}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
+              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
             </svg>
           </Link>
         </div>
-
-        {/* Stats */}
         <div className="hero-stats mt-20 grid grid-cols-2 gap-px max-w-xs mx-auto border border-white/10 rounded-2xl overflow-hidden bg-white/10">
           {[
             { value: lang === 'ar' ? '+٥٥' : '55+', label: lang === 'ar' ? 'سنة خبرة' : 'Years' },
             { value: '3', label: lang === 'ar' ? 'فروع' : 'Branches' },
           ].map((stat) => (
             <div key={stat.label} className="bg-black/30 backdrop-blur-sm px-4 py-5 text-center">
-              <p className="text-brand-orange text-2xl sm:text-3xl font-black font-cairo">{stat.value}</p>
+              <p className="text-brand-orange text-3xl font-black font-cairo">{stat.value}</p>
               <p className="text-white/60 text-xs font-cairo mt-0.5">{stat.label}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+      {/* Scroll indicator — desktop only */}
+      <div className="hidden sm:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-1">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-orange animate-[scrollArrow_1.4s_ease-in-out_infinite]">
           <polyline points="6 9 12 15 18 9" />
         </svg>
