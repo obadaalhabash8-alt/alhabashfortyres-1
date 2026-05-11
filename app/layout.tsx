@@ -1,10 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import LanguageProvider from '@/components/LanguageProvider'
-import { ThemeProvider } from '@/components/ThemeProvider'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import ScrollToTop from '@/components/ScrollToTop'
 
 export const metadata: Metadata = {
   title: 'شركة الحبش للإطارات | Al-Habash Tyres Company — Since 1967',
@@ -24,7 +19,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Prevent flash: apply dark class before React hydrates */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){var t=localStorage.getItem('theme')||'dark';if(t==='dark')document.documentElement.classList.add('dark')})()`,
@@ -32,14 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-brand-dark min-h-screen flex flex-col">
-        <LanguageProvider>
-          <ThemeProvider>
-            <Navbar />
-            <main className="flex-1 pt-16 sm:pt-20">{children}</main>
-            <Footer />
-            <ScrollToTop />
-          </ThemeProvider>
-        </LanguageProvider>
+        {children}
       </body>
     </html>
   )

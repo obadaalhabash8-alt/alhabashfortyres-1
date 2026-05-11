@@ -1,33 +1,26 @@
 # الحبش للإطارات — Al-Habash Tyres
 
-Production-ready website for a 3-branch tyre business. Arabic-first, bilingual (AR/EN), mobile-first.
+Marketing and reviews website for Al-Habash Tyres Company (شركة الحبش للإطارات), established 1967. Arabic-first, bilingual (AR/EN), mobile-first.
 
-**Stack:** Next.js 15 · React 19 · Tailwind CSS · Supabase (PostgreSQL) · Vercel
+**Stack:** Next.js 15 · React 19 · Tailwind CSS · Supabase (PostgreSQL + Storage) · Vercel
 
 ---
 
-## Running locally in 3 steps
+## Running locally
 
-### Step 1 — Create your `.env.local` file
-
-Copy the example file and fill it in:
+### Step 1 — Install dependencies
 
 ```bash
-cp .env.local.example .env.local
+npm install
 ```
 
-Open `.env.local` and paste your Supabase credentials (see Step 2 for where to find them):
-
-```
-NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...
-```
+> If `node_modules/` already exists (e.g. cloned with it), skip this step.
 
 ### Step 2 — Set up Supabase (one-time)
 
 1. Go to [supabase.com](https://supabase.com) → create a free account → **New project**
-2. Once the project is ready, open the **SQL Editor** and run this:
+
+2. Open **SQL Editor** and run:
 
 ```sql
 CREATE TABLE ratings (
@@ -45,45 +38,36 @@ CREATE POLICY "read ratings"   ON ratings FOR SELECT USING (true);
 CREATE POLICY "insert ratings" ON ratings FOR INSERT WITH CHECK (true);
 ```
 
-3. Go to **Project Settings → API** and copy:
-   - **Project URL** → `NEXT_PUBLIC_SUPABASE_URL`
-   - **anon / public** key → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - **service_role** key → `SUPABASE_SERVICE_ROLE_KEY`
+3. Go to **Storage → New bucket**:
+   - Name: `shop-gallery`
+   - Public: **on**
 
-### Step 3 — Start the dev server
+4. Go to **Project Settings → API** and copy your keys (needed in Step 3).
+
+### Step 3 — Create `.env.local`
+
+Create a file called `.env.local` in the project root:
+
+```env
+# From Supabase → Project Settings → API
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# Admin dashboard — choose any strong password
+ADMIN_PASSWORD=your-admin-password
+
+# Generate this once with: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+ADMIN_TOKEN=your-64-char-hex-token
+```
+
+### Step 4 — Start the dev server
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) — the site is live.
-
----
-
-## Do I need to install anything else?
-
-No. `npm install` was already run when the project was built — `node_modules/` is ready.
-
-| Requirement | Status |
-|---|---|
-| Node.js 18+ | Must be installed on your machine |
-| npm packages | Already installed (`node_modules/` exists) |
-| Supabase account | Free tier is enough |
-| Any other software | Nothing else needed |
-
-> If you ever delete `node_modules/` or clone this repo fresh, run `npm install` once to restore it.
-
----
-
-## Testing the QR rating system
-
-While the dev server is running, open these URLs directly in your browser (or phone):
-
-- Shop 1: [http://localhost:3000/rate?shop=1](http://localhost:3000/rate?shop=1)
-- Shop 2: [http://localhost:3000/rate?shop=2](http://localhost:3000/rate?shop=2)
-- Shop 3: [http://localhost:3000/rate?shop=3](http://localhost:3000/rate?shop=3)
-
-Submit a test rating, then open the shop detail page (`/shops/1`) — the review should appear within seconds.
+Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
@@ -93,32 +77,33 @@ Submit a test rating, then open the shop detail page (`/shops/1`) — the review
 |---|---|
 | `/` | Homepage — hero, story, timeline, shop cards |
 | `/shops` | All 3 branches listed |
-| `/shops/1` `/shops/2` `/shops/3` | Detail page — services, gallery, map, reviews |
-| `/rate?shop=1` | QR-accessible rating form for Shop 1 |
+| `/shops/1` `/shops/2` `/shops/3` | Shop detail — services, gallery, map, reviews |
+| `/rate?shop=1` | QR-accessible rating form |
+| `/admin` | Admin dashboard (not linked publicly) |
 
 ---
 
-## Customising before going live
+## Admin dashboard
 
-All shop content lives in one file: [lib/shops.ts](lib/shops.ts)
+Go to `/admin` in the browser. Not linked anywhere on the public site — only accessible if you know the URL.
 
-Update these fields for each shop:
-- `phone` and `whatsapp` — real numbers
-- `address` / `city` — real addresses (AR + EN)
-- `mapUrl` — Google Maps link for the location
-- `mapEmbed` — embed URL from **Google Maps → Share → Embed a map → copy the `src` value**
-- `images` / `coverImage` — replace Unsplash URLs with your own photos
+| Tab | What you can do |
+|-----|----------------|
+| Reviews | Sort, browse, and delete customer reviews |
+| Gallery | Upload and delete shop photos (stored in Supabase Storage) |
+
+The shop switcher in the top bar lets you jump between all 3 shops without going back.
 
 ---
 
 ## Deploying to Vercel
 
-1. Push this folder to a GitHub repository
+1. Push to a GitHub repository
 2. Go to [vercel.com](https://vercel.com) → **New Project** → import the repo
-3. In **Environment Variables**, add all 3 variables from your `.env.local`
+3. Add all 5 environment variables from `.env.local` in Vercel's project settings
 4. Click **Deploy**
 
-After deploying, generate QR codes pointing to:
+After deploying, QR codes should point to:
 ```
 https://your-domain.com/rate?shop=1
 https://your-domain.com/rate?shop=2
@@ -127,37 +112,46 @@ https://your-domain.com/rate?shop=3
 
 ---
 
+## Customising shop data
+
+All shop content is in [`lib/shops.ts`](lib/shops.ts). Update per shop:
+
+- `phone` / `whatsapp` — real phone numbers
+- `address` / `city` — real addresses in AR and EN
+- `mapUrl` — Google Maps link
+- `mapEmbed` — from Google Maps → Share → Embed a map → copy the `src` value
+- `coverImage` — hero image for the shop page (hardcoded URL or upload to a host)
+
+Gallery photos (the "Our Gallery" section) are managed through the admin dashboard and stored in Supabase Storage — no code changes needed.
+
+---
+
 ## Project structure
 
 ```
 app/
-  page.tsx              Homepage
-  shops/
-    page.tsx            Shop listing
-    [id]/page.tsx       Shop detail (dynamic)
-  rate/
-    page.tsx            Rating page (reads ?shop= param)
-    RateContent.tsx     Client component for the form
+  (site)/               Public website (has Navbar + Footer)
+    page.tsx            Homepage
+    shops/              Shop listing and detail pages
+    rate/               QR rating form
+  admin/                Admin dashboard (no Navbar/Footer)
+    login/
+    shops/[id]/
   api/
-    rate/route.ts       POST — save a rating
-    ratings/route.ts    GET  — fetch ratings for a shop
-    average-rating/     GET  — compute average rating
+    ratings/            GET — fetch reviews
+    rate/               POST — submit a review
+    average-rating/     GET — compute average
+    admin/
+      login/            POST — set session cookie
+      logout/           POST — clear session cookie
+      ratings/          GET + DELETE — admin review management
+      gallery/          GET + POST + DELETE — photo management
 
-components/
-  LanguageProvider.tsx  AR/EN toggle, RTL/LTR direction
-  Navbar.tsx
-  Footer.tsx
-  ShopCard.tsx
-  StarRating.tsx        Interactive + display modes
-  RatingForm.tsx
-  Gallery.tsx           Thumbnail grid + lightbox
-
+components/             Shared React components
 lib/
-  shops.ts              All shop data + timeline (edit this)
+  shops.ts              All shop data (edit this)
   supabase.ts           Client-side Supabase
-  supabaseServer.ts     Server-side Supabase (service role)
-
+  supabaseServer.ts     Server-side Supabase (service role key)
 locales/
-  ar.ts                 All Arabic UI strings
-  en.ts                 All English UI strings
+  ar.ts / en.ts         All UI strings
 ```

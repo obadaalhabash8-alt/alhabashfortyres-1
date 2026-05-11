@@ -42,6 +42,16 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
   const [loadingMore, setLoadingMore] = useState(false)
   const [avgRating, setAvgRating] = useState(0)
   const [whatsappOpen, setWhatsappOpen] = useState(false)
+  const [galleryImages, setGalleryImages] = useState<string[]>([])
+
+  useEffect(() => {
+    fetch(`/api/admin/gallery?shop_id=${shopId}`)
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.images?.length) setGalleryImages(d.images.map((i: { url: string }) => i.url))
+      })
+      .catch(() => {})
+  }, [shopId])
 
   useEffect(() => {
     async function fetchInitial() {
@@ -196,7 +206,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
             {/* Gallery */}
             <section className="detail-section">
               <SectionTitle>{t.shop.gallery_title}</SectionTitle>
-              <Gallery images={shop.images} altPrefix={shop.name[lang]} />
+              <Gallery images={galleryImages.length ? galleryImages : shop.images} altPrefix={shop.name[lang]} />
             </section>
 
             {/* Reviews */}
