@@ -8,9 +8,10 @@ interface Props {
   isOpen: boolean
   onClose: () => void
   shop: Shop
+  waNumber: string
 }
 
-export default function WhatsAppModal({ isOpen, onClose, shop }: Props) {
+export default function WhatsAppModal({ isOpen, onClose, shop, waNumber }: Props) {
   const { lang, isRTL } = useLanguage()
   const [name, setName] = useState('')
   const [carType, setCarType] = useState('')
@@ -66,8 +67,8 @@ export default function WhatsAppModal({ isOpen, onClose, shop }: Props) {
           ...(message.trim() ? ['', message.trim()] : []),
         ]
 
-    const waNumber = shop.whatsapp?.replace(/[^0-9]/g, '') ?? ''
-    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(parts.join('\n'))}`
+    const cleanNumber = waNumber.replace(/[^0-9]/g, '')
+    const waUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(parts.join('\n'))}`
     window.open(waUrl, '_blank', 'noopener,noreferrer')
     onClose()
   }

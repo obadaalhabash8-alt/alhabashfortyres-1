@@ -19,8 +19,8 @@ export const shops: Shop[] = [
       ar: 'دمشق',
       en: 'Damascus',
     },
-    phone: '+963980062144',
-    whatsapp: '+963980062144',
+    phones: ['+963959943048', '+963980062144'],
+    whatsapps: ['+963959943048', '+963980062144'],
     mapUrl: 'https://maps.google.com/?q=24.6877,46.7219',
     // Replace with actual embed URL from Google Maps
     mapEmbed:
@@ -70,8 +70,8 @@ export const shops: Shop[] = [
       ar: 'دمشق',
       en: 'Damascus',
     },
-    phone: '+966-11-234-5678',
-    whatsapp: '+966502345678',
+    phones: ['+963946355611', '+963933336001'],
+    whatsapps: ['+963946355611', '+963933336001'],
     mapUrl: 'https://maps.google.com/?q=24.7136,46.6751',
     mapEmbed:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.5!2d46.6751!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQyJzQ5LjAiTiA0NsKwNDAnMzAuNCJF!5e0!3m2!1sen!2ssa!4v1234567891',
@@ -120,8 +120,8 @@ export const shops: Shop[] = [
       ar: 'دمشق',
       en: 'Damascus',
     },
-    phone: '+966-11-345-6789',
-    whatsapp: '+966503456789',
+    phones: ['+963930106667', '+963943635316'],
+    whatsapps: ['+963930106667', '+963943635316'],
     mapUrl: 'https://maps.google.com/?q=24.5600,46.7800',
     mapEmbed:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3626.0!2d46.7800!3d24.5600!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDMzJzM2LjAiTiA0NsKwNDYnNDguMCJF!5e0!3m2!1sen!2ssa!4v1234567892',

@@ -41,7 +41,10 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
   const [loadingRatings, setLoadingRatings] = useState(true)
   const [loadingMore, setLoadingMore] = useState(false)
   const [avgRating, setAvgRating] = useState(0)
-  const [whatsappOpen, setWhatsappOpen] = useState(false)
+  const [whatsappTarget, setWhatsappTarget] = useState<string | null>(null)
+  const [callPickerOpen, setCallPickerOpen] = useState(false)
+  const [waPickerOpen, setWaPickerOpen] = useState(false)
+
   const [galleryImages, setGalleryImages] = useState<string[]>([])
   const [loadingGallery, setLoadingGallery] = useState(true)
 
@@ -252,6 +255,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
                   {hasMore && (
                     <div className="mt-6 text-center">
                       <button
+                        type="button"
                         onClick={loadMore}
                         disabled={loadingMore}
                         className="px-6 py-2.5 border border-brand-border text-brand-secondary hover:border-brand-orange hover:text-brand-orange rounded-xl font-cairo font-semibold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2"
@@ -292,23 +296,67 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
               </div>
 
               {/* Call */}
-              <a
-                href={`tel:${shop.phone}`}
-                className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-brand-orange-dark text-white font-bold py-3.5 px-4 rounded-xl transition-colors font-cairo mb-3 text-sm"
-              >
-                <PhoneIcon />
-                {t.shop.call_now}
-              </a>
+              <div className="relative mb-3">
+                <button
+                  type="button"
+                  onClick={() => { setCallPickerOpen((o) => !o); setWaPickerOpen(false) }}
+                  className="flex items-center justify-center gap-2 w-full bg-brand-orange hover:bg-brand-orange-dark text-white font-bold py-3.5 px-4 rounded-xl transition-colors font-cairo text-sm"
+                >
+                  <PhoneIcon />
+                  {t.shop.call_now}
+                </button>
+                {callPickerOpen && (
+                  <>
+                  <div className="fixed inset-0 z-10" onClick={() => setCallPickerOpen(false)} />
+                  <div className="absolute top-full mt-2 w-full z-20 bg-brand-darker border border-brand-border rounded-xl overflow-hidden shadow-xl">
+                    {shop.phones.map((phone) => (
+                      <a
+                        key={phone}
+                        href={`tel:${phone}`}
+                        onClick={() => setCallPickerOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-brand-surface transition-colors font-cairo text-sm text-brand-white border-b border-brand-border last:border-0"
+                        dir="ltr"
+                      >
+                        <PhoneIcon />
+                        {phone}
+                      </a>
+                    ))}
+                  </div>
+                  </>
+                )}
+              </div>
 
               {/* WhatsApp — opens inquiry modal */}
-              {shop.whatsapp && (
-                <button
-                  onClick={() => setWhatsappOpen(true)}
-                  className="flex items-center justify-center gap-2 w-full bg-[#25d366] hover:bg-[#1ebe5d] text-white font-bold py-3.5 px-4 rounded-xl transition-colors font-cairo mb-5 text-sm"
-                >
-                  <WhatsAppIcon />
-                  {t.shop.whatsapp}
-                </button>
+              {shop.whatsapps && shop.whatsapps.length > 0 && (
+                <div className="relative mb-5">
+                  <button
+                    type="button"
+                    onClick={() => { setWaPickerOpen((o) => !o); setCallPickerOpen(false) }}
+                    className="flex items-center justify-center gap-2 w-full bg-[#25d366] hover:bg-[#1ebe5d] text-white font-bold py-3.5 px-4 rounded-xl transition-colors font-cairo text-sm"
+                  >
+                    <WhatsAppIcon />
+                    {t.shop.whatsapp}
+                  </button>
+                  {waPickerOpen && (
+                    <>
+                    <div className="fixed inset-0 z-10" onClick={() => setWaPickerOpen(false)} />
+                    <div className="absolute top-full mt-2 w-full z-20 bg-brand-darker border border-brand-border rounded-xl overflow-hidden shadow-xl">
+                      {shop.whatsapps.map((num) => (
+                        <button
+                          key={num}
+                          type="button"
+                          onClick={() => { setWhatsappTarget(num); setWaPickerOpen(false) }}
+                          className="flex items-center gap-3 px-4 py-3 hover:bg-brand-surface transition-colors font-cairo text-sm text-brand-white border-b border-brand-border last:border-0 w-full"
+                          dir="ltr"
+                        >
+                          <WhatsAppIcon />
+                          {num}
+                        </button>
+                      ))}
+                    </div>
+                    </>
+                  )}
+                </div>
               )}
 
               {/* Address */}
@@ -321,7 +369,9 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
               {/* Phone */}
               <div className="mt-4 pt-4 border-t border-brand-border">
                 <p className="text-xs text-brand-muted font-cairo mb-1 uppercase tracking-widest">{lang === 'ar' ? 'الهاتف' : 'Phone'}</p>
-                <p className="text-sm text-brand-secondary font-cairo font-medium" dir="ltr">{shop.phone}</p>
+                {shop.phones.map((phone) => (
+                  <p key={phone} className="text-sm text-brand-secondary font-cairo font-medium" dir="ltr">{phone}</p>
+                ))}
               </div>
             </div>
 
@@ -332,12 +382,11 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
                   src={shop.mapEmbed}
                   width="100%"
                   height="100%"
-                  style={{ border: 0, filter: 'grayscale(20%) contrast(1.1)' }}
+                  className="w-full h-full [border:0] [filter:grayscale(20%)_contrast(1.1)]"
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title={`Map — ${shop.name[lang]}`}
-                  className="w-full h-full"
                 />
               </div>
               <div className="p-4">
@@ -357,9 +406,10 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
         </div>
       </div>
       <WhatsAppModal
-        isOpen={whatsappOpen}
-        onClose={() => setWhatsappOpen(false)}
+        isOpen={whatsappTarget !== null}
+        onClose={() => setWhatsappTarget(null)}
         shop={shop}
+        waNumber={whatsappTarget ?? ''}
       />
     </div>
   )

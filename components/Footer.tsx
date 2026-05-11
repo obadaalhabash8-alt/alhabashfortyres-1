@@ -84,13 +84,16 @@ export default function Footer() {
               {shops.map((shop) => (
                 <li key={shop.id} className="font-cairo">
                   <span className="text-zinc-500 block text-xs mb-0.5">{shop.name[lang]}</span>
-                  <a
-                    href={`tel:${shop.phone}`}
-                    className="text-sm text-zinc-400 hover:text-brand-orange transition-colors"
-                    dir="ltr"
-                  >
-                    {shop.phone}
-                  </a>
+                  {shop.phones.map((phone) => (
+                    <a
+                      key={phone}
+                      href={`tel:${phone}`}
+                      className="text-sm text-zinc-400 hover:text-brand-orange transition-colors block"
+                      dir="ltr"
+                    >
+                      {phone}
+                    </a>
+                  ))}
                 </li>
               ))}
             </ul>

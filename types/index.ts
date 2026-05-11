@@ -17,8 +17,8 @@ export interface Shop {
   tagline: LocalizedString
   address: LocalizedString
   city: LocalizedString
-  phone: string
-  whatsapp?: string
+  phones: string[]
+  whatsapps?: string[]
   mapUrl: string
   mapEmbed: string
   coverImage: string
