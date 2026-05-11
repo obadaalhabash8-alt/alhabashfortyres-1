@@ -239,16 +239,16 @@ function StorySection() {
   }, [])
 
   const values = [
-    { label: lang === 'ar' ? 'الجودة أولاً' : 'Quality First' },
-    { label: lang === 'ar' ? 'نبني الثقة' : 'Building Trust' },
-    { label: lang === 'ar' ? 'خدمة سريعة' : 'Fast Service' },
-    { label: lang === 'ar' ? 'فنيون محترفون' : 'Pro Technicians' },
+    { label: lang === 'ar' ? 'الجودة أولاً' : 'Quality First',     image: 'https://i.ibb.co/9HLS88Dq/Michelin-Logo-1-1024x1024.jpg' },
+    { label: lang === 'ar' ? 'نبني الثقة' : 'Building Trust',       image: 'https://i.ibb.co/XkS1XRB8/images-1.png' },
+    { label: lang === 'ar' ? 'خدمة سريعة' : 'Fast Service',         image: 'https://i.ibb.co/3y9FRV7L/image.png' },
+    { label: lang === 'ar' ? 'فنيون محترفون' : 'Pro Technicians',   image: 'https://i.ibb.co/mmyvnzM/image.png' },
   ]
 
   return (
     <section id="story" ref={ref} className="py-24 sm:py-32 bg-brand-dark">
       <div className="max-w-6xl mx-auto px-6 sm:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-[2fr_3fr] gap-16 items-center">
 
           {/* Text */}
           <div className="story-text">
@@ -265,14 +265,19 @@ function StorySection() {
               {t.story.body}
             </p>
 
-            <div className="story-values grid grid-cols-2 gap-3 mt-10">
+            <div className="story-values grid grid-cols-2 gap-2 mt-10">
               {values.map((v) => (
                 <div
                   key={v.label}
-                  className="story-value flex items-center gap-3 bg-brand-surface border border-brand-border rounded-xl p-3.5"
+                  className="story-value relative h-36 rounded-xl overflow-hidden border border-brand-border"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-orange flex-shrink-0" />
-                  <span className="text-sm font-semibold text-brand-secondary font-cairo">{v.label}</span>
+                  <Image
+                    src={v.image}
+                    alt={v.label}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 200px"
+                  />
                 </div>
               ))}
             </div>
@@ -280,24 +285,24 @@ function StorySection() {
 
           {/* Images */}
           <div className="story-images relative">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="relative h-52 sm:h-72 rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-2 gap-3 items-start">
+              <div className="rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=600&q=80"
+                  src="https://i.ibb.co/ymHTBJFb/Whats-App-Image-2026-05-11-at-12-55-05-AM.jpg"
                   alt="Shop interior"
-                  fill
-                  className="object-cover"
+                  width={600}
+                  height={800}
+                  className="w-full h-auto"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
-              <div className="relative h-52 sm:h-72 rounded-2xl overflow-hidden mt-8">
+              <div className="rounded-2xl overflow-hidden shadow-xl mt-12">
                 <Image
-                  src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80"
+                  src="https://i.ibb.co/Kxx5Ry2y/Whats-App-Image-2026-05-11-at-12-55-08-AM.jpg"
                   alt="Tyre service"
-                  fill
-                  className="object-cover"
+                  width={600}
+                  height={800}
+                  className="w-full h-auto"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
             </div>
             <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-brand-orange text-white px-6 py-3 rounded-xl shadow-xl shadow-brand-orange/20 font-cairo font-bold text-sm whitespace-nowrap">
