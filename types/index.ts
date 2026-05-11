@@ -40,13 +40,6 @@ export interface Rating {
   created_at: string
 }
 
-export interface RatingFormData {
-  shop_id: number
-  name: string
-  rating: number
-  comment: string
-}
-
 export interface TimelineEvent {
   year: number
   title: LocalizedString

@@ -13,11 +13,27 @@ export default function Navbar() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('/')
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const sectionIds = ['story', 'journey', 'branches']
+
+    const update = () => {
+      if (window.location.pathname !== '/') return
+      let found = '/'
+      for (const id of sectionIds) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.45) {
+          found = `/#${id}`
+        }
+      }
+      setActiveSection(found)
+      setScrolled(window.scrollY > 20)
+    }
+
+    window.addEventListener('scroll', update, { passive: true })
+    update()
+    return () => window.removeEventListener('scroll', update)
   }, [])
 
   useEffect(() => { setMenuOpen(false) }, [pathname])
@@ -29,8 +45,10 @@ export default function Navbar() {
     { href: '/#branches', label: t.nav.shops },
   ]
 
-  const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href)
+  const isActive = (href: string) => {
+    if (pathname !== '/') return !href.includes('#') && pathname.startsWith(href)
+    return activeSection === href
+  }
 
   return (
     <nav className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 border-b bg-brand-dark/95 backdrop-blur-md border-brand-border ${

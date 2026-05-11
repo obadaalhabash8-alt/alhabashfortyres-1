@@ -1,5 +1,6 @@
 'use client'
 
+import { memo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguage } from '@/hooks/useLanguage'
@@ -12,7 +13,7 @@ interface Props {
   ratingCount?: number
 }
 
-export default function ShopCard({ shop, avgRating, ratingCount }: Props) {
+export default memo(function ShopCard({ shop, avgRating, ratingCount }: Props) {
   const { t, lang, isRTL } = useLanguage()
   const isOpen = useShopStatus(shop.schedule)
 
@@ -101,7 +102,7 @@ export default function ShopCard({ shop, avgRating, ratingCount }: Props) {
       </div>
     </div>
   )
-}
+})
 
 function StarIcon() {
   return (

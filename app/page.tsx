@@ -29,11 +29,38 @@ function HeroSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Load-time entrance animations
       gsap.fromTo('.hero-badge', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.2 })
       gsap.fromTo('.hero-title', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.4 })
       gsap.fromTo('.hero-tagline', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.65 })
       gsap.fromTo('.hero-cta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.85 })
       gsap.fromTo('.hero-stats > *', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out', delay: 1.0 })
+
+      // Parallax on desktop background image as user scrolls
+      gsap.to('.hero-bg-img', {
+        yPercent: 25,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
+
+      // Hero content fades and rises out as user scrolls away (scrub 0.8 — same as story/journey)
+      gsap.to('.hero-content-scroll', {
+        opacity: 0,
+        y: -50,
+        scale: 0.97,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: '40% top',
+          scrub: 0.8,
+        },
+      })
     }, containerRef)
     return () => ctx.revert()
   }, [])
@@ -46,20 +73,20 @@ function HeroSection() {
       {/* ── MOBILE: full image on top, content below ── */}
       <div className="sm:hidden">
         {/* Image — full width, natural height, no crop */}
-        <div className="relative w-full bg-black">
+        <div className="relative w-full bg-black overflow-hidden">
           <Image
             src={IMG_SRC}
             alt=""
             width={1080}
             height={1080}
-            className="w-full h-auto"
+            className="hero-bg-img w-full h-auto"
             priority
           />
             {/* fade bottom edge into page background */}
           <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-brand-dark" />
         </div>
         {/* Content */}
-        <div className="bg-brand-dark px-6 pb-16 pt-4 text-center">
+        <div className="hero-content-scroll bg-brand-dark px-6 pb-16 pt-4 text-center">
           <div className="hero-badge inline-flex items-center gap-2.5 border border-brand-orange/30 bg-brand-orange/10 text-brand-orange px-4 py-1.5 rounded-full text-xs font-cairo font-semibold uppercase tracking-widest mb-6">
             {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'} — {lang === 'ar' ? 'دمشق' : 'Damascus'}
           </div>
@@ -99,15 +126,15 @@ function HeroSection() {
       </div>
 
       {/* ── DESKTOP: full-screen image with overlay content ── */}
-      <div className="hidden sm:block absolute inset-0">
-        <Image src={IMG_SRC} alt="" fill className="object-cover object-center" priority />
+      <div className="hidden sm:block absolute inset-0 overflow-hidden">
+        <Image src={IMG_SRC} alt="" fill className="hero-bg-img object-cover object-center" priority />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-[#0F0F0F]" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 h-px bg-brand-orange/60 hidden sm:block" />
 
-      <div className="hidden sm:block relative z-10 max-w-4xl mx-auto px-8 text-center pt-28">
+      <div className="hero-content-scroll hidden sm:block relative z-10 max-w-4xl mx-auto px-8 text-center pt-28">
         <div className="hero-badge inline-flex items-center gap-2.5 border border-brand-orange/30 bg-brand-orange/10 text-brand-orange px-5 py-2 rounded-full text-xs font-cairo font-semibold uppercase tracking-widest mb-10 backdrop-blur-sm">
           {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'} — {lang === 'ar' ? 'دمشق' : 'Damascus'}
         </div>
