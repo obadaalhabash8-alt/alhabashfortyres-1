@@ -64,7 +64,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             <Image
-              src="https://i.ibb.co/n81DPvRB/image.png"
+              src="/logo.png"
               alt="Al-Habash Tyres Logo"
               width={40}
               height={40}

@@ -80,7 +80,7 @@ function HeroSection() {
     return () => ctx.revert()
   }, [])
 
-  const IMG_SRC = "https://i.ibb.co/svGZcC6V/Whats-App-Image-2026-05-09-at-4-16-17-PM.jpg"
+  const IMG_SRC = "/hero.jpg"
 
   return (
     <section ref={containerRef} className="sm:relative sm:-mt-20 sm:min-h-screen sm:flex sm:items-center sm:justify-center sm:overflow-hidden">
