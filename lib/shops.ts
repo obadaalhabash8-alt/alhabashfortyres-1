@@ -12,8 +12,8 @@ export const shops: Shop[] = [
       en: 'The original shop, serving since 1967',
     },
     address: {
-      ar: 'استراد عمان القديم',
-      en: 'Old Amman Highway',
+      ar: 'استراد درعا القديم',
+      en: 'Old Daraa Highway',
     },
     city: {
       ar: 'دمشق',
@@ -63,12 +63,12 @@ export const shops: Shop[] = [
       en: "Expert care for your vehicle's protection and maintenance",
     },
     address: {
-      ar: 'طريق الملك فهد، حي العليا',
-      en: 'King Fahd Road, Al-Olaya District',
+      ar: 'استراد درعا الجديد',
+      en: 'New Daraa Highway',
     },
     city: {
-      ar: 'الرياض',
-      en: 'Riyadh',
+      ar: 'دمشق',
+      en: 'Damascus',
     },
     phone: '+966-11-234-5678',
     whatsapp: '+966502345678',
@@ -113,19 +113,19 @@ export const shops: Shop[] = [
       en: 'Specialists in heavy vehicles and commercial fleets',
     },
     address: {
-      ar: 'طريق الخرج، حي الصناعية',
-      en: 'Al-Kharj Road, Industrial District',
+      ar: 'استراد درعا الجديد',
+      en: 'New Daraa Highway',
     },
     city: {
-      ar: 'الرياض',
-      en: 'Riyadh',
+      ar: 'دمشق',
+      en: 'Damascus',
     },
     phone: '+966-11-345-6789',
     whatsapp: '+966503456789',
     mapUrl: 'https://maps.google.com/?q=24.5600,46.7800',
     mapEmbed:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3626.0!2d46.7800!3d24.5600!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDMzJzM2LjAiTiA0NsKwNDYnNDguMCJF!5e0!3m2!1sen!2ssa!4v1234567892',
-    coverImage: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&q=80',
+    coverImage: '/branch3.jpg',
     description: {
       ar: 'فرع الجنوب هو الخيار الأول لأصحاب المركبات الثقيلة والشركات التجارية. نوفر مخزوناً ضخماً من إطارات الشاحنات والمعدات الزراعية والإطارات الصناعية، مع فريق متخصص يعمل على مدار الساعة لتلبية احتياجات الأسطول التجاري.',
       en: 'The South Branch is the first choice for heavy vehicle owners and commercial companies. We stock a massive inventory of truck, agricultural, and industrial tyres, with a specialized team operating around the clock to meet commercial fleet needs.',
@@ -162,7 +162,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'تأسس أول محل للحبش للإطارات في قلب المدينة، ليبدأ مسيرة طويلة من الخدمة والثقة.',
       en: 'The first Al-Habash Tyres shop was founded in the heart of the city, beginning a long journey of service and trust.',
     },
-    image: 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=800&q=80',
+    image: '/timeline-1967.jpg',
   },
   {
     year: 1975,
@@ -171,7 +171,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'توسعة المحل الأصلي وإدخال أحدث معدات الإطارات الأوروبية لتحسين جودة الخدمة.',
       en: 'Expansion of the original shop and introduction of the latest European tyre equipment to improve service quality.',
     },
-    image: 'https://images.unsplash.com/photo-1587560699334-bea93391dcef?w=800&q=80',
+    image: '/timeline-1975.jpg',
   },
   {
     year: 1985,
@@ -180,7 +180,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'الطلب المتزايد من العملاء أدى إلى افتتاح الفرع الثاني في شمال المدينة، ليصبح الأول في المنطقة.',
       en: 'Growing customer demand led to opening the second branch in the north of the city, becoming the first in the region.',
     },
-    image: 'https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=800&q=80',
+    image: '/timeline-1985.jpg',
   },
   {
     year: 1995,

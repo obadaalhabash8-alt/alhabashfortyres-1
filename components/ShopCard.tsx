@@ -11,9 +11,10 @@ interface Props {
   shop: Shop
   avgRating?: number
   ratingCount?: number
+  imageContain?: boolean
 }
 
-export default memo(function ShopCard({ shop, avgRating, ratingCount }: Props) {
+export default memo(function ShopCard({ shop, avgRating, ratingCount, imageContain }: Props) {
   const { t, lang, isRTL } = useLanguage()
   const isOpen = useShopStatus(shop.schedule)
 
@@ -21,11 +22,21 @@ export default memo(function ShopCard({ shop, avgRating, ratingCount }: Props) {
     <div className="group bg-brand-surface border border-brand-border rounded-2xl overflow-hidden card-hover">
       {/* Cover image */}
       <div className="relative h-52 sm:h-56 overflow-hidden bg-brand-darker">
+        {imageContain && (
+          <Image
+            src={shop.coverImage}
+            alt=""
+            fill
+            className="object-cover scale-110 blur-xl brightness-50"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            aria-hidden
+          />
+        )}
         <Image
           src={shop.coverImage}
           alt={shop.name[lang]}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className={`transition-transform duration-700 group-hover:scale-105 ${imageContain ? 'object-contain relative z-10' : 'object-cover'}`}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute inset-0 bg-card-gradient" />
