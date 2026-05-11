@@ -72,8 +72,12 @@ export default function Navbar() {
               priority
             />
             <div className="text-right leading-none">
-              <p className="text-brand-white font-black text-sm sm:text-base leading-none font-cairo tracking-tight whitespace-nowrap">
-                {lang === 'ar' ? 'شركة الحبش للإطارات' : 'Al-Habash Tyres Co.'}
+              <p className="font-black text-sm sm:text-base leading-none font-cairo tracking-tight whitespace-nowrap">
+                {lang === 'ar' ? (
+                  <><span className="text-brand-orange">شركة الحبش</span><span className="text-gray-400"> للإطارات</span></>
+                ) : (
+                  <><span className="text-brand-orange">Al-Habash</span><span className="text-gray-400"> Tyres Co.</span></>
+                )}
               </p>
               <p className="text-brand-orange text-[9px] sm:text-[10px] font-bold font-cairo mt-0.5 tracking-widest uppercase">
                 {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'}

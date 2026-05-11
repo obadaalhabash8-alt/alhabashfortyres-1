@@ -25,8 +25,12 @@ export default function Footer() {
                 className="w-9 h-9 object-cover rounded-full flex-shrink-0"
               />
               <div>
-                <p className="text-white font-bold font-cairo text-sm">
-                  {lang === 'ar' ? 'شركة الحبش للإطارات' : 'Al-Habash Tyres Company'}
+                <p className="font-bold font-cairo text-sm">
+                  {lang === 'ar' ? (
+                    <><span className="text-brand-orange">شركة الحبش</span><span className="text-gray-400"> للإطارات</span></>
+                  ) : (
+                    <><span className="text-brand-orange">Al-Habash</span><span className="text-gray-400"> Tyres Company</span></>
+                  )}
                 </p>
                 <p className="text-brand-orange text-[11px] font-cairo">
                   {lang === 'ar' ? 'منذ ١٩٦٧' : 'Est. 1967'}

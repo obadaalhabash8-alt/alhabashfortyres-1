@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'الحبش للإطارات | Al-Habash Tyres — Since 1967'
+export const alt = 'شركة الحبش للإطارات | Al-Habash Tyres — Since 1967'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -43,7 +43,7 @@ export default function OG() {
             lineHeight: 1,
           }}
         >
-          الحبش للإطارات
+          شركة الحبش للإطارات
         </div>
 
         {/* Brand name English */}

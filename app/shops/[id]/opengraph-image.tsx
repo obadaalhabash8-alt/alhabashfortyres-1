@@ -10,7 +10,7 @@ export default async function OG({ params }: { params: Promise<{ id: string }> }
   const { id } = await params
   const shop = getShopById(parseInt(id, 10))
 
-  const nameAr = shop?.name.ar ?? 'الحبش للإطارات'
+  const nameAr = shop?.name.ar ?? 'شركة الحبش للإطارات'
   const nameEn = shop?.name.en ?? 'Al-Habash Tyres'
   const tagline = shop?.tagline.en ?? 'Quality you can trust since 1967'
   const city = shop?.city.en ?? 'Saudi Arabia'
