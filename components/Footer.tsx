@@ -18,7 +18,7 @@ export default function Footer() {
           <div className="col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-5">
               <Image
-                src="https://i.ibb.co/n81DPvRB/image.png"
+                src="/logo.png"
                 alt="Al-Habash Tyres Logo"
                 width={36}
                 height={36}
