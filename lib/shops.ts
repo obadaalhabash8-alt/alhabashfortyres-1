@@ -25,12 +25,6 @@ export const shops: Shop[] = [
     // Replace with actual embed URL from Google Maps
     mapEmbed:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.9!2d46.7219!3d24.6877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQxJzE1LjciTiA0NsKwNDMnMTguOCJF!5e0!3m2!1sen!2ssa!4v1234567890',
-    images: [
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
-      'https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=800&q=80',
-      'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800&q=80',
-      'https://images.unsplash.com/photo-1591768793355-74d04bb6608f?w=800&q=80',
-    ],
     coverImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
     description: {
       ar: 'الفرع الأصلي والرئيسي لشركة الحبش للإطارات، تأسس عام ١٩٦٧ ليكون الأول في تقديم خدمات الإطارات الاحترافية. نفخر بأكثر من ٥٥ عاماً من الخبرة والثقة، مع فريق متخصص يضم أمهر الفنيين وأحدث المعدات.',
@@ -81,12 +75,6 @@ export const shops: Shop[] = [
     mapUrl: 'https://maps.google.com/?q=24.7136,46.6751',
     mapEmbed:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.5!2d46.6751!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQyJzQ5LjAiTiA0NsKwNDAnMzAuNCJF!5e0!3m2!1sen!2ssa!4v1234567891',
-    images: [
-      'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=800&q=80',
-      'https://images.unsplash.com/photo-1616455579100-2ceaa4eb7d68?w=800&q=80',
-      'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=800&q=80',
-      'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80',
-    ],
     coverImage: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=1200&q=80',
     description: {
       ar: 'فرع الشمال هو وجهتك للخدمات المتقدمة والمتخصصة. نوفر أحدث تقنيات حماية الطلاء وخدمات التلميع الاحترافية، إلى جانب الخدمات الأساسية للإطارات. يضم الفرع مركزاً متكاملاً للعناية بالسيارات يضاهي أعلى المعايير العالمية.',
@@ -137,12 +125,6 @@ export const shops: Shop[] = [
     mapUrl: 'https://maps.google.com/?q=24.5600,46.7800',
     mapEmbed:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3626.0!2d46.7800!3d24.5600!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDMzJzM2LjAiTiA0NsKwNDYnNDguMCJF!5e0!3m2!1sen!2ssa!4v1234567892',
-    images: [
-      'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80',
-      'https://images.unsplash.com/photo-1562040506-a7a8d35d5f49?w=800&q=80',
-      'https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=800&q=80',
-      'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80',
-    ],
     coverImage: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&q=80',
     description: {
       ar: 'فرع الجنوب هو الخيار الأول لأصحاب المركبات الثقيلة والشركات التجارية. نوفر مخزوناً ضخماً من إطارات الشاحنات والمعدات الزراعية والإطارات الصناعية، مع فريق متخصص يعمل على مدار الساعة لتلبية احتياجات الأسطول التجاري.',

@@ -43,6 +43,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
   const [avgRating, setAvgRating] = useState(0)
   const [whatsappOpen, setWhatsappOpen] = useState(false)
   const [galleryImages, setGalleryImages] = useState<string[]>([])
+  const [loadingGallery, setLoadingGallery] = useState(true)
 
   useEffect(() => {
     fetch(`/api/admin/gallery?shop_id=${shopId}`)
@@ -51,6 +52,7 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
         if (d.images?.length) setGalleryImages(d.images.map((i: { url: string }) => i.url))
       })
       .catch(() => {})
+      .finally(() => setLoadingGallery(false))
   }, [shopId])
 
   useEffect(() => {
@@ -206,7 +208,15 @@ function ShopDetailContent({ shopId }: { shopId: number }) {
             {/* Gallery */}
             <section className="detail-section">
               <SectionTitle>{t.shop.gallery_title}</SectionTitle>
-              <Gallery images={galleryImages.length ? galleryImages : shop.images} altPrefix={shop.name[lang]} />
+              {loadingGallery ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="aspect-square rounded-xl bg-brand-surface-2 animate-pulse" />
+                  ))}
+                </div>
+              ) : (
+                <Gallery images={galleryImages} altPrefix={shop.name[lang]} />
+              )}
             </section>
 
             {/* Reviews */}

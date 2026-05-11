@@ -21,7 +21,6 @@ export interface Shop {
   whatsapp?: string
   mapUrl: string
   mapEmbed: string
-  images: string[]
   coverImage: string
   description: LocalizedString
   sharedServices: LocalizedString[]
