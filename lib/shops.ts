@@ -25,7 +25,7 @@ export const shops: Shop[] = [
     // Replace with actual embed URL from Google Maps
     mapEmbed:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.9!2d46.7219!3d24.6877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQxJzE1LjciTiA0NsKwNDMnMTguOCJF!5e0!3m2!1sen!2ssa!4v1234567890',
-    coverImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
+    coverImage: '/branch1.jpg',
     description: {
       ar: 'الفرع الأصلي والرئيسي لشركة الحبش للإطارات، تأسس عام ١٩٦٧ ليكون الأول في تقديم خدمات الإطارات الاحترافية. نفخر بأكثر من ٥٥ عاماً من الخبرة والثقة، مع فريق متخصص يضم أمهر الفنيين وأحدث المعدات.',
       en: 'The original flagship branch of Al-Habash Tyres, established in 1967 as the first professional tyre service in the area. We are proud of over 55 years of expertise and trust, with a specialized team of skilled technicians and state-of-the-art equipment.',
