@@ -75,7 +75,7 @@ export default function AdminLoginPage() {
                     setError('')
                     e.preventDefault()
                   }}
-                  className="w-full bg-[#1a1a1a] border border-white/8 rounded-xl px-4 py-3 pr-11 text-white text-sm placeholder:text-zinc-700 focus:outline-none focus:border-brand-orange/40 transition-colors font-cairo"
+                  className="w-full bg-[#1a1a1a] border border-white/8 rounded-xl px-4 py-3 pr-11 text-white text-base placeholder:text-zinc-700 focus:outline-none focus:border-brand-orange/40 transition-colors font-cairo"
                   placeholder="Enter password"
                   autoComplete="off"
                   autoFocus

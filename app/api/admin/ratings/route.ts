@@ -14,6 +14,9 @@ export async function GET(req: NextRequest) {
   const shopId = parseInt(searchParams.get('shop_id') ?? '', 10)
   const page = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10))
   const sort = searchParams.get('sort') ?? 'newest'
+  const ratingFilter = searchParams.get('rating')
+
+  const exportAll = searchParams.get('all') === 'true'
 
   if (isNaN(shopId)) return NextResponse.json({ error: 'invalid shop_id' }, { status: 400 })
 
@@ -22,7 +25,9 @@ export async function GET(req: NextRequest) {
     .from('ratings')
     .select('id, shop_id, name, rating, comment, created_at', { count: 'exact' })
     .eq('shop_id', shopId)
-    .range((page - 1) * PAGE_SIZE, page * PAGE_SIZE - 1)
+
+  if (ratingFilter) query = query.eq('rating', parseInt(ratingFilter, 10))
+  if (!exportAll) query = query.range((page - 1) * PAGE_SIZE, page * PAGE_SIZE - 1)
 
   if (sort === 'oldest') query = query.order('created_at', { ascending: true })
   else if (sort === 'highest') query = query.order('rating', { ascending: false })

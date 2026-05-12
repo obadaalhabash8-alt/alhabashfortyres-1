@@ -1,9 +1,20 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { shops } from '@/lib/shops'
 
+interface ShopStats { shop_id: number; count: number; avg: number }
+
 export default function AdminDashboard() {
+  const [stats, setStats] = useState<ShopStats[]>([])
+
+  useEffect(() => {
+    fetch('/api/admin/stats')
+      .then((r) => r.json())
+      .then((d) => setStats(d.stats ?? []))
+  }, [])
+
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
       {/* Top bar */}
@@ -29,7 +40,11 @@ export default function AdminDashboard() {
 
         <div className="grid gap-4">
           {shops.map((shop) => (
-            <ShopCard key={shop.id} shop={shop} />
+            <ShopCard
+              key={shop.id}
+              shop={shop}
+              stats={stats.find((s) => s.shop_id === shop.id) ?? null}
+            />
           ))}
         </div>
       </div>
@@ -37,11 +52,22 @@ export default function AdminDashboard() {
   )
 }
 
-function ShopCard({ shop }: { shop: typeof shops[0] }) {
+function ShopCard({ shop, stats }: { shop: typeof shops[0]; stats: ShopStats | null }) {
   const router = useRouter()
 
   return (
     <div className="bg-[#111] border border-white/8 rounded-2xl overflow-hidden">
+      {/* Cover image */}
+      <div className="h-28 overflow-hidden relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={shop.coverImage}
+          alt={shop.name.en}
+          className="w-full h-full object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-[#111]/40 to-transparent" />
+      </div>
+
       {/* Shop header */}
       <div className="px-6 py-5 border-b border-white/8">
         <div className="flex items-start justify-between gap-4">
@@ -49,9 +75,26 @@ function ShopCard({ shop }: { shop: typeof shops[0] }) {
             <h2 className="font-bold text-white font-cairo text-base">{shop.name.en}</h2>
             <p className="text-zinc-500 text-sm font-cairo mt-0.5">{shop.address.en}, {shop.city.en}</p>
           </div>
-          <span className="text-xs bg-brand-orange/10 text-brand-orange border border-brand-orange/20 px-2.5 py-1 rounded-lg font-cairo flex-shrink-0">
-            Shop {shop.id}
-          </span>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {stats ? (
+              <>
+                <div className="flex items-center gap-1.5 bg-brand-orange/8 border border-brand-orange/15 px-2.5 py-1 rounded-lg">
+                  <svg width="11" height="11" viewBox="0 0 20 20" fill="#f97316">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <span className="text-xs font-bold text-brand-orange font-cairo">{stats.avg}</span>
+                </div>
+                <div className="bg-white/5 border border-white/8 px-2.5 py-1 rounded-lg">
+                  <span className="text-xs text-zinc-400 font-cairo">{stats.count} reviews</span>
+                </div>
+              </>
+            ) : (
+              <div className="h-6 w-28 rounded-lg bg-white/5 animate-pulse" />
+            )}
+            <span className="text-xs bg-brand-orange/10 text-brand-orange border border-brand-orange/20 px-2.5 py-1 rounded-lg font-cairo">
+              Shop {shop.id}
+            </span>
+          </div>
         </div>
       </div>
 
