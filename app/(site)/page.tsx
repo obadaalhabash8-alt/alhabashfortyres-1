@@ -261,9 +261,11 @@ function StorySection() {
             <p className="text-brand-gold text-base font-semibold mb-5 font-cairo">
               {t.story.subtitle}
             </p>
-            <p className="text-brand-muted leading-relaxed font-cairo text-base sm:text-lg">
-              {t.story.body}
-            </p>
+            <div className="text-brand-muted leading-relaxed font-cairo text-base sm:text-lg space-y-4">
+              {t.story.body.split('\n\n').map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
 
             <div className="story-values grid grid-cols-2 gap-2 mt-10">
               {values.map((v) => (
@@ -404,10 +406,9 @@ function TimelineSection() {
                   <div className="group relative bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange/30 transition-colors overflow-hidden">
                     {event.image && (
                       <>
-                        <div
-                          className="absolute inset-0 z-0 opacity-15 group-hover:opacity-30 transition-opacity duration-500 bg-cover bg-center mix-blend-luminosity"
-                          style={{ backgroundImage: `url(${event.image})` }}
-                        />
+                        <div className="absolute inset-0 z-0 opacity-15 group-hover:opacity-30 transition-opacity duration-500 mix-blend-luminosity overflow-hidden">
+                          <Image src={event.image} alt="" fill className="object-cover" />
+                        </div>
                         {/* Gradient overlay to ensure text readability */}
                         <div className="absolute inset-0 z-[1] bg-gradient-to-t from-brand-surface via-transparent to-transparent opacity-80" />
                       </>

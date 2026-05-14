@@ -22,7 +22,7 @@ const en: Translations = {
   story: {
     title: 'Our Story',
     subtitle: 'A journey of passion and craftsmanship across the decades',
-    body: 'The Al-Habash Tyres Company story began in 1967, founded with a small shop and a big dream. Over more than five decades, the company has grown from a single shop to three full-service branches, serving thousands of customers annually with the highest standards of quality and integrity.',
+    body: 'The story of Al-Habash Tyres Company began in 1967, when its founder Ridwan Abu Samir Al-Habash established it with a clear vision and great ambition — through a small shop that marked the beginning of a long journey of work, expertise, and trust.\n\nOver more than five decades, the company expanded from a single shop to three integrated branches, becoming one of the most recognized names in tyres and automotive services in Syria, with an unwavering commitment to quality, integrity, and providing the best solutions to every customer.\n\nIn 2007, Al-Habash Tyres became the official agent of Michelin in Syria — a milestone that strengthened its market position and cemented customer trust across all governorates.\n\nToday, the company serves customers throughout Syria via its specialized centers, offering a full range of truck and passenger car tyres, alongside comprehensive services aimed at delivering the highest standards of performance, safety, and professionalism.',
   },
 
   timeline: {

@@ -160,64 +160,55 @@ export const shops: Shop[] = [
 export const timelineEvents: TimelineEvent[] = [
   {
     year: 1967,
-    title: { ar: 'التأسيس', en: 'The Founding' },
+    title: { ar: 'البداية والتأسيس', en: 'The Founding' },
     description: {
-      ar: 'تأسس أول محل للحبش للإطارات في قلب المدينة، ليبدأ مسيرة طويلة من الخدمة والثقة.',
-      en: 'The first Al-Habash Tyres shop was founded in the heart of the city, beginning a long journey of service and trust.',
+      ar: 'بدأت القصة حين أسس رضوان أبو سمير الحبش محلاً صغيراً برؤية طموحة، ليكون انطلاقة لرحلة طويلة من الشغف والإتقان.',
+      en: 'The story began when Radwan Abu Samir Al-Habash founded a small shop with an ambitious vision, starting a long journey of passion and excellence.',
     },
     image: '/timeline-1967.jpg',
   },
   {
-    year: 1975,
-    title: { ar: 'التوسع الأول', en: 'First Expansion' },
-    description: {
-      ar: 'توسعة المحل الأصلي وإدخال أحدث معدات الإطارات الأوروبية لتحسين جودة الخدمة.',
-      en: 'Expansion of the original shop and introduction of the latest European tyre equipment to improve service quality.',
-    },
-    image: '/timeline-1975.jpg',
-  },
-  {
     year: 1985,
-    title: { ar: 'الفرع الثاني', en: 'Second Branch' },
+    title: { ar: 'النمو والتوسع', en: 'Growth & Expansion' },
     description: {
-      ar: 'الطلب المتزايد من العملاء أدى إلى افتتاح الفرع الثاني في شمال المدينة، ليصبح الأول في المنطقة.',
-      en: 'Growing customer demand led to opening the second branch in the north of the city, becoming the first in the region.',
+      ar: 'توسعت شركتنا من محل واحد لتصبح من الأسماء المعروفة في مجال الإطارات وخدمات السيارات في سوريا.',
+      en: 'Our company expanded from a single shop to become a well-known name in the tyres and car services sector in Syria.',
     },
     image: '/timeline-1985.jpg',
   },
   {
     year: 1995,
-    title: { ar: 'مواكبة التكنولوجيا', en: 'Embracing Technology' },
+    title: { ar: 'ترسيخ الثقة', en: 'Solidifying Trust' },
     description: {
-      ar: 'دخول عصر التكنولوجيا الحديثة مع أجهزة ضبط الزوايا الإلكترونية وأنظمة التوازن الرقمية.',
-      en: 'Entering the modern technology era with electronic alignment systems and digital wheel balancing equipment.',
+      ar: 'تميزنا بالتزام دائم بالجودة، والأمانة، وتقديم أفضل الحلول للعملاء، مما عزز مكانتنا في السوق.',
+      en: 'We distinguished ourselves with a constant commitment to quality, honesty, and providing the best solutions to our customers, strengthening our market position.',
     },
     image: 'https://images.unsplash.com/photo-1632823471683-12d7c58ed074?w=800&q=80',
   },
   {
-    year: 2005,
-    title: { ar: 'الفرع الثالث', en: 'Third Branch' },
+    year: 2007,
+    title: { ar: 'وكالة ميشلان الرسمية', en: 'Official Michelin Dealer' },
     description: {
-      ar: 'افتتاح فرع الجنوب المتخصص في خدمة المركبات الثقيلة والشركات، ليكتمل المثلث الخدمي.',
-      en: 'Opening of the South Branch specializing in heavy vehicles and commercial services, completing the service triangle.',
+      ar: 'خطوة مفصلية؛ أصبحت الشركة الوكيل الرسمي لإطارات Michelin في سوريا، لترسخ ثقة العملاء في جميع المحافظات.',
+      en: 'A milestone step; the company became the official Michelin tyres dealer in Syria, solidifying customer trust across all governorates.',
     },
     image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80',
   },
   {
     year: 2015,
-    title: { ar: 'خدمات متقدمة', en: 'Advanced Services' },
+    title: { ar: 'تكامل الخدمات', en: 'Integrated Services' },
     description: {
-      ar: 'إضافة خدمات حماية الطلاء PPF والطلاء السيراميكي والتلميع الاحترافي في فرع الشمال.',
-      en: 'Addition of PPF paint protection, ceramic coating and professional detailing services at the North Branch.',
+      ar: 'توفير إطارات الشحن والسيارات بأنواعها عبر ثلاثة فروع متكاملة ومراكز متخصصة تلبي كافة الاحتياجات.',
+      en: 'Providing truck and car tyres of all kinds through three integrated branches and specialized centers that meet all needs.',
     },
     image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&q=80',
   },
   {
     year: 2024,
-    title: { ar: 'الاستمرار بثقة', en: 'Continuing with Confidence' },
+    title: { ar: 'تأدية الأمانة', en: 'Continuing the Legacy' },
     description: {
-      ar: 'أكثر من ٥٥ عاماً من الخدمة المتميزة، ونحن نواصل مسيرتنا بنفس الالتزام والإتقان.',
-      en: 'Over 55 years of distinguished service, and we continue our journey with the same commitment and excellence.',
+      ar: 'نخدم اليوم مختلف أنحاء سوريا، ونقدم خدمات متكاملة بأعلى مستويات الأداء، والسلامة، والاحترافية.',
+      en: 'Today, we serve all parts of Syria, offering integrated services with the highest levels of performance, safety, and professionalism.',
     },
     image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80',
   },
