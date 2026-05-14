@@ -77,7 +77,7 @@ export const shops: Shop[] = [
     mapUrl: 'https://maps.app.goo.gl/ct7gyqp2jVqJA9iU9',
     mapEmbed:
       'https://maps.google.com/maps?q=F739%2BG82+Sbeneh+Syria&output=embed',
-    coverImage: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=1200&q=80',
+    coverImage: '/branch2.jpg',
     description: {
       ar: 'فرع الشمال هو وجهتك للخدمات المتقدمة والمتخصصة. نوفر أحدث تقنيات حماية الطلاء وخدمات التلميع الاحترافية، إلى جانب الخدمات الأساسية للإطارات. يضم الفرع مركزاً متكاملاً للعناية بالسيارات يضاهي أعلى المعايير العالمية.',
       en: 'The North Branch is your destination for advanced and specialized services. We offer the latest paint protection technologies and professional detailing, alongside essential tyre services. The branch houses a full-service car care center that meets the highest international standards.',
