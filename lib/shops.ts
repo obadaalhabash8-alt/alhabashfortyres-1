@@ -74,9 +74,9 @@ export const shops: Shop[] = [
     },
     phones: ['+963946355611', '+963933336001'],
     whatsapps: ['+963946355611', '+963933336001'],
-    mapUrl: 'https://maps.google.com/?q=24.7136,46.6751',
+    mapUrl: 'https://maps.app.goo.gl/ct7gyqp2jVqJA9iU9',
     mapEmbed:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.5!2d46.6751!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQyJzQ5LjAiTiA0NsKwNDAnMzAuNCJF!5e0!3m2!1sen!2ssa!4v1234567891',
+      'https://maps.google.com/maps?q=F739%2BG82+Sbeneh+Syria&output=embed',
     coverImage: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=1200&q=80',
     description: {
       ar: 'فرع الشمال هو وجهتك للخدمات المتقدمة والمتخصصة. نوفر أحدث تقنيات حماية الطلاء وخدمات التلميع الاحترافية، إلى جانب الخدمات الأساسية للإطارات. يضم الفرع مركزاً متكاملاً للعناية بالسيارات يضاهي أعلى المعايير العالمية.',
@@ -125,9 +125,9 @@ export const shops: Shop[] = [
     },
     phones: ['+963930106667', '+963943635316'],
     whatsapps: ['+963930106667', '+963943635316'],
-    mapUrl: 'https://maps.google.com/?q=24.5600,46.7800',
+    mapUrl: 'https://maps.app.goo.gl/QJpksZhxpXFbiFeo8',
     mapEmbed:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3626.0!2d46.7800!3d24.5600!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDMzJzM2LjAiTiA0NsKwNDYnNDguMCJF!5e0!3m2!1sen!2ssa!4v1234567892',
+      'https://maps.google.com/maps?q=33.465083,36.277500&output=embed',
     coverImage: '/branch3.jpg',
     description: {
       ar: 'فرع الجنوب هو الخيار الأول لأصحاب المركبات الثقيلة والشركات التجارية. نوفر مخزوناً ضخماً من إطارات الشاحنات والمعدات الزراعية والإطارات الصناعية، مع فريق متخصص يعمل على مدار الساعة لتلبية احتياجات الأسطول التجاري.',
