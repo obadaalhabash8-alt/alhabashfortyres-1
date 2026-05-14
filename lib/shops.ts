@@ -21,10 +21,9 @@ export const shops: Shop[] = [
     },
     phones: ['+963959943048', '+963980062144'],
     whatsapps: ['+963959943048', '+963980062144'],
-    mapUrl: 'https://maps.google.com/?q=24.6877,46.7219',
-    // Replace with actual embed URL from Google Maps
+    mapUrl: 'https://maps.google.com/?q=33.467222,36.284194',
     mapEmbed:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.9!2d46.7219!3d24.6877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQxJzE1LjciTiA0NsKwNDMnMTguOCJF!5e0!3m2!1sen!2ssa!4v1234567890',
+      'https://maps.google.com/maps?q=33.467222,36.284194&output=embed',
     coverImage: '/branch1.jpg',
     description: {
       ar: 'الفرع الأصلي والرئيسي لشركة الحبش للإطارات، تأسس عام ١٩٦٧ ليكون الأول في تقديم خدمات الإطارات الاحترافية. نفخر بأكثر من ٥٥ عاماً من الخبرة والثقة، مع فريق متخصص يضم أمهر الفنيين وأحدث المعدات.',
