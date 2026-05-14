@@ -183,7 +183,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'تميزنا بالتزام دائم بالجودة، والأمانة، وتقديم أفضل الحلول للعملاء، مما عزز مكانتنا في السوق.',
       en: 'We distinguished ourselves with a constant commitment to quality, honesty, and providing the best solutions to our customers, strengthening our market position.',
     },
-    image: 'https://images.unsplash.com/photo-1632823471683-12d7c58ed074?w=800&q=80',
+    image: '/timeline-1995.jpg',
   },
   {
     year: 2007,
@@ -192,7 +192,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'خطوة مفصلية؛ أصبحت الشركة الوكيل الرسمي لإطارات Michelin في سوريا، لترسخ ثقة العملاء في جميع المحافظات.',
       en: 'A milestone step; the company became the official Michelin tyres dealer in Syria, solidifying customer trust across all governorates.',
     },
-    image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80',
+    image: '/timeline-2007.png',
   },
   {
     year: 2015,
@@ -201,7 +201,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'توفير إطارات الشحن والسيارات بأنواعها عبر ثلاثة فروع متكاملة ومراكز متخصصة تلبي كافة الاحتياجات.',
       en: 'Providing truck and car tyres of all kinds through three integrated branches and specialized centers that meet all needs.',
     },
-    image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&q=80',
+    image: '/timeline-2015.jpg',
   },
   {
     year: 2024,
@@ -210,7 +210,7 @@ export const timelineEvents: TimelineEvent[] = [
       ar: 'نخدم اليوم مختلف أنحاء سوريا، ونقدم خدمات متكاملة بأعلى مستويات الأداء، والسلامة، والاحترافية.',
       en: 'Today, we serve all parts of Syria, offering integrated services with the highest levels of performance, safety, and professionalism.',
     },
-    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80',
+    image: '/timeline-2024.jpg',
   },
 ]
 
