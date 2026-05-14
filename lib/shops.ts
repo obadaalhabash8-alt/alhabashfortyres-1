@@ -26,8 +26,8 @@ export const shops: Shop[] = [
       'https://maps.google.com/maps?q=33.467222,36.284194&output=embed',
     coverImage: '/branch1.jpg',
     description: {
-      ar: 'الفرع الأصلي والرئيسي لشركة الحبش للإطارات، تأسس عام ١٩٦٧ ليكون الأول في تقديم خدمات الإطارات الاحترافية. نفخر بأكثر من ٥٥ عاماً من الخبرة والثقة، مع فريق متخصص يضم أمهر الفنيين وأحدث المعدات.',
-      en: 'The original flagship branch of Al-Habash Tyres, established in 1967 as the first professional tyre service in the area. We are proud of over 55 years of expertise and trust, with a specialized team of skilled technicians and state-of-the-art equipment.',
+      ar: 'الفرع الأصلي والرئيسي لشركة الحبش للإطارات، تأسس عام ١٩٦٧ ليكون الأول في تقديم خدمات الإطارات الاحترافية في المنطقة. نفخر بأكثر من ٥٥ عاماً من الخبرة والثقة، مع فريق متخصص يضم أمهر الفنيين وأحدث المعدات. يتميز الفرع بتغيير الإطارات لجميع أنواع السيارات، ويوفر أحدث تقنيات التلميع الاحترافي إلى جانب الخدمات الأساسية للإطارات. كما يضم مركزاً متكاملاً للعناية بالسيارات يضاهي أعلى المعايير، يشمل الغسيل الخارجي والتنظيف الداخلي الشامل، لتخرج سيارتك بمظهر مميز وأداء موثوق.',
+      en: 'The original flagship branch of Al-Habash Tyres, established in 1967 as the first professional tyre service in the area. With over 55 years of expertise and trust, our team of skilled technicians and state-of-the-art equipment ensures top-quality results. The branch specializes in tyre replacement for all vehicle types, and provides the latest professional polishing technologies alongside essential tyre services. It also houses a full-service car care center that meets the highest standards, offering exterior washing and thorough interior cleaning — so your car leaves looking its best and running reliably.',
     },
     sharedServices: [
       { ar: 'تغيير الإطارات', en: 'Tyre change' },
@@ -79,8 +79,8 @@ export const shops: Shop[] = [
       'https://maps.google.com/maps?q=F739%2BG82+Sbeneh+Syria&output=embed',
     coverImage: '/branch2.jpg',
     description: {
-      ar: 'فرع الشمال هو وجهتك للخدمات المتقدمة والمتخصصة. نوفر أحدث تقنيات حماية الطلاء وخدمات التلميع الاحترافية، إلى جانب الخدمات الأساسية للإطارات. يضم الفرع مركزاً متكاملاً للعناية بالسيارات يضاهي أعلى المعايير العالمية.',
-      en: 'The North Branch is your destination for advanced and specialized services. We offer the latest paint protection technologies and professional detailing, alongside essential tyre services. The branch houses a full-service car care center that meets the highest international standards.',
+      ar: 'الفرع الثاني مركز متخصص في الصيانة الشاملة للسيارات والإطارات. يتميز بتقديم خدمات متكاملة تبدأ من تغيير الإطارات والدوزان الإلكتروني، وصولاً إلى الصيانة الميكانيكية وفحص الكمبيوتر وتنظيف البخاخات وتغيير الزيت والفلاتر. وجهتك الأولى لكل ما تحتاجه سيارتك تحت سقف واحد، بأيدٍ خبيرة وخدمة تستحقها.',
+      en: 'The Second Branch is a specialized center for comprehensive car and tyre maintenance. It stands out for offering complete services — from tyre replacement and electronic wheel balancing, to mechanical repairs, computer diagnostics, injector cleaning, oil and filter changes. Your one-stop destination for everything your car needs, handled by experienced hands.',
     },
     sharedServices: [
       { ar: 'تغيير الإطارات', en: 'Tyre change' },
@@ -130,8 +130,8 @@ export const shops: Shop[] = [
       'https://maps.google.com/maps?q=33.465083,36.277500&output=embed',
     coverImage: '/branch3.jpg',
     description: {
-      ar: 'فرع الجنوب هو الخيار الأول لأصحاب المركبات الثقيلة والشركات التجارية. نوفر مخزوناً ضخماً من إطارات الشاحنات والمعدات الزراعية والإطارات الصناعية، مع فريق متخصص يعمل على مدار الساعة لتلبية احتياجات الأسطول التجاري.',
-      en: 'The South Branch is the first choice for heavy vehicle owners and commercial companies. We stock a massive inventory of truck, agricultural, and industrial tyres, with a specialized team operating around the clock to meet commercial fleet needs.',
+      ar: 'الفرع الثالث هو الخيار الأول بأسعار منافسة لأصحاب المركبات الثقيلة والشركات التجارية. نوفر مخزوناً ضخماً من إطارات الشاحنات والمعدات الزراعية والإطارات الصناعية، إلى جانب تغيير الإطارات لجميع أنواعها، مع فريق متخصص يعمل على مدار الساعة لتلبية احتياجات الأسطول التجاري.',
+      en: 'The Third Branch is the first choice at competitive prices for heavy vehicle owners and commercial companies. We stock a massive inventory of truck, agricultural, and industrial tyres, alongside tyre replacement for all vehicle types, with a specialized team operating around the clock to meet every commercial fleet need.',
     },
     sharedServices: [
       { ar: 'جميع أنواع الإطارات (سيارات، SUV، بيكاب)', en: 'All types of tyres (cars, SUVs, pickups)' },
