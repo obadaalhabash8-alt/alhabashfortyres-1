@@ -27,7 +27,10 @@ export async function GET(req: NextRequest) {
     .filter((f) => f.name !== '.emptyFolderPlaceholder')
     .map((f) => ({ name: f.name, url: publicUrl(supabaseUrl, shopId, f.name) }))
 
-  return NextResponse.json({ images })
+  return NextResponse.json(
+    { images },
+    { headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' } }
+  )
 }
 
 export async function POST(req: NextRequest) {
@@ -39,7 +42,20 @@ export async function POST(req: NextRequest) {
 
   if (!file || !shopId) return NextResponse.json({ error: 'file and shop_id required' }, { status: 400 })
 
-  const ext = file.name.split('.').pop() ?? 'jpg'
+  const ALLOWED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
+  const MAX_BYTES = 5 * 1024 * 1024 // 5 MB
+
+  if (!ALLOWED_TYPES.has(file.type)) {
+    return NextResponse.json({ error: 'Only JPEG, PNG, WebP, and GIF images are allowed' }, { status: 400 })
+  }
+  if (file.size > MAX_BYTES) {
+    return NextResponse.json({ error: 'File size must not exceed 5 MB' }, { status: 400 })
+  }
+
+  const extMap: Record<string, string> = {
+    'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif',
+  }
+  const ext = extMap[file.type] ?? 'jpg'
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
   const buffer = Buffer.from(await file.arrayBuffer())
 

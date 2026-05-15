@@ -14,13 +14,11 @@ Marketing and reviews website for Al-Habash Tyres Company (شركة الحبش �
 npm install
 ```
 
-> If `node_modules/` already exists (e.g. cloned with it), skip this step.
-
 ### Step 2 — Set up Supabase (one-time)
 
 1. Go to [supabase.com](https://supabase.com) → create a free account → **New project**
 
-2. Open **SQL Editor** and run:
+2. Open **SQL Editor** and run this to create the ratings table:
 
 ```sql
 CREATE TABLE ratings (
@@ -38,11 +36,30 @@ CREATE POLICY "read ratings"   ON ratings FOR SELECT USING (true);
 CREATE POLICY "insert ratings" ON ratings FOR INSERT WITH CHECK (true);
 ```
 
-3. Go to **Storage → New bucket**:
+3. In the same SQL Editor, run this second query to install the average-rating function (makes it much faster):
+
+```sql
+CREATE OR REPLACE FUNCTION get_shop_average_rating(p_shop_id integer)
+RETURNS TABLE(average numeric, count bigint)
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+AS $$
+  SELECT
+    COALESCE(ROUND(AVG(rating)::numeric, 1), 0) AS average,
+    COUNT(*)                                      AS count
+  FROM ratings
+  WHERE shop_id = p_shop_id;
+$$;
+```
+
+> This step is optional — the site works without it — but skipping it means the average-rating API fetches all rows from the DB on every request instead of using a single aggregate query.
+
+4. Go to **Storage → New bucket**:
    - Name: `shop-gallery`
    - Public: **on**
 
-4. Go to **Project Settings → API** and copy your keys (needed in Step 3).
+5. Go to **Project Settings → API** and copy your keys (needed in Step 3).
 
 ### Step 3 — Create `.env.local`
 
@@ -59,6 +76,9 @@ ADMIN_PASSWORD=your-admin-password
 
 # Generate this once with: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ADMIN_TOKEN=your-64-char-hex-token
+
+# Your production domain (used for sitemap and OG tags)
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
 ```
 
 ### Step 4 — Start the dev server
@@ -76,7 +96,7 @@ Open [http://localhost:3000](http://localhost:3000)
 | URL | What it is |
 |---|---|
 | `/` | Homepage — hero, story, timeline, shop cards |
-| `/shops` | All 3 branches listed |
+| `/shops` | Redirects to `/#branches` on the homepage |
 | `/shops/1` `/shops/2` `/shops/3` | Shop detail — services, gallery, map, reviews |
 | `/rate?shop=1` | QR-accessible rating form |
 | `/admin` | Admin dashboard (not linked publicly) |
@@ -100,7 +120,7 @@ The shop switcher in the top bar lets you jump between all 3 shops without going
 
 1. Push to a GitHub repository
 2. Go to [vercel.com](https://vercel.com) → **New Project** → import the repo
-3. Add all 5 environment variables from `.env.local` in Vercel's project settings
+3. Add all 6 environment variables from `.env.local` in **Project Settings → Environment Variables**
 4. Click **Deploy**
 
 After deploying, QR codes should point to:
@@ -114,17 +134,15 @@ https://your-domain.com/rate?shop=3
 
 ## Customising shop data
 
-Open the file `lib/shops.ts` in VS Code (or any code editor). It contains all shop information as plain TypeScript objects — just edit the values, save the file, and the site updates.
+Open `lib/shops.ts` in any code editor. It contains all shop information as plain TypeScript objects — edit the values, save, and the site updates on next deploy.
 
 Fields to update per shop:
 
-- `phone` / `whatsapp` — real phone numbers
+- `phones` / `whatsapps` — real phone numbers
 - `address` / `city` — real addresses in Arabic (`ar`) and English (`en`)
 - `mapUrl` — the Google Maps link for the location
-- `mapEmbed` — from Google Maps → Share → Embed a map → copy the `src` value from the iframe code
+- `mapEmbed` — from Google Maps → Share → Embed a map → copy the `src` value from the iframe
 - `coverImage` — the hero image shown at the top of the shop page
-
-After editing, commit and push to GitHub and Vercel will automatically redeploy.
 
 > Gallery photos (the "Our Gallery" section on each shop page) are managed through the admin dashboard — no code changes needed for those.
 
@@ -134,28 +152,42 @@ After editing, commit and push to GitHub and Vercel will automatically redeploy.
 
 ```
 app/
-  (site)/               Public website (has Navbar + Footer)
-    page.tsx            Homepage
-    shops/              Shop listing and detail pages
-    rate/               QR rating form
-  admin/                Admin dashboard (no Navbar/Footer)
+  (site)/                   Public website (has Navbar + Footer)
+    page.tsx                Homepage
+    shops/
+      page.tsx              Redirects to /#branches
+      [id]/
+        page.tsx            Shop detail — server component, handles metadata + static generation
+        ShopDetailClient.tsx  All client-side logic (animations, data fetching, state)
+        loading.tsx         Skeleton shown while page loads
+        error.tsx           Error boundary shown if page crashes
+    rate/                   QR rating form
+      page.tsx
+      RateContent.tsx
+  admin/                    Admin dashboard (no Navbar/Footer)
     login/
     shops/[id]/
   api/
-    ratings/            GET — fetch reviews
-    rate/               POST — submit a review
-    average-rating/     GET — compute average
+    ratings/                GET — fetch reviews (paginated)
+    rate/                   POST — submit a review
+    average-rating/         GET — compute average rating
     admin/
-      login/            POST — set session cookie
-      logout/           POST — clear session cookie
-      ratings/          GET + DELETE — admin review management
-      gallery/          GET + POST + DELETE — photo management
+      login/                POST — set session cookie
+      logout/               POST — clear session cookie
+      ratings/              GET + DELETE — admin review management
+      gallery/              GET + POST + DELETE — photo management
 
-components/             Shared React components
+components/                 Shared React components
+hooks/
+  useLanguage.ts            Read current language from context
+  useShopStatus.ts          Poll whether a shop is open/closed
 lib/
-  shops.ts              All shop data (edit this)
-  supabase.ts           Client-side Supabase
-  supabaseServer.ts     Server-side Supabase (service role key)
+  shops.ts                  All shop data (edit this to update content)
+  shopStatus.ts             Open/close logic (pure, no React)
+  supabase.ts               Client-side Supabase (anon key)
+  supabaseServer.ts         Server-side Supabase (service role key)
 locales/
-  ar.ts / en.ts         All UI strings
+  ar.ts / en.ts             All UI strings
+supabase/
+  get_shop_average_rating.sql  Optional DB function for faster averages
 ```

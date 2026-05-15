@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
 const PAGE_SIZE = 5
+const VALID_SHOP_IDS = new Set([1, 2, 3])
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
@@ -13,8 +14,8 @@ export async function GET(req: NextRequest) {
   }
 
   const shopId = parseInt(shopIdParam, 10)
-  if (isNaN(shopId)) {
-    return NextResponse.json({ error: 'shop_id must be a number' }, { status: 400 })
+  if (isNaN(shopId) || !VALID_SHOP_IDS.has(shopId)) {
+    return NextResponse.json({ error: 'Invalid shop_id' }, { status: 400 })
   }
 
   const page = Math.max(1, parseInt(pageParam, 10) || 1)
@@ -35,10 +36,8 @@ export async function GET(req: NextRequest) {
 
   const total = count ?? 0
 
-  return NextResponse.json({
-    ratings: data ?? [],
-    total,
-    hasMore: to < total - 1,
-    page,
-  })
+  return NextResponse.json(
+    { ratings: data ?? [], total, hasMore: to < total - 1, page },
+    { headers: { 'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=120' } }
+  )
 }
