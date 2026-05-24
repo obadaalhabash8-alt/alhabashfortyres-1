@@ -383,7 +383,7 @@ function TimelineSection() {
           <div ref={cardsRef} className="space-y-10">
             {timelineEvents.map((event, i) => (
               <div
-                key={event.year}
+                key={event.year ?? event.title.en}
                 className={`relative flex items-start gap-6 sm:gap-0 ${i % 2 === 0
                   ? isRTL ? 'sm:flex-row-reverse' : 'sm:flex-row'
                   : isRTL ? 'sm:flex-row' : 'sm:flex-row-reverse'
@@ -414,7 +414,9 @@ function TimelineSection() {
                       </>
                     )}
                     <div className="relative z-10">
-                      <span className="text-brand-orange font-black text-2xl font-cairo">{event.year}</span>
+                      {(event.yearLabel ?? event.year) && (
+                        <span className="text-brand-orange font-black text-2xl font-cairo">{event.yearLabel ?? event.year}</span>
+                      )}
                       <h3 className="text-brand-white font-bold text-base font-cairo mt-1">
                         {event.title[lang]}
                       </h3>

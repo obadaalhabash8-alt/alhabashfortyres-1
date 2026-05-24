@@ -160,57 +160,81 @@ export const shops: Shop[] = [
 export const timelineEvents: TimelineEvent[] = [
   {
     year: 1967,
-    title: { ar: 'البداية والتأسيس', en: 'The Founding' },
+    title: { ar: 'التأسيس والانطلاق الأولي', en: 'Founding & First Launch' },
     description: {
-      ar: 'بدأت القصة حين أسس رضوان أبو سمير الحبش محلاً صغيراً برؤية طموحة، ليكون انطلاقة لرحلة طويلة من الشغف والإتقان.',
-      en: 'The story began when Radwan Abu Samir Al-Habash founded a small shop with an ambitious vision, starting a long journey of passion and excellence.',
+      ar: 'بدأت شركة إطارات الحباش مسيرتها المهنية كمؤسسة تجارية طموحة بافتتاح أول منشأة رئيسية لها على الطريق السريع الدولي الاستراتيجي الذي يربط دمشق بالمملكة الأردنية الهاشمية، مما مكنها من الاستفادة مباشرة من حركة النقل العابرة للحدود ذات الحجم الكبير وخدمات لوجستيات الشحن البري.',
+      en: 'Al-Habash Tyres launched its professional journey as an ambitious commercial enterprise by opening its first main facility on the strategic international highway linking Damascus to the Hashemite Kingdom of Jordan, enabling it to directly benefit from high-volume cross-border transport and land freight logistics.',
     },
     image: '/timeline-1967.jpg',
   },
   {
-    year: 1985,
-    title: { ar: 'النمو والتوسع', en: 'Growth & Expansion' },
+    year: 1970,
+    title: { ar: 'التوسع في تجارة التجزئة المحلية', en: 'Local Retail Expansion' },
     description: {
-      ar: 'توسعت شركتنا من محل واحد لتصبح من الأسماء المعروفة في مجال الإطارات وخدمات السيارات في سوريا.',
-      en: 'Our company expanded from a single shop to become a well-known name in the tyres and car services sector in Syria.',
+      ar: 'مدفوعة بالنمو السريع للأعمال، نفذت الشركة مرحلة التوسع المحلية الأولى من خلال إنشاء فرع ثانٍ في وسط دمشق، مصمم لتلبية الطلب الحضري المتزايد على إطارات السيارات الخاصة والمركبات التجارية الخفيفة.',
+      en: 'Driven by rapid business growth, the company executed its first domestic expansion by establishing a second branch in central Damascus, designed to meet the growing urban demand for private car tyres and light commercial vehicles.',
     },
-    image: '/timeline-1985.jpg',
+  },
+  {
+    year: 1973,
+    title: { ar: 'الدخول في المشتريات العامة والمناقصات السيادية', en: 'Entry into Public Procurement' },
+    description: {
+      ar: 'اندمجت شركة الحباش بقوة في المشتريات العامة، وحصلت على عقود توريد استراتيجية طويلة الأجل وشاركت في المناقصات الحكومية الكبرى للهيئات الوطنية للنقل والموانئ البحرية وأساطيل النقل العام خلال فترة من الاستقرار الاقتصادي والسياسي الوطني.',
+      en: 'Al-Habash strongly integrated into public procurement, securing long-term strategic supply contracts and participating in major government tenders for national transport authorities, seaports, and public transit fleets during a period of national economic and political stability.',
+    },
   },
   {
     year: 1995,
-    title: { ar: 'ترسيخ الثقة', en: 'Solidifying Trust' },
+    yearLabel: '1995 – 2006',
+    title: { ar: 'حقبة الشراكة مع بريدجستون', en: 'The Bridgestone Partnership Era' },
     description: {
-      ar: 'تميزنا بالتزام دائم بالجودة، والأمانة، وتقديم أفضل الحلول للعملاء، مما عزز مكانتنا في السوق.',
-      en: 'We distinguished ourselves with a constant commitment to quality, honesty, and providing the best solutions to our customers, strengthening our market position.',
+      ar: 'أقامت الشركة تحالفاً قوياً مع بريدجستون (اليابان)، وتطورت بسرعة لتصبح القوة التوزيعية المهيمنة داخل سوريا. حققت شركة الحباش حجم مبيعات غير مسبوق في جميع أنحاء البلاد، لا سيما في قطاعي الشاحنات الثقيلة والحافلات ذات الإطارات الراديالية (TBR) وقطاعات التعدين والهندسة ذات الأحمال العالية خارج الطرق المعبدة (OTR).',
+      en: 'The company forged a powerful alliance with Bridgestone (Japan), rapidly evolving to become the dominant distribution force within Syria. Al-Habash achieved unprecedented sales volumes across the country, particularly in heavy truck and bus radial tyre (TBR) sectors and high-load off-road (OTR) mining and engineering segments.',
     },
     image: '/timeline-1995.jpg',
   },
   {
-    year: 2007,
-    title: { ar: 'وكالة ميشلان الرسمية', en: 'Official Michelin Dealer' },
+    year: 2009,
+    yearLabel: '2009 – 2018',
+    title: { ar: 'الاندماج مع مجموعة ميشلان', en: 'Integration with Michelin Group' },
     description: {
-      ar: 'خطوة مفصلية؛ أصبحت الشركة الوكيل الرسمي لإطارات Michelin في سوريا، لترسخ ثقة العملاء في جميع المحافظات.',
-      en: 'A milestone step; the company became the official Michelin tyres dealer in Syria, solidifying customer trust across all governorates.',
+      ar: 'أقامت الشركة اتصالاً مؤسسياً مباشراً مع مجموعة ميشلان في فرنسا ودبي، وبلغ ذلك ذروته بإبرام اتفاقية توزيع رسمية. حققت العلامة التجارية اختراقاً سريعاً للسوق وموقعاً متميزاً قبل أن يتم تعليق العمليات بشكل إلزامي في عام 2011 بسبب اندلاع الصراع المحلي والعقوبات التجارية الدولية.',
+      en: 'The company established direct institutional contact with Michelin Group in France and Dubai, culminating in a formal distribution agreement. The brand achieved rapid market penetration and a distinguished position before operations were mandatorily suspended in 2011 due to the outbreak of domestic conflict and international trade sanctions.',
     },
-    image: '/timeline-2007.png',
+  },
+  {
+    year: 2011,
+    title: { ar: 'الشراكة المستقلة مع BFGoodrich', en: 'Independent BFGoodrich Partnership' },
+    description: {
+      ar: 'نجحت شركة الحباش في إقامة وترسيخ شراكة تجارية مباشرة وطويلة الأمد مع الشركة المصنعة الأمريكية BFGoodrich كعلامة تجارية مستقلة وقوية في السوق السورية. شكّل هذا التحالف الاستراتيجي ركيزة أساسية لنجاح الشركة، حيث استجاب لمتطلبات السوق الصعبة بجودة وهندسة أمريكية موثوقة باستمرار حتى عام 2011.',
+      en: 'Al-Habash successfully established and consolidated a direct, long-term commercial partnership with the American manufacturer BFGoodrich as an independent and powerful brand in the Syrian market. This strategic alliance was a cornerstone of the company\'s success, consistently meeting demanding market requirements with reliable American quality and engineering until 2011.',
+    },
   },
   {
     year: 2015,
-    title: { ar: 'تكامل الخدمات', en: 'Integrated Services' },
+    title: { ar: 'المرونة التشغيلية وإدارة الأزمات', en: 'Operational Resilience & Crisis Management' },
     description: {
-      ar: 'توفير إطارات الشحن والسيارات بأنواعها عبر ثلاثة فروع متكاملة ومراكز متخصصة تلبي كافة الاحتياجات.',
-      en: 'Providing truck and car tyres of all kinds through three integrated branches and specialized centers that meet all needs.',
+      ar: 'استجابة للتغيرات الجيوسياسية المعقدة، نقلت الشركة عملياتها الإدارية مؤقتًا إلى مرسين، تركيا. أظهرت شركة الحباش مرونة استثنائية من خلال إدارة سلاسل التوريد المعقدة لتوجيه شحنات ميشلان عبر ميناء إسكندرون إلى شمال سوريا. حافظ هذا الممر النشط على استمرارية السوق لمدة عام ونصف قبل أن يتوقف بسبب تغير الأطر التنظيمية الدولية.',
+      en: 'In response to complex geopolitical changes, the company temporarily relocated its administrative operations to Mersin, Turkey. Al-Habash demonstrated exceptional resilience by managing complex supply chains to route Michelin shipments through the port of Iskenderun into northern Syria. This active corridor maintained market continuity for a year and a half before halting due to shifting international regulatory frameworks.',
     },
     image: '/timeline-2015.jpg',
   },
   {
-    year: 2024,
-    title: { ar: 'تأدية الأمانة', en: 'Continuing the Legacy' },
+    year: 2025,
+    yearLabel: '2025 – 2026',
+    title: { ar: 'التوحيد الكامل واستعادة السيادة', en: 'Full Consolidation & Sovereignty Restored' },
     description: {
-      ar: 'نخدم اليوم مختلف أنحاء سوريا، ونقدم خدمات متكاملة بأعلى مستويات الأداء، والسلامة، والاحترافية.',
-      en: 'Today, we serve all parts of Syria, offering integrated services with the highest levels of performance, safety, and professionalism.',
+      ar: 'في أعقاب الاستقرار على الصعيد الوطني، والانتعاش الاقتصادي، وسن إصلاحات تنظيمية جديدة تسمح بالاستيراد المباشر لجميع أنواع المركبات الخاصة والسيارات التجارية والصناعية، اتخذت الإدارة التنفيذية القرار الاستراتيجي النهائي بإعادة جميع القوى العاملة الفنية والمقر الإداري وقاعدة الأصول بالكامل إلى دمشق.',
+      en: 'Following national stabilization, economic recovery, and the enactment of new regulatory reforms permitting direct import of all private, commercial, and industrial vehicles, executive management made the definitive strategic decision to return all technical workforce, administrative headquarters, and the full asset base to Damascus.',
     },
-    image: '/timeline-2024.jpg',
+  },
+  {
+    year: 2026,
+    title: { ar: 'الوضع الحالي', en: 'Current Status' },
+    description: {
+      ar: 'اليوم، تمتلك شركة إطارات الحباش بنية تحتية هائلة ترتكز على مركز لوجستي مركزي ضخم ومرافق تخزين حديثة. تعمل الشركة بجاهزية هيكلية كاملة وبدعم من فريق خبير يضم أكثر من 120 متخصصاً (بما في ذلك المديرين التنفيذيين وكبار الفنيين المعتمدين دولياً في ألمانيا وتركيا)، وتقوم بإعادة فتح جميع مراكز التوزيع التاريخية في جميع محافظات سوريا بشكل نشط، مما يعزز إرثها باعتبارها الرائد المطلق والموثوق به في مجال حلول الإطارات الفاخرة.',
+      en: 'Today, Al-Habash Tyres possesses a vast infrastructure anchored by a massive central logistics hub and modern storage facilities. Operating with full structural readiness and supported by an expert team of over 120 specialists — including executive directors and senior internationally certified technicians trained in Germany and Turkey — the company is actively reopening all its historic distribution centers across all Syrian governorates, reinforcing its legacy as the absolute and trusted leader in premium tyre solutions.',
+    },
   },
 ]
 

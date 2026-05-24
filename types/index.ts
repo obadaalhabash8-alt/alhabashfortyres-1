@@ -40,7 +40,8 @@ export interface Rating {
 }
 
 export interface TimelineEvent {
-  year: number
+  year?: number
+  yearLabel?: string
   title: LocalizedString
   description: LocalizedString
   image?: string
