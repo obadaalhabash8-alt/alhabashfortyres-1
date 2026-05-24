@@ -19,11 +19,6 @@ export default function LanguageProvider({ children }: { children: React.ReactNo
   const [lang, setLang] = useState<Language>('ar')
 
   useEffect(() => {
-    const saved = localStorage.getItem('lang') as Language | null
-    if (saved === 'ar' || saved === 'en') setLang(saved)
-  }, [])
-
-  useEffect(() => {
     // Layout is always RTL — only the language attribute changes for accessibility
     document.documentElement.dir = 'rtl'
     document.documentElement.lang = lang
