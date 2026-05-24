@@ -2,9 +2,11 @@
 
 import { useState, useCallback } from 'react'
 import Image from 'next/image'
-import Lightbox from 'yet-another-react-lightbox'
+import dynamic from 'next/dynamic'
 import 'yet-another-react-lightbox/styles.css'
 import { useLanguage } from '@/hooks/useLanguage'
+
+const Lightbox = dynamic(() => import('yet-another-react-lightbox'), { ssr: false })
 
 interface Props {
   images: string[]

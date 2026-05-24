@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: '*.supabase.co' },
       { protocol: 'https', hostname: 'i.ibb.co' },
     ],
+    formats: ['image/avif', 'image/webp'],
+  },
+  experimental: {
+    optimizePackageImports: ['gsap'],
   },
 }
 

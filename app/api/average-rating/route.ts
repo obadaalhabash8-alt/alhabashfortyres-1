@@ -21,12 +21,14 @@ export async function GET(req: NextRequest) {
     .rpc('get_shop_average_rating', { p_shop_id: shopId })
     .single()
 
+  const cacheHeaders = { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' }
+
   if (!rpcError && rpcData) {
     const row = rpcData as { average: unknown; count: unknown }
-    return NextResponse.json({
-      average: Number(row.average) ?? 0,
-      count: Number(row.count) ?? 0,
-    })
+    return NextResponse.json(
+      { average: Number(row.average) ?? 0, count: Number(row.count) ?? 0 },
+      { headers: cacheHeaders }
+    )
   }
 
   // Fallback: JS-side aggregation (works before the SQL function is deployed)
@@ -42,12 +44,15 @@ export async function GET(req: NextRequest) {
   }
 
   if (!data || data.length === 0) {
-    return NextResponse.json({ average: 0, count: 0 })
+    return NextResponse.json({ average: 0, count: 0 }, { headers: cacheHeaders })
   }
 
   const total = data.reduce((sum, row) => sum + row.rating, 0)
-  return NextResponse.json({
-    average: Math.round((total / data.length) * 10) / 10,
-    count: data.length,
-  })
+  return NextResponse.json(
+    {
+      average: Math.round((total / data.length) * 10) / 10,
+      count: data.length,
+    },
+    { headers: cacheHeaders }
+  )
 }
