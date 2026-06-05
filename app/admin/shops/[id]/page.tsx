@@ -17,13 +17,13 @@ export default function ShopAdminPage({ params }: Props) {
   const shop = getShopById(shopId)
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [tab, setTab] = useState<'reviews' | 'gallery'>(
-    (searchParams.get('tab') as 'reviews' | 'gallery') ?? 'reviews'
+  const [tab, setTab] = useState<'reviews' | 'gallery' | 'qr'>(
+    (searchParams.get('tab') as 'reviews' | 'gallery' | 'qr') ?? 'reviews'
   )
 
   if (!shop) { router.push('/admin'); return null }
 
-  function switchTab(t: 'reviews' | 'gallery') {
+  function switchTab(t: 'reviews' | 'gallery' | 'qr') {
     setTab(t)
     router.replace(`/admin/shops/${shopId}?tab=${t}`, { scroll: false })
   }
@@ -61,7 +61,7 @@ export default function ShopAdminPage({ params }: Props) {
 
           {/* Tabs */}
           <div className="flex items-center gap-1 ml-auto flex-shrink-0">
-            {(['reviews', 'gallery'] as const).map((t) => (
+            {(['reviews', 'gallery', 'qr'] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => switchTab(t)}
@@ -85,8 +85,10 @@ export default function ShopAdminPage({ params }: Props) {
       <div className="max-w-5xl mx-auto px-6 py-8">
         {tab === 'reviews' ? (
           <ReviewsTab shopId={shopId} />
-        ) : (
+        ) : tab === 'gallery' ? (
           <GalleryTab shopId={shopId} />
+        ) : (
+          <QRTab shopId={shopId} />
         )}
       </div>
     </div>
@@ -624,6 +626,128 @@ function GalleryTab({ shopId }: { shopId: number }) {
   )
 }
 
+/* ─── QR Tab ──────────────────────────────────────────────────────────── */
+
+function QRTab({ shopId }: { shopId: number }) {
+  const shop = getShopById(shopId)
+  const [printing, setPrinting] = useState(false)
+  const shopName = shop?.name.en ?? `Shop ${shopId}`
+
+  async function printQR() {
+    setPrinting(true)
+    const win = window.open('', '_blank')
+    if (!win) { setPrinting(false); return }
+    win.document.write('<html><body style="font-family:Arial,sans-serif;padding:32px;color:#888;font-size:14px">Generating QR…</body></html>')
+
+    try {
+      const res = await fetch(`/api/admin/qr?shop_id=${shopId}`)
+      const svgText = await res.text()
+      const ratingUrl = `${window.location.origin}/shops/${shopId}#rate-form`
+
+      const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Code — ${shopName}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', Arial, sans-serif;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 32px;
+      text-align: center;
+    }
+    .brand { font-size: 28pt; font-weight: 900; color: #f97316; line-height: 1; margin-bottom: 4px; }
+    .shop-name { font-size: 14pt; color: #444; font-weight: 700; margin-bottom: 24px; }
+    .qr-box {
+      border: 3px solid #f97316;
+      border-radius: 16px;
+      padding: 20px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .qr-box svg { display: block; width: 260px; height: 260px; }
+    .instruction { font-size: 12pt; color: #333; font-weight: 600; margin-bottom: 8px; }
+    .instruction-ar { font-size: 12pt; color: #333; font-weight: 600; direction: rtl; margin-bottom: 16px; }
+    .url { font-size: 7pt; color: #aaa; word-break: break-all; max-width: 300px; }
+    @media print {
+      body { min-height: unset; }
+      @page { margin: 10mm; size: A5 portrait; }
+    }
+  </style>
+</head>
+<body>
+  <div class="brand">Al-Habash Tyres</div>
+  <div class="shop-name">${shopName}</div>
+  <div class="qr-box">${svgText}</div>
+  <p class="instruction">Scan to rate your experience</p>
+  <p class="instruction-ar">امسح للتقييم</p>
+  <p class="url">${ratingUrl}</p>
+  <script>document.fonts.ready.then(function(){ window.print() })<\/script>
+</body>
+</html>`
+
+      win.document.open()
+      win.document.write(html)
+      win.document.close()
+    } catch {
+      win.close()
+    } finally {
+      setPrinting(false)
+    }
+  }
+
+  return (
+    <div className="max-w-sm mx-auto pt-4">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h2 className="text-white font-bold font-cairo text-lg">QR Code</h2>
+          <p className="text-zinc-500 text-xs font-cairo mt-0.5">Links customers to the rating form</p>
+        </div>
+        <button
+          onClick={printQR}
+          disabled={printing}
+          className="flex items-center gap-2 px-4 py-2 bg-brand-orange hover:bg-orange-500 disabled:opacity-60 disabled:cursor-not-allowed text-white text-xs font-bold font-cairo rounded-xl transition-colors"
+        >
+          {printing
+            ? <span className="w-3.5 h-3.5 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+            : <PrintIcon />}
+          {printing ? 'Generating…' : 'Print QR Code'}
+        </button>
+      </div>
+
+      {/* QR preview card */}
+      <div className="bg-[#111] border border-white/8 rounded-2xl p-6 flex flex-col items-center gap-5">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/api/admin/qr?shop_id=${shopId}`}
+          alt={`QR code for ${shopName}`}
+          className="w-52 h-52 rounded-xl bg-white p-2"
+        />
+        <div className="text-center">
+          <p className="text-zinc-400 text-xs font-cairo">
+            <span className="text-zinc-600">Links to: </span>
+            <span className="text-zinc-300 font-mono break-all">
+              /shops/{shopId}#rate-form
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <p className="text-zinc-700 text-xs font-cairo text-center mt-4">
+        Print and display at the shop so customers can scan and rate their experience.
+      </p>
+    </div>
+  )
+}
+
 /* ─── Shared components ───────────────────────────────────────────────── */
 
 function Stars({ rating }: { rating: number }) {
@@ -679,6 +803,14 @@ function DownloadIcon() {
   return (
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  )
+}
+
+function PrintIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="6 9 6 2 18 2 18 9" /><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><rect x="6" y="14" width="12" height="8" />
     </svg>
   )
 }
