@@ -1,5 +1,6 @@
 import type { Shop, TimelineEvent } from '@/types'
 
+
 export const shops: Shop[] = [
   {
     id: 1,
