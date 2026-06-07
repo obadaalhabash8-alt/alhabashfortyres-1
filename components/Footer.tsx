@@ -29,7 +29,7 @@ export default function Footer() {
                   {lang === 'ar' ? (
                     <><span className="text-brand-orange">شركة الحبش</span><span className="text-gray-400"> للإطارات</span></>
                   ) : (
-                    <><span className="text-brand-orange">Al-Habash</span><span className="text-gray-400"> Tyres Company</span></>
+                    <><span className="text-brand-orange">Al-Habash for</span><span className="text-gray-400"> Tyres</span></>
                   )}
                 </p>
                 <p className="text-brand-orange text-[11px] font-cairo">

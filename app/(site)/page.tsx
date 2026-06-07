@@ -109,7 +109,7 @@ function HeroSection() {
             {lang === 'ar' ? (
               <><span className="block text-brand-orange">شركة الحبش</span><span className="block text-brand-secondary">للإطارات</span></>
             ) : (
-              <><span className="block text-brand-orange">Al-Habash</span><span className="block text-brand-secondary">Tyres</span></>
+              <><span className="block text-brand-orange">Al-Habash for</span><span className="block text-brand-secondary">Tyres</span></>
             )}
           </h1>
           <p className="hero-tagline text-brand-muted text-base font-cairo font-light max-w-xs mx-auto mb-8 leading-relaxed">
@@ -157,7 +157,7 @@ function HeroSection() {
           {lang === 'ar' ? (
             <><span className="block text-brand-orange">شركة الحبش</span><span className="block text-gray-400">للإطارات</span></>
           ) : (
-            <><span className="block text-brand-orange">Al-Habash</span><span className="block text-gray-400">Tyres</span></>
+            <><span className="block text-brand-orange">Al-Habash for</span><span className="block text-gray-400">Tyres</span></>
           )}
         </h1>
         <p className="hero-tagline text-white/80 text-xl font-cairo font-light max-w-xl mx-auto mb-12 leading-relaxed">
