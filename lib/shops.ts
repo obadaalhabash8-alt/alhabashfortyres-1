@@ -4,7 +4,7 @@ export const shops: Shop[] = [
   {
     id: 1,
     name: {
-      ar: 'الفرع الأول',
+      ar: 'مركز الاوتستراد درعا القديم',
       en: 'First Branch',
     },
     tagline: {
@@ -57,7 +57,7 @@ export const shops: Shop[] = [
   {
     id: 2,
     name: {
-      ar: 'الفرع الثاني',
+      ar: 'اتستراد درعا الجديد مفرق بور سعيد',
       en: 'Second Branch',
     },
     tagline: {
@@ -72,8 +72,8 @@ export const shops: Shop[] = [
       ar: 'ريف دمشق',
       en: 'Rural Damascus',
     },
-    phones: ['+963946355611', '+963933336001'],
-    whatsapps: ['+963946355611', '+963933336001'],
+    phones: ['+963930106667', '+963943635316'],
+    whatsapps: ['+963930106667', '+963943635316'],
     mapUrl: 'https://maps.app.goo.gl/ct7gyqp2jVqJA9iU9',
     mapEmbed:
       'https://maps.google.com/maps?q=F739%2BG82+Sbeneh+Syria&output=embed',
@@ -108,7 +108,7 @@ export const shops: Shop[] = [
   {
     id: 3,
     name: {
-      ar: 'الفرع الثالث',
+      ar: 'استراد درعا الجديد مدخل داريا',
       en: 'Third Branch',
     },
     tagline: {
@@ -123,8 +123,8 @@ export const shops: Shop[] = [
       ar: 'ريف دمشق',
       en: 'Rural Damascus',
     },
-    phones: ['+963930106667', '+963943635316'],
-    whatsapps: ['+963930106667', '+963943635316'],
+    phones: ['+963946355611', '+963933336001'],
+    whatsapps: ['+963946355611', '+963933336001'],
     mapUrl: 'https://maps.app.goo.gl/QJpksZhxpXFbiFeo8',
     mapEmbed:
       'https://maps.google.com/maps?q=33.465083,36.277500&output=embed',
